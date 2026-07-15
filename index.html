@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Aanya Shah</title>
-<meta name="description" content="Aanya Shah — I build AI/ML systems: LLM evaluation, agents, and the tooling around them. Incoming CS @ Illinois." />
+<meta name="description" content="Aanya Shah — I build machine-learning systems: LLM evaluation, agents, and the tooling around them. Incoming CS @ Illinois." />
 <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -25,20 +25,25 @@
 <header class="hero">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
-    <p class="eyebrow">Incoming CS <span class="dot">&middot;</span> Illinois (Grainger) <span class="dot">&middot;</span> Fall 2026</p>
-    <h1 class="name">Aanya Shah</h1>
-    <p class="tag">I build machine-learning systems &mdash; and the evaluation and tooling that make them trustworthy.</p>
+    <p class="eyebrow">machine learning <span class="dot">&times;</span> oil paint</p>
+    <h1 class="name">Aanya <em>Shah</em></h1>
+    <p class="tag">I train the models that imitate paintings &mdash; and paint the things they imitate.</p>
     <p class="intro">
-      Most of my work lives around large language models: an automated re-prompting
-      loop at <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">AIMon</a>
-      that pushed small models past GPT-4o, an agentic pipeline that composes yearbooks from raw
-      photo dumps, and a GPT built from scratch so the abstractions aren&rsquo;t black boxes to me.
-      I learn by building the thing all the way down.
+      I work at the seam between machine learning and the studio. At
+      <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">AIMon</a>
+      I built a re-prompting pipeline that pushed 3&ndash;7B models past GPT-4o on
+      instruction-following; after hours I make oil self-portraits about identity. Both are the
+      same problem from two directions &mdash; getting a messy representation to <em>resolve</em>.
+      Incoming CS @ Illinois (Grainger), Fall 2026.
     </p>
     <p class="social">
       <a href="https://github.com/ashah-aanya"><span>github</span>&nbsp;/ashah-aanya</a>
       <a href="mailto:foraanyas@gmail.com"><span>email</span>&nbsp;foraanyas@gmail.com</a>
       <a href="https://linkedin.com/in/foraanyas"><span>linkedin</span>&nbsp;/in/foraanyas</a>
+    </p>
+    <p class="signature-note">
+      the drift above is a t-SNE-style point field &mdash; the same kind of embedding space I
+      rendered wall-sized and interactive in <em>Three Ways of Seeing</em>. it settles if you let it.
     </p>
   </div>
 </header>
@@ -59,75 +64,67 @@
     <div class="sec-head"><span class="sec-title">Selected work</span></div>
     <p class="sec-sub">A few things I&rsquo;ve built and shipped. Most are open-source; each links to code, a demo, or a writeup.</p>
 
-    <!-- Tier 1: featured, as bordered cards -->
     <div class="work">
-      <div class="wcard">
+      <div class="entry">
         <div class="row1">
-          <h3>Re-prompting pipeline for instruction-following <span class="pill">shipped</span></h3>
-          <span class="meta">AIMon &middot; Summer 2025</span>
+          <h3>Re-prompting pipeline for instruction-following <span class="status">shipped</span></h3>
+          <span class="meta">AIMon &middot; 2025</span>
         </div>
         <p class="lead">An automated re-prompting loop that improved LLM instruction-following enough for 3&ndash;7B-parameter models to beat GPT-4o on the benchmarks I built it against.</p>
-        <p>Open-sourced two 1K+ sample MIT-licensed eval datasets, then productized the loop inside AIMon&rsquo;s Python SDK as a plug-and-play module for any black-box LLM or RAG system. Wrote the launch blog, the design docs, and the Colab demos.</p>
-        <div class="metrics">
-          <div class="metric"><span class="n">+22%</span><span class="l">instruction-following</span></div>
-          <div class="metric"><span class="n">3&ndash;7B</span><span class="l">models &gt; GPT-4o</span></div>
-          <div class="metric"><span class="n">2</span><span class="l">open datasets</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag-chip">python</span><span class="tag-chip">llm-eval</span><span class="tag-chip">rag</span><span class="tag-chip">together-ai</span><span class="tag-chip">huggingface</span>
-        </div>
-        <div class="links">
-          <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">read the writeup &rarr;</a>
+        <p class="stat"><b>+22%</b> instruction-following &nbsp;&middot;&nbsp; <b>3&ndash;7B</b> models beat GPT-4o &nbsp;&middot;&nbsp; <b>2</b> open eval datasets, shipped in AIMon&rsquo;s Python SDK</p>
+        <div class="foot">
+          <span class="t">python &middot; llm-eval &middot; rag &middot; together-ai</span>
+          <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">writeup &rarr;</a>
           <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">datasets &rarr;</a>
         </div>
       </div>
 
-      <div class="wcard">
+      <div class="entry">
         <div class="row1">
-          <h3>Agentic yearbook composer <span class="pill wip">in progress</span></h3>
-          <span class="meta">Rethink Yearbooks &middot; Dec 2025&ndash;</span>
+          <h3>Agentic yearbook composer <span class="status wip">in progress</span></h3>
+          <span class="meta">Rethink Yearbooks &middot; 2025&ndash;</span>
         </div>
         <p class="lead">An agentic system that turns thousands of raw photos into finished yearbook pages &mdash; recognizing people and events, clustering images into moments, and assembling them into a year&rsquo;s narrative.</p>
-        <p>Grew out of a facial-recognition pipeline I built first: fine-tuned DeepFace over a 10K+ image set to match roster photos to candids and sort them by grade, with a small interface for reviewing matches by cosine distance.</p>
-        <div class="tags">
-          <span class="tag-chip">python</span><span class="tag-chip">agents</span><span class="tag-chip">deepface</span><span class="tag-chip">clustering</span>
+        <p>Grew out of a facial-recognition pipeline I built first: fine-tuned DeepFace over a 10K+ image set to match roster photos to candids and sort them by grade.</p>
+        <div class="foot">
+          <span class="t">python &middot; agents &middot; deepface &middot; clustering</span>
         </div>
       </div>
 
-      <div class="wcard ox">
+      <div class="entry">
         <div class="row1">
           <h3>Three Ways of Seeing</h3>
-          <span class="meta">solo exhibition &middot; full-stack</span>
+          <span class="meta">solo exhibition &middot; 2024</span>
         </div>
-        <p class="lead">A wall-sized, interactive visualization of high-dimensional embedding space &mdash; the piece where the ML and the studio work actually met.</p>
-        <p>A t-SNE pipeline rendered in Three.js, with WebSockets driving real-time, viewer-controlled cluster transformations &mdash; the audience reshaping a latent space by hand.</p>
-        <div class="tags">
-          <span class="tag-chip">javascript</span><span class="tag-chip">three.js</span><span class="tag-chip">t-SNE</span><span class="tag-chip">websockets</span><span class="tag-chip">python</span>
+        <p class="lead">A wall-sized, interactive visualization of high-dimensional embedding space &mdash; a t-SNE pipeline in Three.js, with WebSockets letting the audience reshape a latent space by hand.</p>
+        <div class="foot">
+          <span class="t">three.js &middot; t-SNE &middot; websockets &middot; python</span>
+          <a href="https://github.com/ashah-aanya/HDP-Exhibition">code &rarr;</a>
         </div>
-        <div class="links"><a href="https://github.com/ashah-aanya/HDP-Exhibition">code &rarr;</a></div>
       </div>
-    </div>
 
-    <!-- Tier 2: also built -->
-    <p class="sec-sub" style="margin:40px 0 16px">Also built</p>
-    <div class="grid2">
-      <div class="wcard">
+      <p class="also-lab">Also built</p>
+
+      <div class="entry">
         <div class="row1">
           <h3>NanoGPT, from scratch</h3>
           <span class="meta">personal &middot; ongoing</span>
         </div>
-        <p>Building a GPT up from the math &mdash; backprop, attention, the training loop &mdash; so the abstractions I use professionally aren&rsquo;t black boxes.</p>
-        <div class="tags"><span class="tag-chip">python</span><span class="tag-chip">pytorch</span><span class="tag-chip">transformers</span></div>
-        <div class="links"><a href="https://github.com/ashah-aanya/NanoGPT">code &rarr;</a></div>
+        <p class="lead">A GPT built up from the math &mdash; backprop, attention, the training loop &mdash; so the abstractions I use professionally aren&rsquo;t black boxes.</p>
+        <div class="foot">
+          <span class="t">python &middot; pytorch &middot; transformers</span>
+          <a href="https://github.com/ashah-aanya/NanoGPT">code &rarr;</a>
+        </div>
       </div>
-      <div class="wcard ox">
+
+      <div class="entry">
         <div class="row1">
-          <h3>DoubleKarma <span class="pill">1st place</span></h3>
+          <h3>DoubleKarma <span class="status">1st place</span></h3>
           <span class="meta">Bubble.io Intl. Hackathon &middot; 2023</span>
         </div>
-        <p>Youngest winner among 150+ international competitors &mdash; a giving platform wiring WhatsApp webhooks, Stripe, and automated email, built in a weekend.</p>
-        <div class="tags"><span class="tag-chip">webhooks</span><span class="tag-chip">stripe</span><span class="tag-chip">no-code</span></div>
-        <div class="links">
+        <p class="lead">Youngest winner among 150+ international competitors &mdash; a giving platform wiring WhatsApp webhooks, Stripe, and automated email, built in a weekend.</p>
+        <div class="foot">
+          <span class="t">webhooks &middot; stripe &middot; no-code</span>
           <a href="https://bubble.io/blog/hackathon-winners-bubblecon2023/">winners &rarr;</a>
           <a href="https://bubble.io/blog/developer-spotlight-aanya-shah/">spotlight &rarr;</a>
         </div>
@@ -141,23 +138,18 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">About</span></div>
     <p class="about">
-      I&rsquo;m a builder focused on machine learning &mdash; LLM evaluation, agents, and
-      making models reliable enough to put in front of real users. I taught myself the way I like best:
-      by building the whole stack, from a GPT&rsquo;s backprop up to eval datasets used in production.
-      This fall I start CS at Illinois (Grainger).
+      I&rsquo;m a builder focused on machine learning &mdash; LLM evaluation, agents, and making models
+      reliable enough to put in front of real users. I taught myself the way I like best: by building
+      the whole stack, from a GPT&rsquo;s backprop up to eval datasets used in production. This fall I
+      start CS at Illinois (Grainger).
     </p>
     <div class="stack">
       <span class="lab">Stack</span>
-      <div class="row">
-        <span class="tag-chip">Python</span><span class="tag-chip">PyTorch</span><span class="tag-chip">LLMs</span>
-        <span class="tag-chip">RAG</span><span class="tag-chip">agents</span><span class="tag-chip">LLM eval</span>
-        <span class="tag-chip">DeepFace</span><span class="tag-chip">Together AI</span><span class="tag-chip">HuggingFace</span>
-        <span class="tag-chip">JavaScript</span><span class="tag-chip">Three.js</span><span class="tag-chip">WebSockets</span>
-      </div>
+      <span class="row">Python &middot; PyTorch &middot; LLMs &middot; RAG &middot; agents &middot; LLM eval &middot; DeepFace &middot; Together AI &middot; HuggingFace &middot; JavaScript &middot; Three.js &middot; WebSockets</span>
     </div>
     <p class="aside-line">
-      Outside of code I paint oil self-portraits &mdash; it&rsquo;s where I first got comfortable
-      sitting with representations that won&rsquo;t quite resolve. <a href="art.html">See the studio &rarr;</a>
+      Outside of code I paint oil self-portraits &mdash; where I first got comfortable sitting with
+      representations that won&rsquo;t quite resolve. <a href="art.html">See the studio &rarr;</a>
     </p>
   </div>
 </section>
