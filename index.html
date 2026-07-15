@@ -13,8 +13,8 @@
   <div class="wrap">
     <a class="mark" href="index.html">Aanya<b>.</b>Shah</a>
     <ul>
-      <li><a href="#work">work</a></li>
-      <li><a href="#about">about</a></li>
+      <li><a href="#currently">now</a></li>
+      <li><a href="#work">projects</a></li>
       <li><a href="art.html">studio<span class="ext">&#8599;</span></a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -49,95 +49,73 @@
 </header>
 
 <!-- ================= NOW ================= -->
-<div class="now">
+<!-- ================= CURRENTLY ================= -->
+<section id="currently">
   <div class="wrap">
-    <span class="lab">Now</span>
-    <span class="item"><b>Building</b> an agentic system that lays out yearbooks from raw photo dumps @ Rethink Yearbooks</span>
-    <span class="item"><b>Reading</b> mechanistic interpretability</span>
-    <span class="item"><b>Writing</b> nanoGPT up from the math</span>
+    <div class="sec-head"><span class="sec-title">Currently</span></div>
+    <div class="cur">
+      <div class="cg"><span class="cl">Working on</span><p>the agentic yearbook composer @ Rethink Yearbooks</p></div>
+      <div class="cg"><span class="cl">Excited about</span><p>mechanistic interpretability &middot; agents that do real work</p></div>
+      <div class="cg"><span class="cl">Learning</span><p>building nanoGPT up from the math</p></div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- ================= WORK ================= -->
+<!-- ================= PROJECTS ================= -->
 <section id="work">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-title">Selected work</span></div>
-    <p class="sec-sub">A few things I&rsquo;ve built and shipped. Most are open-source; each links to code, a demo, or a writeup.</p>
+    <div class="sec-head"><span class="sec-title">Projects</span></div>
+    <p class="sec-sub">The concrete stuff &mdash; most are open-source; each links out to code, a demo, or a writeup.</p>
 
-    <div class="work">
-      <details class="pcard">
-        <summary>
-          <div class="phead"><h3>Re-prompting pipeline for instruction-following <span class="status">shipped</span></h3><span class="meta">AIMon &middot; 2025</span></div>
-          <p class="psum">An automated re-prompting loop that let 3&ndash;7B-parameter models beat GPT-4o on the benchmarks I built it against.</p>
-          <div class="ptags">python &middot; llm-eval &middot; rag &middot; together-ai</div>
-          <span class="chev" aria-hidden="true"></span>
-        </summary>
-        <div class="pbody">
-          <p class="stat"><b>+22%</b> instruction-following &nbsp;&middot;&nbsp; <b>3&ndash;7B</b> models beat GPT-4o &nbsp;&middot;&nbsp; <b>2</b> open eval datasets</p>
-          <p>Open-sourced two 1K+ sample MIT-licensed eval datasets, then productized the loop inside AIMon&rsquo;s Python SDK as a plug-and-play module for any black-box LLM or RAG system. Wrote the launch blog, the design docs, and the Colab demos.</p>
-          <div class="plinks">
-            <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">read the writeup &rarr;</a>
+    <div class="feat-list">
+      <div class="feat" data-kind="bars" data-hue="indigo">
+        <div class="ficon"><canvas aria-hidden="true"></canvas></div>
+        <div class="fbody">
+          <div class="fhead"><h3>Re-prompting pipeline for instruction-following <span class="status">shipped</span></h3><span class="fmeta">AIMon &middot; 2025</span></div>
+          <p class="fdesc">An automated re-prompting loop that let 3&ndash;7B models beat GPT-4o &mdash; +22% instruction-following, two open eval datasets, shipped in AIMon&rsquo;s Python SDK.</p>
+          <div class="flinks">
+            <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">writeup &rarr;</a>
             <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">datasets &rarr;</a>
           </div>
         </div>
-      </details>
+      </div>
 
-      <details class="pcard">
-        <summary>
-          <div class="phead"><h3>Agentic yearbook composer <span class="status wip">in progress</span></h3><span class="meta">Rethink Yearbooks &middot; 2025&ndash;</span></div>
-          <p class="psum">An agentic system that turns thousands of raw photos into finished yearbook pages &mdash; recognizing people, clustering moments, assembling a year&rsquo;s narrative.</p>
-          <div class="ptags">python &middot; agents &middot; deepface &middot; clustering</div>
-          <span class="chev" aria-hidden="true"></span>
-        </summary>
-        <div class="pbody">
-          <p>Grew out of a facial-recognition pipeline I built first: fine-tuned DeepFace over a 10K+ image set to match roster photos to candids and sort them by grade, with a small interface for reviewing matches by cosine distance. The agentic layer on top handles event recognition, clustering images into moments, and laying out finished pages.</p>
+      <div class="feat" data-kind="clusters" data-hue="indigo">
+        <div class="ficon"><canvas aria-hidden="true"></canvas></div>
+        <div class="fbody">
+          <div class="fhead"><h3>Agentic yearbook composer <span class="status wip">in progress</span></h3><span class="fmeta">Rethink Yearbooks &middot; 2025&ndash;</span></div>
+          <p class="fdesc">An agentic system that turns thousands of raw photos into finished yearbook pages &mdash; built on a DeepFace pipeline fine-tuned over 10K+ images to match faces and cluster moments.</p>
         </div>
-      </details>
+      </div>
 
-      <details class="pcard">
-        <summary>
-          <div class="phead"><h3>Three Ways of Seeing</h3><span class="meta">solo exhibition &middot; 2024</span></div>
-          <p class="psum">A wall-sized, interactive visualization of high-dimensional embedding space &mdash; the piece where the ML and the studio work met.</p>
-          <div class="ptags">three.js &middot; t-SNE &middot; websockets &middot; python</div>
-          <span class="chev" aria-hidden="true"></span>
-        </summary>
-        <div class="pbody">
-          <p>A t-SNE pipeline rendered in Three.js, with WebSockets driving real-time, viewer-controlled cluster transformations &mdash; the audience reshaping a latent space by hand. The same embedding-space idea drives the drifting field behind my name up top.</p>
-          <div class="plinks"><a href="https://github.com/ashah-aanya/HDP-Exhibition">code &rarr;</a></div>
+      <div class="feat" data-kind="tsne" data-hue="oxblood">
+        <div class="ficon"><canvas aria-hidden="true"></canvas></div>
+        <div class="fbody">
+          <div class="fhead"><h3>Three Ways of Seeing</h3><span class="fmeta">solo exhibition &middot; 2024</span></div>
+          <p class="fdesc">A wall-sized, interactive visualization of embedding space &mdash; a t-SNE pipeline in Three.js with WebSockets letting the audience reshape a latent space by hand.</p>
+          <div class="flinks"><a href="https://github.com/ashah-aanya/HDP-Exhibition">code &rarr;</a></div>
         </div>
-      </details>
-
-      <p class="also-lab">Also built</p>
-
-      <details class="pcard">
-        <summary>
-          <div class="phead"><h3>NanoGPT, from scratch</h3><span class="meta">personal &middot; ongoing</span></div>
-          <p class="psum">A GPT built up from the math &mdash; backprop, attention, the training loop &mdash; so the abstractions I use professionally aren&rsquo;t black boxes.</p>
-          <div class="ptags">python &middot; pytorch &middot; transformers</div>
-          <span class="chev" aria-hidden="true"></span>
-        </summary>
-        <div class="pbody">
-          <p>Working through the transformer stack by hand &mdash; implementing attention, the training loop, and backprop from first principles rather than importing them &mdash; so that when I reach for these tools professionally I understand what&rsquo;s underneath.</p>
-          <div class="plinks"><a href="https://github.com/ashah-aanya/NanoGPT">code &rarr;</a></div>
-        </div>
-      </details>
-
-      <details class="pcard">
-        <summary>
-          <div class="phead"><h3>DoubleKarma <span class="status">1st place</span></h3><span class="meta">Bubble.io Intl. Hackathon &middot; 2023</span></div>
-          <p class="psum">Youngest winner among 150+ international competitors &mdash; a giving platform built in a weekend.</p>
-          <div class="ptags">webhooks &middot; stripe &middot; no-code</div>
-          <span class="chev" aria-hidden="true"></span>
-        </summary>
-        <div class="pbody">
-          <p>A giving platform wiring together WhatsApp webhooks, Stripe payments, and automated email &mdash; designed, built, and shipped over a single hackathon weekend against a large international field.</p>
-          <div class="plinks">
-            <a href="https://bubble.io/blog/hackathon-winners-bubblecon2023/">winners &rarr;</a>
-            <a href="https://bubble.io/blog/developer-spotlight-aanya-shah/">developer spotlight &rarr;</a>
-          </div>
-        </div>
-      </details>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ================= OTHER THINGS ================= -->
+<section id="tries">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-title">Other things I&rsquo;m trying</span></div>
+    <ul class="tries">
+      <li><a href="https://github.com/ashah-aanya/NanoGPT">NanoGPT, from scratch</a> &mdash; a GPT built up from the math, so the abstractions aren&rsquo;t black boxes <span class="g">· pytorch</span></li>
+      <li><a href="https://bubble.io/blog/developer-spotlight-aanya-shah/">DoubleKarma</a> &mdash; 1st-place giving platform, Bubble intl. hackathon (youngest of 150+) <span class="g">· webhooks · stripe</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= STUDIO TEASER ================= -->
+<section id="studio">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-title">Studio</span></div>
+    <p class="studio-teaser">Outside of code I paint oil self-portraits about identity &mdash; where I first got comfortable sitting with representations that won&rsquo;t quite resolve. <a href="art.html">See the studio &rarr;</a></p>
   </div>
 </section>
 
@@ -155,10 +133,6 @@
       <span class="lab">Stack</span>
       <span class="row">Python &middot; PyTorch &middot; LLMs &middot; RAG &middot; agents &middot; LLM eval &middot; DeepFace &middot; Together AI &middot; HuggingFace &middot; JavaScript &middot; Three.js &middot; WebSockets</span>
     </div>
-    <p class="aside-line">
-      Outside of code I paint oil self-portraits &mdash; where I first got comfortable sitting with
-      representations that won&rsquo;t quite resolve. <a href="art.html">See the studio &rarr;</a>
-    </p>
   </div>
 </section>
 
@@ -186,5 +160,6 @@
 </footer>
 
 <script src="js/field.js"></script>
+<script src="js/motifs.js"></script>
 </body>
 </html>
