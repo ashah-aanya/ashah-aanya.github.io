@@ -127,39 +127,56 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .sec-title{font-family:var(--serif); font-weight:500; font-size:30px; letter-spacing:-.01em; margin:0}
 .sec-sub{font-size:14.5px; color:var(--muted); margin:0 0 30px; max-width:62ch}
 
-/* ---- work: a clean typographic list — no boxes, just air and hairlines ----
-   The hero's calm is the whole aesthetic. Projects are separated by the
-   faintest rule, metrics read as quiet inline text (oxblood numbers), and
-   tags/links live in a single mono footer. Nothing is boxed. ---- */
-.work{display:flex; flex-direction:column}
-.entry{padding:28px 0; border-top:1px solid var(--line-2)}
-.entry:first-of-type{border-top:none; padding-top:8px}
-.entry .row1{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap}
-.entry h3{font-family:var(--serif); font-weight:600; font-size:21px; letter-spacing:-.005em; margin:0;
-  color:var(--ink); display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
-.entry .meta{font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap}
-.entry p{margin:10px 0 0; max-width:66ch; color:var(--ink-soft); font-size:16.5px}
-.entry .lead{color:var(--ink)}
+/* ---- work: soft expandable cards (click to reveal detail) ----
+   Built on native <details> so it's keyboard-accessible with no JS. Collapsed,
+   a card shows the essentials (title, one-liner, tags) so a fast scanner gets
+   the gist without clicking; opening it reveals metrics, detail, and links.
+   Calm container on the outside — no spines, no metric tiles, no bordered chips. */
+.work{display:flex; flex-direction:column; gap:12px; margin-top:4px}
 
-/* metrics as a quiet sentence, not tiles — oxblood numbers do the emphasis */
-.entry .stat{margin:12px 0 0; font-size:15.5px; color:var(--ink-soft)}
-.entry .stat b{color:var(--oxblood); font-weight:600; font-variant-numeric:tabular-nums}
+.pcard{border:1px solid var(--line); border-radius:10px; background:var(--panel);
+  transition:border-color .15s ease, background .15s ease}
+.pcard:hover{border-color:rgba(34,29,22,.26); background:var(--panel-hi)}
+.pcard[open]{background:var(--panel-hi); border-color:rgba(34,29,22,.24)}
 
-/* one mono footer line: tags on the left (indigo), links after */
-.entry .foot{margin:13px 0 0; font-family:var(--mono); font-size:12.5px; color:var(--muted);
-  display:flex; gap:8px 18px; flex-wrap:wrap; align-items:baseline}
-.entry .foot .t{color:var(--indigo)}
-.entry .foot a{color:var(--oxblood); border-bottom:1px solid var(--line)}
-.entry .foot a:hover{border-color:var(--oxblood)}
+.pcard summary{list-style:none; cursor:pointer; display:block; position:relative; padding:20px 22px}
+.pcard summary::-webkit-details-marker{display:none}
+.pcard summary:focus-visible{outline:2px solid var(--indigo); outline-offset:2px; border-radius:10px}
+
+.phead{display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap;
+  padding-right:28px}
+.phead h3{font-family:var(--serif); font-weight:600; font-size:20px; letter-spacing:-.005em; margin:0;
+  color:var(--ink); display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
+.phead .meta{font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap}
+.psum{margin:8px 0 0; color:var(--ink-soft); font-size:16px; max-width:66ch; padding-right:28px}
+.ptags{margin:11px 0 0; font-family:var(--mono); font-size:12px; color:var(--indigo)}
+
+/* chevron affordance in the summary's top-right */
+.chev{position:absolute; top:24px; right:22px; width:10px; height:10px;
+  border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
+  transform:rotate(45deg); transition:transform .2s ease}
+.pcard[open] .chev{transform:rotate(-135deg)}
+
+/* revealed detail */
+.pbody{padding:2px 22px 20px}
+.pcard[open] .pbody{animation:reveal .22s ease}
+@keyframes reveal{from{opacity:0; transform:translateY(-4px)} to{opacity:1; transform:none}}
+.pbody .stat{margin:4px 0 0; font-size:15.5px; color:var(--ink-soft)}
+.pbody .stat b{color:var(--oxblood); font-weight:600; font-variant-numeric:tabular-nums}
+.pbody p{margin:11px 0 0; color:var(--ink-soft); font-size:15.5px; max-width:66ch}
+.pbody .plinks{margin:16px 0 0; font-family:var(--mono); font-size:12.5px; display:flex; gap:18px; flex-wrap:wrap}
+.pbody .plinks a{color:var(--oxblood); border-bottom:1px solid var(--line)}
+.pbody .plinks a:hover{border-color:var(--oxblood)}
+@media (prefers-reduced-motion: reduce){.pcard[open] .pbody{animation:none} .chev{transition:none}}
 
 /* status as soft text, not a filled pill */
 .status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
   color:var(--oxblood); font-weight:500}
 .status.wip{color:var(--indigo)}
 
-/* a faint 'also' divider before the lighter-weight projects */
+/* a faint 'also' label before the lighter-weight projects */
 .also-lab{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--muted); margin:30px 0 0}
+  color:var(--muted); margin:22px 0 2px}
 
 /* ---- about ---- */
 .about p{max-width:60ch; margin:0 0 16px; font-size:16.5px}

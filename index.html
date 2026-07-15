@@ -65,70 +65,78 @@
     <p class="sec-sub">A few things I&rsquo;ve built and shipped. Most are open-source; each links to code, a demo, or a writeup.</p>
 
     <div class="work">
-      <div class="entry">
-        <div class="row1">
-          <h3>Re-prompting pipeline for instruction-following <span class="status">shipped</span></h3>
-          <span class="meta">AIMon &middot; 2025</span>
+      <details class="pcard">
+        <summary>
+          <div class="phead"><h3>Re-prompting pipeline for instruction-following <span class="status">shipped</span></h3><span class="meta">AIMon &middot; 2025</span></div>
+          <p class="psum">An automated re-prompting loop that let 3&ndash;7B-parameter models beat GPT-4o on the benchmarks I built it against.</p>
+          <div class="ptags">python &middot; llm-eval &middot; rag &middot; together-ai</div>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="pbody">
+          <p class="stat"><b>+22%</b> instruction-following &nbsp;&middot;&nbsp; <b>3&ndash;7B</b> models beat GPT-4o &nbsp;&middot;&nbsp; <b>2</b> open eval datasets</p>
+          <p>Open-sourced two 1K+ sample MIT-licensed eval datasets, then productized the loop inside AIMon&rsquo;s Python SDK as a plug-and-play module for any black-box LLM or RAG system. Wrote the launch blog, the design docs, and the Colab demos.</p>
+          <div class="plinks">
+            <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">read the writeup &rarr;</a>
+            <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">datasets &rarr;</a>
+          </div>
         </div>
-        <p class="lead">An automated re-prompting loop that improved LLM instruction-following enough for 3&ndash;7B-parameter models to beat GPT-4o on the benchmarks I built it against.</p>
-        <p class="stat"><b>+22%</b> instruction-following &nbsp;&middot;&nbsp; <b>3&ndash;7B</b> models beat GPT-4o &nbsp;&middot;&nbsp; <b>2</b> open eval datasets, shipped in AIMon&rsquo;s Python SDK</p>
-        <div class="foot">
-          <span class="t">python &middot; llm-eval &middot; rag &middot; together-ai</span>
-          <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">writeup &rarr;</a>
-          <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">datasets &rarr;</a>
-        </div>
-      </div>
+      </details>
 
-      <div class="entry">
-        <div class="row1">
-          <h3>Agentic yearbook composer <span class="status wip">in progress</span></h3>
-          <span class="meta">Rethink Yearbooks &middot; 2025&ndash;</span>
+      <details class="pcard">
+        <summary>
+          <div class="phead"><h3>Agentic yearbook composer <span class="status wip">in progress</span></h3><span class="meta">Rethink Yearbooks &middot; 2025&ndash;</span></div>
+          <p class="psum">An agentic system that turns thousands of raw photos into finished yearbook pages &mdash; recognizing people, clustering moments, assembling a year&rsquo;s narrative.</p>
+          <div class="ptags">python &middot; agents &middot; deepface &middot; clustering</div>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="pbody">
+          <p>Grew out of a facial-recognition pipeline I built first: fine-tuned DeepFace over a 10K+ image set to match roster photos to candids and sort them by grade, with a small interface for reviewing matches by cosine distance. The agentic layer on top handles event recognition, clustering images into moments, and laying out finished pages.</p>
         </div>
-        <p class="lead">An agentic system that turns thousands of raw photos into finished yearbook pages &mdash; recognizing people and events, clustering images into moments, and assembling them into a year&rsquo;s narrative.</p>
-        <p>Grew out of a facial-recognition pipeline I built first: fine-tuned DeepFace over a 10K+ image set to match roster photos to candids and sort them by grade.</p>
-        <div class="foot">
-          <span class="t">python &middot; agents &middot; deepface &middot; clustering</span>
-        </div>
-      </div>
+      </details>
 
-      <div class="entry">
-        <div class="row1">
-          <h3>Three Ways of Seeing</h3>
-          <span class="meta">solo exhibition &middot; 2024</span>
+      <details class="pcard">
+        <summary>
+          <div class="phead"><h3>Three Ways of Seeing</h3><span class="meta">solo exhibition &middot; 2024</span></div>
+          <p class="psum">A wall-sized, interactive visualization of high-dimensional embedding space &mdash; the piece where the ML and the studio work met.</p>
+          <div class="ptags">three.js &middot; t-SNE &middot; websockets &middot; python</div>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="pbody">
+          <p>A t-SNE pipeline rendered in Three.js, with WebSockets driving real-time, viewer-controlled cluster transformations &mdash; the audience reshaping a latent space by hand. The same embedding-space idea drives the drifting field behind my name up top.</p>
+          <div class="plinks"><a href="https://github.com/ashah-aanya/HDP-Exhibition">code &rarr;</a></div>
         </div>
-        <p class="lead">A wall-sized, interactive visualization of high-dimensional embedding space &mdash; a t-SNE pipeline in Three.js, with WebSockets letting the audience reshape a latent space by hand.</p>
-        <div class="foot">
-          <span class="t">three.js &middot; t-SNE &middot; websockets &middot; python</span>
-          <a href="https://github.com/ashah-aanya/HDP-Exhibition">code &rarr;</a>
-        </div>
-      </div>
+      </details>
 
       <p class="also-lab">Also built</p>
 
-      <div class="entry">
-        <div class="row1">
-          <h3>NanoGPT, from scratch</h3>
-          <span class="meta">personal &middot; ongoing</span>
+      <details class="pcard">
+        <summary>
+          <div class="phead"><h3>NanoGPT, from scratch</h3><span class="meta">personal &middot; ongoing</span></div>
+          <p class="psum">A GPT built up from the math &mdash; backprop, attention, the training loop &mdash; so the abstractions I use professionally aren&rsquo;t black boxes.</p>
+          <div class="ptags">python &middot; pytorch &middot; transformers</div>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="pbody">
+          <p>Working through the transformer stack by hand &mdash; implementing attention, the training loop, and backprop from first principles rather than importing them &mdash; so that when I reach for these tools professionally I understand what&rsquo;s underneath.</p>
+          <div class="plinks"><a href="https://github.com/ashah-aanya/NanoGPT">code &rarr;</a></div>
         </div>
-        <p class="lead">A GPT built up from the math &mdash; backprop, attention, the training loop &mdash; so the abstractions I use professionally aren&rsquo;t black boxes.</p>
-        <div class="foot">
-          <span class="t">python &middot; pytorch &middot; transformers</span>
-          <a href="https://github.com/ashah-aanya/NanoGPT">code &rarr;</a>
-        </div>
-      </div>
+      </details>
 
-      <div class="entry">
-        <div class="row1">
-          <h3>DoubleKarma <span class="status">1st place</span></h3>
-          <span class="meta">Bubble.io Intl. Hackathon &middot; 2023</span>
+      <details class="pcard">
+        <summary>
+          <div class="phead"><h3>DoubleKarma <span class="status">1st place</span></h3><span class="meta">Bubble.io Intl. Hackathon &middot; 2023</span></div>
+          <p class="psum">Youngest winner among 150+ international competitors &mdash; a giving platform built in a weekend.</p>
+          <div class="ptags">webhooks &middot; stripe &middot; no-code</div>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="pbody">
+          <p>A giving platform wiring together WhatsApp webhooks, Stripe payments, and automated email &mdash; designed, built, and shipped over a single hackathon weekend against a large international field.</p>
+          <div class="plinks">
+            <a href="https://bubble.io/blog/hackathon-winners-bubblecon2023/">winners &rarr;</a>
+            <a href="https://bubble.io/blog/developer-spotlight-aanya-shah/">developer spotlight &rarr;</a>
+          </div>
         </div>
-        <p class="lead">Youngest winner among 150+ international competitors &mdash; a giving platform wiring WhatsApp webhooks, Stripe, and automated email, built in a weekend.</p>
-        <div class="foot">
-          <span class="t">webhooks &middot; stripe &middot; no-code</span>
-          <a href="https://bubble.io/blog/hackathon-winners-bubblecon2023/">winners &rarr;</a>
-          <a href="https://bubble.io/blog/developer-spotlight-aanya-shah/">spotlight &rarr;</a>
-        </div>
-      </div>
+      </details>
     </div>
   </div>
 </section>
