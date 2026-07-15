@@ -34,14 +34,16 @@
 :root{
   --linen:#E7E0D2;        /* raw primed canvas — the ground */
   --linen-2:#DED5C3;      /* deeper panel */
-  --ink:#221D16;          /* warm near-black */
-  --ink-soft:#2b261e;     /* body ink, a touch lighter */
-  --muted:#6E6354;        /* warm grey */
+  --ink:#211C15;          /* warm near-black */
+  --ink-soft:#332c20;     /* body ink — darkened for real contrast */
+  --muted:#5c5344;        /* warm grey — darkened so labels/meta read */
   --oxblood:#8A2B22;      /* studio voice */
   --indigo:#2C376B;       /* machine voice */
-  --line:rgba(34,29,22,.14);
-  --line-2:rgba(34,29,22,.08);
-  --maxw:760px;
+  --line:rgba(34,29,22,.16);
+  --line-2:rgba(34,29,22,.09);
+  --panel:rgba(252,250,245,.62); /* warm near-white to lift cards off the linen */
+  --panel-hi:rgba(252,250,245,.9);
+  --maxw:820px;
 
   --serif:"Fraunces",Georgia,"Times New Roman",serif;
   --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
@@ -120,43 +122,56 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .sec-title{font-family:var(--serif); font-weight:500; font-size:30px; letter-spacing:-.01em; margin:0}
 .sec-sub{font-size:14.5px; color:var(--muted); margin:0 0 30px; max-width:62ch}
 
-/* ---- featured work (Tier 1) ---- */
-.feature{padding:26px 0; border-top:1px solid var(--line-2)}
-.feature:first-of-type{border-top:none; padding-top:4px}
-.feature .row1{display:flex; justify-content:space-between; align-items:baseline;
-  gap:16px; flex-wrap:wrap}
-.feature h3{font-family:var(--serif); font-weight:600; font-size:22px; margin:0;
-  letter-spacing:-.005em}
-.feature .meta{font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap}
-.feature p{margin:9px 0 0; max-width:64ch}
-.feature .lead{color:var(--ink)}
-.metrics{display:flex; gap:26px; flex-wrap:wrap; margin:16px 0 2px}
-.metric{display:flex; flex-direction:column; gap:1px}
-.metric .n{font-family:var(--serif); font-weight:600; font-size:26px; line-height:1;
+/* ---- work: every project is a bordered card with a clear boundary ----
+   Each card sits on a lifted warm panel and carries a thin accent "spine"
+   on its left edge — indigo for the machine work, oxblood where the studio
+   meets the code — so the two-voice brand survives the new formatting. ---- */
+.work{display:flex; flex-direction:column; gap:16px; margin-top:2px}
+
+.wcard{position:relative; border:1px solid var(--line); border-radius:8px;
+  background:var(--panel); padding:24px 24px 20px; overflow:hidden;
+  transition:border-color .15s ease, background .15s ease, transform .15s ease}
+.wcard:hover{border-color:rgba(34,29,22,.30); background:var(--panel-hi)}
+.wcard::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+  background:var(--indigo)}
+.wcard.ox::before{background:var(--oxblood)}
+
+.wcard .row1{display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap}
+.wcard h3{font-family:var(--serif); font-weight:600; font-size:22px; margin:0; letter-spacing:-.005em;
+  display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; color:var(--ink)}
+.wcard .meta{font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap}
+.wcard p{margin:9px 0 0; max-width:66ch; color:var(--ink-soft)}
+.wcard .lead{color:var(--ink); font-size:16.5px}
+
+/* metric tiles — the credibility numbers, made loud */
+.metrics{display:flex; gap:12px; flex-wrap:wrap; margin:16px 0 2px}
+.metric{display:flex; flex-direction:column; gap:2px; padding:9px 14px 8px;
+  background:rgba(138,43,34,.07); border:1px solid rgba(138,43,34,.16); border-radius:6px}
+.metric .n{font-family:var(--serif); font-weight:600; font-size:24px; line-height:1;
   color:var(--oxblood); font-variant-numeric:tabular-nums}
-.metric .l{font-family:var(--mono); font-size:11px; letter-spacing:.03em;
+.metric .l{font-family:var(--mono); font-size:10.5px; letter-spacing:.03em;
   text-transform:uppercase; color:var(--muted)}
+
 .tags{margin:14px 0 0; display:flex; flex-wrap:wrap; gap:7px}
 .tag-chip{font-family:var(--mono); font-size:11px; color:var(--indigo);
-  border:1px solid var(--line); border-radius:2px; padding:2px 8px; letter-spacing:.01em}
-.links{margin:14px 0 0; font-family:var(--mono); font-size:12.5px;
-  display:flex; gap:18px; flex-wrap:wrap}
+  border:1px solid var(--line); border-radius:20px; padding:3px 10px; letter-spacing:.01em;
+  background:rgba(44,55,107,.05)}
+.links{margin:15px 0 0; font-family:var(--mono); font-size:12.5px; display:flex; gap:18px; flex-wrap:wrap}
 .links a{color:var(--oxblood); border-bottom:1px solid var(--line)}
 .links a:hover{border-color:var(--oxblood)}
-.pill{display:inline-block; font-family:var(--mono); font-size:10.5px; letter-spacing:.04em;
-  text-transform:uppercase; color:#fff; background:var(--oxblood); border-radius:2px;
-  padding:1px 7px; vertical-align:middle; margin-left:8px}
+
+.pill{display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:.05em;
+  text-transform:uppercase; color:#fff; background:var(--oxblood); border-radius:20px;
+  padding:2px 9px; vertical-align:middle}
 .pill.wip{background:var(--indigo)}
 
-/* ---- secondary work (Tier 2) as a compact grid ---- */
-.grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
-@media (max-width:560px){.grid2{grid-template-columns:1fr}}
-.card{border:1px solid var(--line); border-radius:3px; padding:18px 18px 16px;
-  background:rgba(255,255,255,.16); display:flex; flex-direction:column; gap:8px}
-.card h4{font-family:var(--serif); font-weight:600; font-size:18px; margin:0}
-.card .meta{font-family:var(--mono); font-size:11px; color:var(--muted)}
-.card p{margin:0; font-size:14.5px; color:var(--ink-soft)}
-.card .links{margin-top:auto; padding-top:4px}
+/* tier 2: smaller cards, two-up */
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:0}
+@media (max-width:600px){.grid2{grid-template-columns:1fr}}
+.grid2 .wcard{padding:20px 20px 17px; display:flex; flex-direction:column}
+.grid2 .wcard h3{font-size:19px}
+.grid2 .wcard p{font-size:14.5px}
+.grid2 .wcard .links{margin-top:auto; padding-top:12px}
 
 /* ---- about ---- */
 .about p{max-width:60ch; margin:0 0 16px}
