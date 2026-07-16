@@ -25,16 +25,15 @@
 <header class="hero">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
-    <p class="eyebrow">machine learning <span class="dot">&middot;</span> evaluation <span class="dot">&middot;</span> agents</p>
+    <p class="eyebrow">machine learning <span class="dot">&middot;</span> evaluation <span class="dot">&middot;</span> reinforcement learning</p>
     <h1 class="name">Aanya <em>Shah</em></h1>
     <p class="tag">I build machine-learning systems &mdash; and the evaluation and tooling that make them trustworthy.</p>
     <p class="intro">
-      Most of my work lives around large language models: an automated re-prompting loop at
-      <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">AIMon</a>
-      that pushed 3&ndash;7B models past GPT-4o on instruction-following, an agentic pipeline that
-      composes yearbooks from raw photo dumps, and a GPT built from scratch so the abstractions
-      aren&rsquo;t black boxes to me. I learn by building the thing all the way down. Incoming CS @
-      Illinois (Grainger), Fall 2026.
+      My work runs from LLM evaluation to reinforcement learning to shipping ML products: a
+      re-prompting loop at <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">AIMon</a>
+      that pushed 3&ndash;7B models past GPT-4o, an RL agent that trades options against a live paper
+      account, and an AI photo-curation app running on a cloud backend. I learn by building the
+      thing all the way down. Incoming CS @ Illinois (Grainger), Fall 2026.
     </p>
     <p class="social">
       <a href="https://github.com/ashah-aanya"><span>github</span>&nbsp;/ashah-aanya</a>
@@ -54,8 +53,8 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">Currently</span></div>
     <div class="cur">
-      <div class="cg"><span class="cl">Working on</span><p>the agentic yearbook composer @ Rethink Yearbooks</p></div>
-      <div class="cg"><span class="cl">Excited about</span><p>agents that do real work</p></div>
+      <div class="cg"><span class="cl">Working on</span><p>an RL options-trading agent &mdash; train &middot; prove &middot; run live</p></div>
+      <div class="cg"><span class="cl">Excited about</span><p>reinforcement learning for real decisions &middot; agents that do real work</p></div>
       <div class="cg"><span class="cl">Learning</span><p>building nanoGPT up from the math</p></div>
       <div class="cg"><span class="cl">Reading</span><p>mechanistic interpretability</p></div>
     </div>
@@ -72,8 +71,26 @@
       <div class="feat" data-kind="bars" data-hue="indigo">
         <div class="ficon"><canvas aria-hidden="true"></canvas></div>
         <div class="fbody">
+          <div class="fhead"><h3>RL options-trading agent</h3><span class="fmeta">personal &middot; 2025</span></div>
+          <p class="fdesc">A reinforcement-learning agent (PPO) that trades SPX options, with a simulator kept honest by validating it against real executed trades &mdash; then run on a paper IBKR account behind an MLflow + Grafana stack.</p>
+          <div class="flinks"><span class="fnote">private repo</span></div>
+        </div>
+      </div>
+
+      <div class="feat" data-kind="clusters" data-hue="indigo">
+        <div class="ficon"><canvas aria-hidden="true"></canvas></div>
+        <div class="fbody">
+          <div class="fhead"><h3>LifeChapters</h3><span class="fmeta">personal &middot; 2025</span></div>
+          <p class="fdesc">An AI photo-curation product &mdash; iOS/Android apps on a FastAPI + Celery cloud backend (ECS, Redis, S3) that selects the best shots from thousands using face embeddings and quality scoring, logging every ML decision for retraining.</p>
+          <div class="flinks"><span class="fnote">private repo</span></div>
+        </div>
+      </div>
+
+      <div class="feat" data-kind="grid" data-hue="indigo">
+        <div class="ficon"><canvas aria-hidden="true"></canvas></div>
+        <div class="fbody">
           <div class="fhead"><h3>Re-prompting pipeline for instruction-following <span class="status">shipped</span></h3><span class="fmeta">AIMon &middot; 2025</span></div>
-          <p class="fdesc">An automated re-prompting loop that let 3&ndash;7B models beat GPT-4o &mdash; +22% instruction-following, two open eval datasets, shipped in AIMon&rsquo;s Python SDK.</p>
+          <p class="fdesc">An automated re-prompting loop that let 3&ndash;7B models beat GPT-4o &mdash; +22% instruction-following, two open MIT eval datasets, shipped in AIMon&rsquo;s Python SDK.</p>
           <div class="flinks">
             <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">writeup &rarr;</a>
             <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">datasets &rarr;</a>
@@ -81,29 +98,12 @@
         </div>
       </div>
 
-      <div class="feat" data-kind="clusters" data-hue="indigo">
-        <div class="ficon"><canvas aria-hidden="true"></canvas></div>
-        <div class="fbody">
-          <div class="fhead"><h3>Agentic yearbook composer <span class="status wip">in progress</span></h3><span class="fmeta">Rethink Yearbooks &middot; 2025&ndash;</span></div>
-          <p class="fdesc">An agentic system that turns thousands of raw photos into finished yearbook pages &mdash; built on a DeepFace pipeline fine-tuned over 10K+ images to match faces and cluster moments.</p>
-        </div>
-      </div>
-
       <div class="feat" data-kind="tsne" data-hue="oxblood">
         <div class="ficon"><canvas aria-hidden="true"></canvas></div>
         <div class="fbody">
-          <div class="fhead"><h3>Three Ways of Seeing</h3><span class="fmeta">solo exhibition &middot; 2024</span></div>
-          <p class="fdesc">A wall-sized, interactive visualization of embedding space &mdash; a t-SNE pipeline in Three.js with WebSockets letting the audience reshape a latent space by hand.</p>
+          <div class="fhead"><h3>Three Ways of Seeing</h3><span class="fmeta">solo exhibition &middot; 2026</span></div>
+          <p class="fdesc">An upcoming solo show on AI &amp; art &mdash; including an interactive visualization of embedding space: a t-SNE pipeline in Three.js with WebSockets letting the audience reshape a latent space by hand.</p>
           <div class="flinks"><a href="https://github.com/ashah-aanya/HDP-Exhibition">code &rarr;</a></div>
-        </div>
-      </div>
-
-      <div class="feat" data-kind="grid" data-hue="indigo">
-        <div class="ficon"><canvas aria-hidden="true"></canvas></div>
-        <div class="fbody">
-          <div class="fhead"><h3>NanoGPT, from scratch</h3><span class="fmeta">personal &middot; ongoing</span></div>
-          <p class="fdesc">A GPT built up from the math &mdash; backprop, attention, the training loop &mdash; so the abstractions I use professionally aren&rsquo;t black boxes.</p>
-          <div class="flinks"><a href="https://github.com/ashah-aanya/NanoGPT">code &rarr;</a></div>
         </div>
       </div>
     </div>
@@ -115,7 +115,9 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">Other things I&rsquo;m trying</span></div>
     <ul class="tries">
+      <li>Rethink Yearbooks &mdash; fine-tuned DeepFace to match faces across a 10K+ image set and sort a school&rsquo;s photos by grade <span class="g">· python · deepface</span></li>
       <li><a href="https://bubble.io/blog/developer-spotlight-aanya-shah/">DoubleKarma</a> &mdash; 1st-place giving platform, Bubble intl. hackathon (youngest of 150+) <span class="g">· webhooks · stripe</span></li>
+      <li><a href="https://github.com/ashah-aanya/NanoGPT">NanoGPT, from scratch</a> &mdash; a GPT built up from the math, so the abstractions aren&rsquo;t black boxes <span class="g">· pytorch</span></li>
     </ul>
   </div>
 </section>
@@ -130,7 +132,7 @@
         <figcaption><b>The Turing Test, in oil</b><br/>Credo.AI &middot; Agents of Trust Summit</figcaption>
       </figure>
       <div class="studio-copy">
-        <p class="studio-teaser">Outside of code I paint oil self-portraits about identity. At Credo.AI&rsquo;s Agents of Trust Summit, 100+ researchers and policymakers tried to tell my paintings apart from DALL&middot;E replicas &mdash; then argued about authorship and what we owe to responsible AI. <a href="art.html">See the studio &rarr;</a></p>
+        <p class="studio-teaser">Outside of code I paint oil self-portraits about identity. At Credo.AI&rsquo;s invite-only Agents of Trust Summit, 100+ executives and AI-governance leaders tried to tell my oil paintings apart from DALL&middot;E replicas &mdash; the exhibit now lives permanently at Credo.AI&rsquo;s San Francisco offices. <a href="art.html">See the studio &rarr;</a></p>
       </div>
     </div>
   </div>
@@ -141,14 +143,14 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">About</span></div>
     <p class="about">
-      I&rsquo;m a builder focused on machine learning &mdash; LLM evaluation, agents, and making models
-      reliable enough to put in front of real users. I taught myself the way I like best: by building
-      the whole stack, from a GPT&rsquo;s backprop up to eval datasets used in production. This fall I
-      start CS at Illinois (Grainger).
+      I&rsquo;m a builder focused on machine learning &mdash; LLM evaluation, reinforcement learning, and
+      shipping ML products people actually use. I taught myself the way I like best: by building the
+      whole stack, from a GPT&rsquo;s backprop up to eval datasets in production and an RL agent trading
+      against a live market. This fall I start CS at Illinois (Grainger).
     </p>
     <div class="stack">
       <span class="lab">Stack</span>
-      <span class="row">Python &middot; PyTorch &middot; Transformers &middot; LLM evaluation &middot; RAG &middot; agents &middot; fine-tuning &middot; embeddings &middot; DeepFace &middot; Hugging Face &middot; Together AI &middot; NumPy</span>
+      <span class="row">Python &middot; PyTorch &middot; TensorFlow &middot; RL (PPO) &middot; LangChain &middot; LlamaIndex &middot; Hugging Face &middot; Together AI &middot; OpenAI API &middot; DeepFace &middot; MLflow &middot; FastAPI &middot; AWS</span>
     </div>
   </div>
 </section>
