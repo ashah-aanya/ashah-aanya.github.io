@@ -135,25 +135,24 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .cur .cg p{margin:0; color:var(--ink-soft); font-size:15.5px}
 @media (max-width:520px){.cur .cl{flex-basis:100%}}
 
-/* ---- Featured projects: icon + title + short description + links ----
-   Borderless rows: a small on-brand motif tile, then title/description/links.
-   Separated by the faintest hairline; swap a motif <canvas> for a real image
-   any time and it drops into the same slot. */
-.feat-list{display:flex; flex-direction:column; margin-top:2px}
-.feat{display:flex; gap:20px; padding:22px 0; border-top:1px solid var(--line-2)}
-.feat:first-child{border-top:none; padding-top:6px}
-.ficon{flex:0 0 84px; width:84px; height:84px; border-radius:10px; overflow:hidden; background:#EFE9DC}
+/* ---- Featured projects: a 2×2 grid of borderless cards ----
+   Each card is an on-brand motif banner on top, then title / short description
+   / links. No outlines — cards sit on the linen, sized to their own content.
+   Swap a motif <canvas> for a real screenshot any time; it fills the same banner. */
+.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:24px 22px; margin-top:6px; align-items:start}
+@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:26px}}
+.feat{display:flex; flex-direction:column}
+.ficon{width:100%; height:118px; border-radius:10px; overflow:hidden; background:#EFE9DC; margin-bottom:13px}
 .ficon canvas, .ficon img{display:block; width:100%; height:100%; object-fit:cover}
-.fbody{flex:1; min-width:0}
-.fhead{display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap}
-.fhead h3{font-family:var(--serif); font-weight:600; font-size:20px; letter-spacing:-.005em; margin:0;
+.fbody{min-width:0}
+.fhead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
+.fhead h3{font-family:var(--serif); font-weight:600; font-size:19px; letter-spacing:-.005em; margin:0;
   color:var(--ink); display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
-.fmeta{font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap}
-.fdesc{margin:7px 0 0; color:var(--ink-soft); font-size:15.5px; max-width:64ch}
-.flinks{margin:11px 0 0; font-family:var(--mono); font-size:12.5px; display:flex; gap:16px; flex-wrap:wrap}
+.fmeta{font-family:var(--mono); font-size:11.5px; color:var(--muted); white-space:nowrap}
+.fdesc{margin:7px 0 0; color:var(--ink-soft); font-size:15px; line-height:1.55}
+.flinks{margin:12px 0 0; font-family:var(--mono); font-size:12.5px; display:flex; gap:16px; flex-wrap:wrap}
 .flinks a{color:var(--oxblood); border-bottom:1px solid var(--line)}
 .flinks a:hover{border-color:var(--oxblood)}
-@media (max-width:520px){.feat{gap:14px} .ficon{flex:0 0 60px; width:60px; height:60px}}
 
 /* status as soft text, not a filled pill */
 .status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
