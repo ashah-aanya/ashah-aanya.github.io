@@ -139,8 +139,9 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
    Each card is an on-brand motif banner on top, then title / short description
    / links. No outlines — cards sit on the linen, sized to their own content.
    Swap a motif <canvas> for a real screenshot any time; it fills the same banner. */
-.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:8px; align-items:start}
-@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:24px}}
+.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:8px;
+  align-items:stretch; grid-auto-rows:1fr}
+@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:24px; grid-auto-rows:auto}}
 .feat{display:flex; flex-direction:column; background:var(--panel); border-radius:14px;
   padding:16px 18px 20px; transition:background .15s ease}
 .feat:hover{background:var(--panel-hi)}
