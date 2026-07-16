@@ -41,8 +41,8 @@
   --indigo:#2C376B;       /* machine voice */
   --line:rgba(34,29,22,.16);
   --line-2:rgba(34,29,22,.09);
-  --panel:rgba(252,250,245,.62); /* warm near-white to lift cards off the linen */
-  --panel-hi:rgba(252,250,245,.9);
+  --panel:rgba(252,250,245,.38); /* warm near-white, kept light so the linen shows through */
+  --panel-hi:rgba(252,250,245,.6);
   --maxw:820px;
 
   --serif:"Fraunces",Georgia,"Times New Roman",serif;
