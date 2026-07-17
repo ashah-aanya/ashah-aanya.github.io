@@ -60,7 +60,7 @@
     x.globalAlpha = 1;
   }
 
-  function easelOf(t) { return t.closest('.easel'); }
+  function easelOf(t) { return t.closest('.painting'); }
   function paintAll() {
     tiles.forEach(function (t, i) { paint(t.querySelector('.pic'), seeds[i]); });
   }

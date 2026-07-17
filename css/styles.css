@@ -177,22 +177,21 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .turing{display:grid; grid-template-columns:auto 1fr; gap:36px; align-items:center; margin-top:8px}
 @media (max-width:600px){.turing{grid-template-columns:1fr; gap:24px}}
 
-.easels{display:flex; gap:16px}
-.easel{width:130px; display:flex; flex-direction:column; align-items:center}
-.easel .frame{position:relative; width:100%}
-.easel .stand{width:100%; height:auto; display:block; filter:drop-shadow(0 3px 4px rgba(34,29,22,.14))}
-.easel .tile{position:absolute; left:19%; top:8.5%; width:61.5%; padding:0; border:none;
-  background:none; cursor:pointer; line-height:0}
-.easel .tile .pic{display:block; width:100%; aspect-ratio:4/5; border-radius:1px;
-  transition:box-shadow .18s ease, filter .18s ease}
-.easel .tile:hover .pic{filter:brightness(1.07)}
-.easel .tile:focus-visible .pic{box-shadow:0 0 0 3px var(--indigo)}
-.easel .tlabel{margin-top:9px; font:500 10px/1.3 var(--mono); letter-spacing:.03em;
+.paintings{display:flex; gap:20px}
+.painting{width:140px; display:flex; flex-direction:column; align-items:center}
+.painting .tile{width:100%; padding:0; border:none; background:none; cursor:pointer; line-height:0}
+.painting .pic{display:block; width:100%; aspect-ratio:4/5; border-radius:2px;
+  border:1px solid rgba(34,29,22,.20);
+  box-shadow:0 9px 20px rgba(34,29,22,.20);
+  transition:transform .18s ease, box-shadow .18s ease}
+.painting .tile:hover .pic{transform:translateY(-3px); box-shadow:0 14px 28px rgba(34,29,22,.26)}
+.painting .tile:focus-visible .pic{outline:2px solid var(--indigo); outline-offset:3px}
+.painting .tlabel{margin-top:11px; font:500 10px/1.3 var(--mono); letter-spacing:.03em;
   text-transform:uppercase; color:var(--muted); min-height:1.2em; text-align:center}
-.easel.correct .pic{box-shadow:0 0 0 3px var(--indigo)}
-.easel.wrong .pic{box-shadow:0 0 0 3px var(--oxblood)}
-.easel.correct .tlabel{color:var(--indigo)}
-.easel.wrong .tlabel{color:var(--oxblood)}
+.painting.correct .pic{box-shadow:0 0 0 3px var(--indigo), 0 9px 20px rgba(34,29,22,.20)}
+.painting.wrong .pic{box-shadow:0 0 0 3px var(--oxblood), 0 9px 20px rgba(34,29,22,.20)}
+.painting.correct .tlabel{color:var(--indigo)}
+.painting.wrong .tlabel{color:var(--oxblood)}
 
 .turing .copy{max-width:42ch}
 .turing .tq{font-family:var(--serif); font-style:italic; font-size:20px; color:var(--ink); margin:0 0 12px}
