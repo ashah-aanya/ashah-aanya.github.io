@@ -135,6 +135,15 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .cur .cg p{margin:0; color:var(--ink-soft); font-size:15.5px}
 @media (max-width:520px){.cur .cl{flex-basis:100%}}
 
+/* rotating "ticker" mode — JS adds .rotating (only when motion is allowed);
+   without it (no-JS / reduced-motion) the full list stays visible. One facet
+   shows at a time: the outgoing one slides up + fades, the next rises in. */
+.cur.rotating{position:relative; display:block}
+.cur.rotating .cg{position:absolute; left:0; right:0; top:0; opacity:0; transform:translateY(12px);
+  transition:opacity .55s ease, transform .55s ease; pointer-events:none}
+.cur.rotating .cg.show{opacity:1; transform:translateY(0)}
+.cur.rotating .cg.leave{opacity:0; transform:translateY(-12px)}
+
 /* ---- Featured projects: a 2×2 grid of borderless cards ----
    Each card is an on-brand motif banner on top, then title / short description
    / links. No outlines — cards sit on the linen, sized to their own content.
