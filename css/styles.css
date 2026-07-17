@@ -201,8 +201,10 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .tagain{margin:12px 0 0; font:500 12.5px/1 var(--mono); color:var(--oxblood); background:none;
   border:none; border-bottom:1px solid var(--line); cursor:pointer; padding:0 0 2px; display:none}
 .tagain:hover{border-color:var(--oxblood)}
-.studio-teaser{color:var(--ink-soft); font-size:14.5px; margin:16px 0 0}
-.studio-teaser a{color:var(--oxblood); border-bottom:1px solid var(--oxblood)}
+.studio-left{display:flex; flex-direction:column}
+.studio-caption{margin:16px 0 0; max-width:300px; font:400 11.5px/1.55 var(--mono); color:var(--muted)}
+.studio-caption a{color:var(--oxblood); border-bottom:1px solid var(--line)}
+.studio-caption a:hover{border-color:var(--oxblood)}
 
 /* ---- about ---- */
 .about p{max-width:60ch; margin:0 0 16px; font-size:16.5px}
