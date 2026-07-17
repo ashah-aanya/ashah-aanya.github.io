@@ -173,7 +173,21 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 /* ---- Studio: a tinted band with a compact interactive Turing Test ----
    (oxblood = the studio voice.) Two self-portraits on easels at left, the
    prompt + caption at right. Click a canvas to guess painting vs DALL·E. */
-#studio{background:rgba(138,43,34,.06)}
+#studio{background:transparent}
+/* homepage paintings gallery (real work; full art page has the rest) */
+.gallery{columns:3; column-gap:14px; margin-top:2px}
+@media (max-width:640px){.gallery{columns:2}}
+@media (max-width:380px){.gallery{columns:1}}
+.art{break-inside:avoid; margin:0 0 14px; position:relative; border-radius:4px; overflow:hidden;
+  box-shadow:0 6px 16px rgba(34,29,22,.18); line-height:0}
+.art img{display:block; width:100%; height:auto}
+.art figcaption{position:absolute; left:0; right:0; bottom:0; padding:22px 12px 9px; line-height:1;
+  font:600 10.5px/1 var(--mono); letter-spacing:.04em; text-transform:uppercase; color:#fff;
+  background:linear-gradient(transparent, rgba(20,12,10,.74)); opacity:0; transition:opacity .2s ease}
+.art:hover figcaption{opacity:1}
+.studio-more{margin:18px 0 0; font:500 13px/1 var(--mono)}
+.studio-more a{color:var(--oxblood); border-bottom:1px solid var(--line)}
+.studio-more a:hover{border-color:var(--oxblood)}
 .turing{display:grid; grid-template-columns:auto 1fr; gap:36px; align-items:center; margin-top:8px}
 @media (max-width:600px){.turing{grid-template-columns:1fr; gap:24px}}
 
