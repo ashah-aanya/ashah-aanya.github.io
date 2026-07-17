@@ -126,15 +126,17 @@
 <section id="studio">
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">Studio</span></div>
-    <div class="studio-feature">
-      <figure class="studio-img">
-        <div class="ph"></div>
-        <figcaption><b>The Turing Test, in oil</b><br/>Credo.AI &middot; Agents of Trust Summit</figcaption>
-      </figure>
-      <div class="studio-copy">
-        <p class="studio-teaser">Outside of code I paint oil self-portraits about identity. At Credo.AI&rsquo;s invite-only Agents of Trust Summit, 100+ executives and AI-governance leaders tried to tell my oil paintings apart from DALL&middot;E replicas &mdash; the exhibit now lives permanently at Credo.AI&rsquo;s San Francisco offices. <a href="art.html">See the studio &rarr;</a></p>
+    <p class="sec-sub studio-intro">Outside of code I paint oil self-portraits about identity. At Credo.AI&rsquo;s invite-only Agents of Trust Summit, 100+ executives and AI-governance leaders tried to tell my oil paintings from DALL&middot;E replicas. Your turn:</p>
+    <div class="turing">
+      <p class="tq">Which one is the real oil painting?</p>
+      <div class="tiles">
+        <button class="tile" data-i="0"><canvas class="pic" aria-hidden="true"></canvas><span class="tlabel"></span></button>
+        <button class="tile" data-i="1"><canvas class="pic" aria-hidden="true"></canvas><span class="tlabel"></span></button>
       </div>
+      <p class="tresult" role="status"></p>
+      <button class="tagain" type="button">try another &rarr;</button>
     </div>
+    <p class="studio-teaser">The exhibit now lives permanently at Credo.AI&rsquo;s San Francisco offices. <a href="art.html">See the studio &rarr;</a></p>
   </div>
 </section>
 
@@ -180,5 +182,6 @@
 
 <script src="js/field.js"></script>
 <script src="js/motifs.js"></script>
+<script src="js/studio.js"></script>
 </body>
 </html>
