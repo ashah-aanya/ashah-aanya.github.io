@@ -60,6 +60,7 @@
     x.globalAlpha = 1;
   }
 
+  function easelOf(t) { return t.closest('.easel'); }
   function paintAll() {
     tiles.forEach(function (t, i) { paint(t.querySelector('.pic'), seeds[i]); });
   }
@@ -68,8 +69,9 @@
     if (newArt) { seeds = [seeds[0] + 7, seeds[1] + 11]; paintAll(); }
     real = Math.random() < 0.5 ? 0 : 1;
     tiles.forEach(function (t) {
-      t.classList.remove('correct', 'wrong');
-      t.querySelector('.tlabel').textContent = '';
+      var e = easelOf(t);
+      e.classList.remove('correct', 'wrong');
+      e.querySelector('.tlabel').textContent = '';
       t.disabled = false;
     });
     result.innerHTML = '';
@@ -81,10 +83,10 @@
       if (t.disabled) return;
       var pick = +t.dataset.i, ok = pick === real;
       tiles.forEach(function (x2) {
-        var i = +x2.dataset.i;
+        var i = +x2.dataset.i, e = easelOf(x2);
         x2.disabled = true;
-        x2.querySelector('.tlabel').textContent = (i === real ? 'oil painting' : 'DALL·E replica');
-        x2.classList.add(i === real ? 'correct' : 'wrong');
+        e.querySelector('.tlabel').textContent = (i === real ? 'oil painting' : 'DALL·E replica');
+        e.classList.add(i === real ? 'correct' : 'wrong');
       });
       result.innerHTML = ok
         ? 'Nice, that is the <b>real oil painting</b>. Most people at the exhibit got it wrong.'
