@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gallery — Aanya Shah</title>
+<meta name="description" content="A walk-through gallery of Aanya Shah's oil paintings." />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  html,body{margin:0; height:100%; overflow:hidden; background:#0e0a09}
+  .scene{position:fixed; inset:0; overflow:hidden; perspective:760px; perspective-origin:50% 46%;
+    background:radial-gradient(circle at 50% 42%, #241a16 0%, #0c0908 72%)}
+  .hall{position:absolute; inset:0; transform-style:preserve-3d; will-change:transform}
+
+  /* 3d surfaces (walls / floor / ceiling / back) */
+  .surf{position:absolute; left:50%; top:50%; transform-style:preserve-3d}
+  .surf i{display:block; position:absolute; transform:translate(-50%,-50%)}
+
+  /* paintings */
+  .slot{position:absolute; left:50%; top:50%; transform-style:preserve-3d}
+  .pf{position:absolute; transform:translate(-50%,-50%); width:300px; margin:0; cursor:zoom-in}
+  .pf img{display:block; width:100%; height:auto; border-radius:2px;
+    box-shadow:0 0 0 6px #15110e, 0 0 42px 10px rgba(232,182,122,.14), 0 26px 52px rgba(0,0,0,.6)}
+  .pf:hover img{box-shadow:0 0 0 6px #1c1613, 0 0 64px 14px rgba(236,190,132,.24), 0 26px 52px rgba(0,0,0,.6)}
+  .pf figcaption{margin-top:13px; text-align:center; font-family:var(--serif); font-size:15px;
+    color:#e9dfd0; letter-spacing:.01em}
+
+  .vig{position:fixed; inset:0; pointer-events:none; z-index:5;
+    background:radial-gradient(circle at 50% 46%, transparent 42%, rgba(0,0,0,.58) 100%)}
+
+  /* hud */
+  .tl{position:fixed; top:22px; left:24px; z-index:6; color:#e9dfd0}
+  .tl .t{font-family:var(--serif); font-size:21px; letter-spacing:.01em}
+  .tl .s{font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:#b3a998; margin-top:4px}
+  .tl a{color:#d8a583; font-family:var(--mono); font-size:12px; display:inline-block; margin-top:14px;
+    text-decoration:none; border-bottom:1px solid rgba(216,165,131,.4)}
+  .hint{position:fixed; bottom:26px; left:50%; transform:translateX(-50%); z-index:6;
+    font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:#cdbfa9;
+    transition:opacity .5s ease; text-align:center}
+  .hint b{color:#e9dfd0; font-weight:500}
+  .bar{position:fixed; bottom:0; left:0; height:3px; background:#d8a583; z-index:6; width:0;
+    transition:width .12s linear; box-shadow:0 0 10px rgba(216,165,131,.6)}
+
+  /* lightbox */
+  .lb{position:fixed; inset:0; z-index:20; background:rgba(8,6,5,.93); display:none;
+    align-items:center; justify-content:center; flex-direction:column; padding:34px; cursor:zoom-out}
+  .lb.open{display:flex}
+  .lb img{max-width:90vw; max-height:80vh; border-radius:2px; box-shadow:0 24px 64px rgba(0,0,0,.65)}
+  .lb figcaption{margin-top:18px; font-family:var(--serif); font-size:19px; color:#e9dfd0}
+  .lb .x{position:fixed; top:20px; right:24px; font-family:var(--mono); font-size:13px; color:#cdbfa9}
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="hall" id="hall"></div>
+  </div>
+  <div class="vig"></div>
+
+  <div class="tl">
+    <div class="t">Aanya Shah</div>
+    <div class="s">Studio, a walk-through</div>
+    <a href="art.html">&larr; leave the gallery</a>
+  </div>
+  <div class="hint" id="hint"><b>scroll</b> or use <b>arrow keys</b> to walk &middot; click a painting to view</div>
+  <div class="bar" id="bar"></div>
+
+  <figure class="lb" id="lb"><img id="lbimg" src="" alt="" /><figcaption id="lbcap"></figcaption><span class="x">click anywhere to close</span></figure>
+
+<script>
+(function(){
+  var CFG={HALFW:440, H:620, STEP:950, START:660, LEN:5600, MAX:4700};
+  var ART=[
+    ['restless','Restless'],['overwhelm','Overwhelm'],['floating','Floating'],
+    ['conversations-with-myself','Conversations with Myself'],['shaping','Shaping'],
+    ['before-the-destination','Before the Destination'],['detach','Detach'],
+    ['evolving','Evolving'],['distorting','Distorting'],['space','Space']
+  ];
+  var hall=document.getElementById('hall');
+  var HALFW=CFG.HALFW, H=CFG.H, LEN=CFG.LEN;
+
+  function surf(tf,w,h,bg){
+    var d=document.createElement('div'); d.className='surf'; d.style.transform=tf;
+    d.innerHTML='<i style="width:'+w+'px;height:'+h+'px;background:'+bg+'"></i>'; hall.appendChild(d);
+  }
+  // room
+  surf('translate3d('+(-HALFW)+'px,0,'+(-LEN/2)+'px) rotateY(90deg)', LEN, H, 'linear-gradient(90deg,#2b221c,#171110)');
+  surf('translate3d('+(HALFW)+'px,0,'+(-LEN/2)+'px) rotateY(-90deg)', LEN, H, 'linear-gradient(90deg,#171110,#2b221c)');
+  surf('translate3d(0,'+(H/2)+'px,'+(-LEN/2)+'px) rotateX(90deg)', 2*HALFW, LEN, 'linear-gradient(#251b16,#100b09)');
+  surf('translate3d(0,'+(-H/2)+'px,'+(-LEN/2)+'px) rotateX(-90deg)', 2*HALFW, LEN, 'linear-gradient(#181211,#0e0a09)');
+  surf('translate3d(0,0,'+(-LEN)+'px)', 2*HALFW, H, 'radial-gradient(circle at 50% 45%,#2b221c,#100b09)');
+
+  // paintings on alternating walls
+  ART.forEach(function(a,i){
+    var row=Math.floor(i/2), side=i%2;                 // 0 left, 1 right
+    var z=-(CFG.START+row*CFG.STEP);
+    var x=side ? (HALFW-14) : -(HALFW-14);
+    var ry=side ? -66 : 66;
+    var d=document.createElement('div'); d.className='slot';
+    d.style.transform='translate3d('+x+'px,0,'+z+'px) rotateY('+ry+'deg)';
+    d.innerHTML='<figure class="pf"><img src="assets/paintings/'+a[0]+'.jpg" alt="'+a[1]+', oil on canvas" loading="lazy"/><figcaption>'+a[1]+'</figcaption></figure>';
+    d.querySelector('.pf').addEventListener('click',function(){ openLB(a[0],a[1]); });
+    hall.appendChild(d);
+  });
+
+  // walk controls
+  var pos=0, target=0, hint=document.getElementById('hint'), bar=document.getElementById('bar'), used=false;
+  function clamp(v){ return Math.max(0, Math.min(CFG.MAX, v)); }
+  function nudge(dv){ target=clamp(target+dv); if(!used){ used=true; hint.style.opacity='0'; } }
+  window.addEventListener('wheel', function(e){ e.preventDefault(); nudge(e.deltaY*1.1); }, {passive:false});
+  window.addEventListener('keydown', function(e){
+    if(e.key==='ArrowDown'||e.key==='s') nudge(150);
+    else if(e.key==='ArrowUp'||e.key==='w') nudge(-150);
+    else if(e.key==='Escape') closeLB();
+  });
+  var ty=null;
+  window.addEventListener('touchstart', function(e){ ty=e.touches[0].clientY; }, {passive:true});
+  window.addEventListener('touchmove', function(e){ if(ty!=null){ nudge((ty-e.touches[0].clientY)*2.2); ty=e.touches[0].clientY; } }, {passive:true});
+
+  function loop(){
+    pos += (target-pos)*0.09;
+    hall.style.transform='translateZ('+pos+'px)';
+    bar.style.width=(pos/CFG.MAX*100)+'%';
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // lightbox
+  var lb=document.getElementById('lb'), lbi=document.getElementById('lbimg'), lbc=document.getElementById('lbcap');
+  function openLB(slug,title){ lbi.src='assets/paintings/'+slug+'.jpg'; lbi.alt=title; lbc.textContent=title; lb.classList.add('open'); }
+  function closeLB(){ lb.classList.remove('open'); }
+  lb.addEventListener('click', closeLB);
+
+  // year (shared helper not loaded here; harmless)
+})();
+</script>
+</body>
+</html>
