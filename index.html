@@ -135,6 +135,12 @@
       <figure class="art"><img src="assets/paintings/floating.jpg" alt="Floating, oil on canvas" loading="lazy" /><figcaption>Floating</figcaption></figure>
       <figure class="art"><img src="assets/paintings/before-the-destination.jpg" alt="Before the Destination, oil on canvas" loading="lazy" /><figcaption>Before the Destination</figcaption></figure>
     </div>
+    <p class="viewer-lead">Or step inside and walk through the gallery:</p>
+    <div class="viewer" id="viewer">
+      <iframe id="gframe" src="gallery.html?inline" title="3D walk-through gallery of Aanya Shah's paintings" loading="lazy"></iframe>
+      <button class="walk" id="walkBtn" type="button">walk through &rarr;</button>
+      <button class="vclose" id="closeBtn" type="button" aria-label="close the gallery">&times; close</button>
+    </div>
     <p class="studio-more"><a href="art.html">See the full studio, exhibitions &amp; awards &rarr;</a></p>
   </div>
 </section>
@@ -181,5 +187,18 @@
 
 <script src="js/field.js"></script>
 <script src="js/motifs.js"></script>
+<script>
+/* Studio 3D viewer: inline panel expands to the full immersive walk-through */
+(function(){
+  var v=document.getElementById('viewer'), f=document.getElementById('gframe'),
+      w=document.getElementById('walkBtn'), c=document.getElementById('closeBtn');
+  if(!v) return;
+  function expand(){ v.classList.add('expanded'); f.src='gallery.html'; document.body.style.overflow='hidden'; }
+  function collapse(){ v.classList.remove('expanded'); f.src='gallery.html?inline'; document.body.style.overflow=''; }
+  w.addEventListener('click', expand);
+  c.addEventListener('click', collapse);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && v.classList.contains('expanded')) collapse(); });
+})();
+</script>
 </body>
 </html>
