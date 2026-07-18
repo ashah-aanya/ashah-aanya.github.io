@@ -7,16 +7,16 @@
 <meta name="description" content="A walk-through first-person gallery of Aanya Shah's oil paintings." />
 <link rel="stylesheet" href="css/styles.css" />
 <style>
-  html,body{margin:0; height:100%; overflow:hidden; background:#d9d5cc}
+  html,body{margin:0; height:100%; overflow:hidden; background:#cfcbc2}
   #gl{display:block; position:fixed; inset:0}
   .cross{position:fixed; left:50%; top:50%; width:5px; height:5px; margin:-2.5px 0 0 -2.5px;
-    border-radius:50%; background:rgba(34,29,22,.45); z-index:4; pointer-events:none; display:none}
+    border-radius:50%; background:rgba(34,29,22,.4); z-index:4; pointer-events:none; display:none}
   .title{position:fixed; bottom:34px; left:50%; transform:translateX(-50%); z-index:4;
     font-family:var(--serif); font-style:italic; font-size:20px; color:#221d16; pointer-events:none;
     text-shadow:0 1px 12px rgba(240,238,232,.9); min-height:1.4em}
   .overlay{position:fixed; inset:0; z-index:10; display:flex; flex-direction:column;
     align-items:center; justify-content:center; text-align:center; cursor:pointer;
-    background:rgba(238,236,230,.8); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px)}
+    background:rgba(236,234,228,.82); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px)}
   .overlay.hidden{display:none}
   .overlay h1{font-family:var(--serif); font-weight:500; font-size:clamp(34px,7vw,58px);
     letter-spacing:-.015em; margin:0; color:#211c15}
@@ -44,6 +44,7 @@
   </div>
 
 <script src="js/vendor/three.min.js"></script>
+<script src="js/vendor/Reflector.js"></script>
 <script src="js/vendor/PointerLockControls.js"></script>
 <script>
 (function(){
@@ -53,98 +54,110 @@
     ['before-the-destination','Before the Destination'],['detach','Detach'],
     ['evolving','Evolving'],['distorting','Distorting'],['space','Space']
   ];
-  var HALF=12, ZBACK=-32, ZFRONT=4, HTALL=7, LEN=ZFRONT-ZBACK, MIDZ=(ZFRONT+ZBACK)/2, W=HALF*2;
+  // human-scale room
+  var HALF=6.5, ZBACK=-22, ZFRONT=3, HTALL=4.2, LEN=ZFRONT-ZBACK, MIDZ=(ZFRONT+ZBACK)/2, W=HALF*2;
 
   var renderer=new THREE.WebGLRenderer({canvas:document.getElementById('gl'), antialias:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.02;
   renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 
   var scene=new THREE.Scene();
-  scene.background=new THREE.Color(0xeeece6);
-  var camera=new THREE.PerspectiveCamera(70, innerWidth/innerHeight, 0.1, 200);
+  scene.background=new THREE.Color(0xe7e4dd);
+  var camera=new THREE.PerspectiveCamera(66, innerWidth/innerHeight, 0.1, 200);
   var maxAniso=renderer.capabilities.getMaxAnisotropy();
 
-  // ---- lighting: soft fill + one shadow-casting key light + per-piece spots ----
-  scene.add(new THREE.AmbientLight(0xffffff, 0.32));
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xe7e4dc, 0.5));
-  var key=new THREE.DirectionalLight(0xffffff, 0.55);
-  key.position.set(7, 17, 6); key.target.position.set(0,0,MIDZ);
-  key.castShadow=true; key.shadow.mapSize.set(2048,2048);
-  var sc=key.shadow.camera; sc.left=-16; sc.right=16; sc.top=22; sc.bottom=-22; sc.near=1; sc.far=44;
-  key.shadow.bias=-0.0004;
+  // ---- soft environment lighting (IBL) from a gradient, for realistic fill + floor sheen ----
+  function makeEnv(){
+    var c=document.createElement('canvas'); c.width=512; c.height=256; var x=c.getContext('2d');
+    var g=x.createLinearGradient(0,0,0,256);
+    g.addColorStop(0,'#ffffff'); g.addColorStop(0.42,'#f2f0ea'); g.addColorStop(0.6,'#e9e6df'); g.addColorStop(1,'#cbc7be');
+    x.fillStyle=g; x.fillRect(0,0,512,256);
+    x.fillStyle='rgba(255,255,255,0.85)'; x.fillRect(0,14,512,30);       // ceiling glow band
+    var t=new THREE.CanvasTexture(c); t.mapping=THREE.EquirectangularReflectionMapping; return t;
+  }
+  var pmrem=new THREE.PMREMGenerator(renderer); pmrem.compileEquirectangularShader();
+  scene.environment=pmrem.fromEquirectangular(makeEnv()).texture;
+
+  // ---- gentle direct lights ----
+  scene.add(new THREE.AmbientLight(0xffffff, 0.13));
+  var key=new THREE.DirectionalLight(0xfff8ef, 0.5);
+  key.position.set(4, 10, 5); key.target.position.set(0,0,MIDZ);
+  key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.radius=6;
+  var sc=key.shadow.camera; sc.left=-11; sc.right=11; sc.top=14; sc.bottom=-14; sc.near=1; sc.far=30; key.shadow.bias=-0.0004;
   scene.add(key); scene.add(key.target);
 
   // ---- room ----
-  var wallMat=new THREE.MeshStandardMaterial({color:0xf4f2ee, roughness:0.97, metalness:0, side:THREE.DoubleSide});
-  var floorMat=new THREE.MeshStandardMaterial({color:0xe6e2da, roughness:0.75, metalness:0.02});
-  var ceilMat=new THREE.MeshStandardMaterial({color:0xf8f7f4, roughness:1, metalness:0});
+  var wallMat=new THREE.MeshStandardMaterial({color:0xeceae3, roughness:0.95, metalness:0, side:THREE.DoubleSide});
+  var floorMat=new THREE.MeshStandardMaterial({color:0xd7d3ca, roughness:0.32, metalness:0.0, envMapIntensity:1.1});
+  var ceilMat=new THREE.MeshStandardMaterial({color:0xf3f1ec, roughness:1, metalness:0});
   function plane(mat,w,h){ return new THREE.Mesh(new THREE.PlaneGeometry(w,h), mat); }
-  var floor=plane(floorMat,W,LEN); floor.rotation.x=-Math.PI/2; floor.position.set(0,0,MIDZ); floor.receiveShadow=true; scene.add(floor);
+  // polished floor: a mirror reflector with a translucent stone layer over it
+  var reflector=new THREE.Reflector(new THREE.PlaneGeometry(W,LEN), {
+    clipBias:0.003, textureWidth:innerWidth*renderer.getPixelRatio(),
+    textureHeight:innerHeight*renderer.getPixelRatio(), color:0x8b8b8b });
+  reflector.rotation.x=-Math.PI/2; reflector.position.set(0,0.001,MIDZ); scene.add(reflector);
+  floorMat.transparent=true; floorMat.opacity=0.7;
+  var floor=plane(floorMat,W,LEN); floor.rotation.x=-Math.PI/2; floor.position.set(0,0.014,MIDZ); floor.receiveShadow=true; scene.add(floor);
   var ceil=plane(ceilMat,W,LEN); ceil.rotation.x=Math.PI/2; ceil.position.set(0,HTALL,MIDZ); scene.add(ceil);
-  function wall(w,x,z,ry){ var m=plane(wallMat,w,HTALL); m.position.set(x,HTALL/2,z); m.rotation.y=ry; m.receiveShadow=true; scene.add(m); return m; }
+  function wall(w,x,z,ry){ var m=plane(wallMat,w,HTALL); m.position.set(x,HTALL/2,z); m.rotation.y=ry; m.receiveShadow=true; scene.add(m); }
   wall(W,0,ZBACK,0); wall(W,0,ZFRONT,Math.PI); wall(LEN,-HALF,MIDZ,Math.PI/2); wall(LEN,HALF,MIDZ,-Math.PI/2);
 
-  // baseboards
-  var baseMat=new THREE.MeshStandardMaterial({color:0xdedad0, roughness:1});
-  function base(w,x,z,ry){ var m=new THREE.Mesh(new THREE.BoxGeometry(w,0.14,0.05), baseMat); m.position.set(x,0.07,z); m.rotation.y=ry; m.receiveShadow=true; scene.add(m); }
-  base(W,0,ZBACK+0.03,0); base(LEN,-HALF+0.03,MIDZ,Math.PI/2); base(LEN,HALF-0.03,MIDZ,Math.PI/2);
+  var baseMat=new THREE.MeshStandardMaterial({color:0xdcd8ce, roughness:1});
+  function base(w,x,z,ry){ var m=new THREE.Mesh(new THREE.BoxGeometry(w,0.12,0.04), baseMat); m.position.set(x,0.06,z); m.rotation.y=ry; scene.add(m); }
+  base(W,0,ZBACK+0.025,0); base(LEN,-HALF+0.025,MIDZ,Math.PI/2); base(LEN,HALF-0.025,MIDZ,Math.PI/2);
 
-  // benches down the aisle
+  // benches
   var benchMat=new THREE.MeshStandardMaterial({color:0xdedacf, roughness:0.85});
-  var legMat=new THREE.MeshStandardMaterial({color:0x3a3630, roughness:0.5, metalness:0.2});
+  var legMat=new THREE.MeshStandardMaterial({color:0x33302a, roughness:0.5, metalness:0.2});
   function bench(z){
-    var seat=new THREE.Mesh(new THREE.BoxGeometry(2.6,0.22,0.72), benchMat);
-    seat.position.set(0,0.5,z); seat.castShadow=true; seat.receiveShadow=true; scene.add(seat);
-    [-1.15,1.15].forEach(function(dx){ var l=new THREE.Mesh(new THREE.BoxGeometry(0.12,0.4,0.6),legMat);
-      l.position.set(dx,0.2,z); l.castShadow=true; scene.add(l); });
+    var seat=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.16,0.6), benchMat);
+    seat.position.set(0,0.46,z); seat.castShadow=true; seat.receiveShadow=true; scene.add(seat);
+    [-0.95,0.95].forEach(function(dx){ var l=new THREE.Mesh(new THREE.BoxGeometry(0.1,0.42,0.5),legMat);
+      l.position.set(dx,0.21,z); l.castShadow=true; scene.add(l); });
   }
-  bench(-9); bench(-22);
+  bench(-7); bench(-15);
 
-  // ---- text label plaques ----
   function labelTex(title){
-    var c=document.createElement('canvas'); c.width=512; c.height=224;
-    var x=c.getContext('2d'); x.fillStyle='#f4f2ee'; x.fillRect(0,0,512,224);
-    x.fillStyle='#221d16'; x.textBaseline='top'; x.font='600 42px Georgia, serif'; x.fillText(title,20,54);
-    x.fillStyle='#6b6250'; x.font='26px monospace'; x.fillText('Aanya Shah  |  oil on canvas',20,132);
+    var c=document.createElement('canvas'); c.width=512; c.height=210; var x=c.getContext('2d');
+    x.fillStyle='#f4f2ee'; x.fillRect(0,0,512,210);
+    x.fillStyle='#221d16'; x.textBaseline='top'; x.font='600 40px Georgia, serif'; x.fillText(title,18,48);
+    x.fillStyle='#6b6250'; x.font='24px monospace'; x.fillText('Aanya Shah  |  oil on canvas',18,120);
     var t=new THREE.CanvasTexture(c); t.encoding=THREE.sRGBEncoding; t.anisotropy=maxAniso; return t;
   }
 
-  // ---- paintings as protruding boxes, each with a spotlight + label ----
-  var loader=new THREE.TextureLoader(), paintings=[], PY=2.7, DEPTH=0.08;
-  var edgeMat=new THREE.MeshStandardMaterial({color:0xf2eee6, roughness:0.9});
+  // ---- paintings: protruding boxes + soft picture light + label ----
+  var loader=new THREE.TextureLoader(), paintings=[], PY=1.75, DEPTH=0.05;
+  var edgeMat=new THREE.MeshStandardMaterial({color:0xf1ede5, roughness:0.85});
   var placement=[
-    [-HALF, PY, -6,  Math.PI/2], [ HALF, PY, -6, -Math.PI/2],
-    [-HALF, PY, -13, Math.PI/2], [ HALF, PY, -13,-Math.PI/2],
-    [-HALF, PY, -20, Math.PI/2], [ HALF, PY, -20,-Math.PI/2],
-    [-HALF, PY, -27, Math.PI/2], [ HALF, PY, -27,-Math.PI/2],
-    [-5, PY, ZBACK, 0],          [ 5, PY, ZBACK, 0]
+    [-HALF, PY, -3.5, Math.PI/2], [ HALF, PY, -3.5,-Math.PI/2],
+    [-HALF, PY, -9,   Math.PI/2], [ HALF, PY, -9,  -Math.PI/2],
+    [-HALF, PY, -14.5,Math.PI/2], [ HALF, PY, -14.5,-Math.PI/2],
+    [-HALF, PY, -20,  Math.PI/2], [ HALF, PY, -20, -Math.PI/2],
+    [-3.4, PY, ZBACK, 0],         [ 3.4, PY, ZBACK, 0]
   ];
   ART.forEach(function(a,i){
     var p=placement[i];
     loader.load('assets/paintings/'+a[0]+'.jpg', function(tex){
       tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso;
-      var asp=tex.image.width/tex.image.height, H=2.3, Wd=H*asp;
-      var faceMat=new THREE.MeshStandardMaterial({map:tex, roughness:0.55, metalness:0});
-      var mats=[edgeMat,edgeMat,edgeMat,edgeMat,faceMat,edgeMat]; // +z face = image
-      var box=new THREE.Mesh(new THREE.BoxGeometry(Wd,H,DEPTH), mats);
+      var asp=tex.image.width/tex.image.height, H=1.95, Wd=H*asp;
+      var faceMat=new THREE.MeshStandardMaterial({map:tex, roughness:0.5, metalness:0, envMapIntensity:0.4});
+      var box=new THREE.Mesh(new THREE.BoxGeometry(Wd,H,DEPTH), [edgeMat,edgeMat,edgeMat,edgeMat,faceMat,edgeMat]);
       box.castShadow=true; box.receiveShadow=true; box.position.z=DEPTH/2; box.userData.title=a[1];
       var g=new THREE.Group(); g.add(box);
-      // label to the lower-right, on the wall
-      var lab=new THREE.Mesh(new THREE.PlaneGeometry(0.66,0.29), new THREE.MeshBasicMaterial({map:labelTex(a[1]), toneMapped:false}));
-      lab.position.set(Wd/2+0.5, -0.75, 0.02); g.add(lab);
-      g.position.set(p[0],p[1],p[2]); g.rotation.y=p[3];
-      scene.add(g); paintings.push(box);
-      // spotlight aimed at the piece
+      var lab=new THREE.Mesh(new THREE.PlaneGeometry(0.6,0.246), new THREE.MeshBasicMaterial({map:labelTex(a[1]), toneMapped:false}));
+      lab.position.set(Wd/2+0.42, -0.62, 0.02); g.add(lab);
+      g.position.set(p[0],p[1],p[2]); g.rotation.y=p[3]; scene.add(g); paintings.push(box);
+      // soft picture light close above, aimed straight at the piece
       var nx=Math.sin(p[3]), nz=Math.cos(p[3]);
-      var spot=new THREE.SpotLight(0xfff3e2, 3.0, 16, 0.5, 0.55, 1.2);
-      spot.position.set(p[0]+nx*2.6, p[1]+2.9, p[2]+nz*2.6);
-      spot.target.position.set(p[0]+nx*0.2, p[1], p[2]+nz*0.2);
+      var spot=new THREE.SpotLight(0xfff4e6, 1.7, 8, 0.62, 0.9, 1.4);
+      spot.position.set(p[0]+nx*0.9, p[1]+1.45, p[2]+nz*0.9);
+      spot.target.position.set(p[0], p[1], p[2]);
       scene.add(spot); scene.add(spot.target);
-      // ceiling track fixture at the spotlight origin
-      var fix=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.1,0.22,12), legMat);
-      fix.position.set(p[0]+nx*2.6, HTALL-0.12, p[2]+nz*2.6); scene.add(fix);
+      var fix=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.075,0.16,12), legMat);
+      fix.position.set(p[0]+nx*1.0, HTALL-0.09, p[2]+nz*1.0); scene.add(fix);
     });
   });
 
@@ -157,14 +170,17 @@
   controls.addEventListener('lock', function(){ overlay.classList.add('hidden'); cross.style.display='block'; leave.style.display='block'; });
   controls.addEventListener('unlock', function(){ overlay.classList.remove('hidden'); cross.style.display='none'; leave.style.display='none'; titleEl.textContent=''; });
 
+  var Q=new URLSearchParams(location.search);
+  if(Q.has('shot')){
+    overlay.classList.add('hidden');
+    var preset={ '1':[0,1.65,0,0], '2':[-4.5,1.65,-3.5,-1.4], '3':[0,1.65,-12,Math.PI], '4':[3.5,1.65,-9,-2.5], '5':[0,1.65,-4,0] }[Q.get('shot')]||[0,1.65,0,0];
+    var cam=controls.getObject(); cam.position.set(preset[0],preset[1],preset[2]); cam.rotation.set(0,preset[3],0,'YXZ');
+  }
+
   var move={f:false,b:false,l:false,r:false};
   function key2(e,v){
-    switch(e.code){
-      case 'KeyW': case 'ArrowUp': move.f=v; break;
-      case 'KeyS': case 'ArrowDown': move.b=v; break;
-      case 'KeyA': case 'ArrowLeft': move.l=v; break;
-      case 'KeyD': case 'ArrowRight': move.r=v; break;
-    }
+    switch(e.code){ case 'KeyW': case 'ArrowUp': move.f=v; break; case 'KeyS': case 'ArrowDown': move.b=v; break;
+      case 'KeyA': case 'ArrowLeft': move.l=v; break; case 'KeyD': case 'ArrowRight': move.r=v; break; }
     if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].indexOf(e.code)>-1) e.preventDefault();
   }
   document.addEventListener('keydown', function(e){ key2(e,true); });
@@ -176,18 +192,17 @@
     var dt=Math.min(clock.getDelta(),0.05);
     velocity.x-=velocity.x*8*dt; velocity.z-=velocity.z*8*dt;
     direction.z=Number(move.f)-Number(move.b); direction.x=Number(move.r)-Number(move.l); direction.normalize();
-    var SPEED=48;
+    var SPEED=34;
     if(move.f||move.b) velocity.z-=direction.z*SPEED*dt;
     if(move.l||move.r) velocity.x-=direction.x*SPEED*dt;
     if(controls.isLocked){
       controls.moveRight(-velocity.x*dt); controls.moveForward(-velocity.z*dt);
       var o=controls.getObject();
-      o.position.x=Math.max(-HALF+0.7,Math.min(HALF-0.7,o.position.x));
-      o.position.z=Math.max(ZBACK+0.7,Math.min(ZFRONT-0.7,o.position.z));
-      o.position.y=1.65;
+      o.position.x=Math.max(-HALF+0.6,Math.min(HALF-0.6,o.position.x));
+      o.position.z=Math.max(ZBACK+0.6,Math.min(ZFRONT-0.6,o.position.z)); o.position.y=1.65;
       ray.setFromCamera({x:0,y:0},camera);
       var hits=ray.intersectObjects(paintings);
-      titleEl.textContent=(hits.length && hits[0].distance<9)?hits[0].object.userData.title:'';
+      titleEl.textContent=(hits.length && hits[0].distance<7)?hits[0].object.userData.title:'';
     }
     renderer.render(scene,camera);
   }
