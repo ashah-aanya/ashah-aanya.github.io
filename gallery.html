@@ -4,134 +4,170 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gallery — Aanya Shah</title>
-<meta name="description" content="A walk-through gallery of Aanya Shah's oil paintings." />
+<meta name="description" content="A walk-through first-person gallery of Aanya Shah's oil paintings." />
 <link rel="stylesheet" href="css/styles.css" />
 <style>
-  html,body{margin:0; height:100%; overflow:hidden; background:#0e0a09}
-  .scene{position:fixed; inset:0; overflow:hidden; perspective:760px; perspective-origin:50% 46%;
-    background:radial-gradient(circle at 50% 42%, #241a16 0%, #0c0908 72%)}
-  .hall{position:absolute; inset:0; transform-style:preserve-3d; will-change:transform}
+  html,body{margin:0; height:100%; overflow:hidden; background:#eceae4}
+  #gl{display:block; position:fixed; inset:0}
 
-  /* 3d surfaces (walls / floor / ceiling / back) */
-  .surf{position:absolute; left:50%; top:50%; transform-style:preserve-3d}
-  .surf i{display:block; position:absolute; transform:translate(-50%,-50%)}
+  /* crosshair + title readout */
+  .cross{position:fixed; left:50%; top:50%; width:5px; height:5px; margin:-2.5px 0 0 -2.5px;
+    border-radius:50%; background:rgba(34,29,22,.5); z-index:4; pointer-events:none; display:none}
+  .title{position:fixed; bottom:34px; left:50%; transform:translateX(-50%); z-index:4;
+    font-family:var(--serif); font-style:italic; font-size:20px; color:#221d16; pointer-events:none;
+    text-shadow:0 1px 10px rgba(236,234,228,.9); min-height:1.4em}
 
-  /* paintings */
-  .slot{position:absolute; left:50%; top:50%; transform-style:preserve-3d}
-  .pf{position:absolute; transform:translate(-50%,-50%); width:300px; margin:0; cursor:zoom-in}
-  .pf img{display:block; width:100%; height:auto; border-radius:2px;
-    box-shadow:0 0 0 6px #15110e, 0 0 42px 10px rgba(232,182,122,.14), 0 26px 52px rgba(0,0,0,.6)}
-  .pf:hover img{box-shadow:0 0 0 6px #1c1613, 0 0 64px 14px rgba(236,190,132,.24), 0 26px 52px rgba(0,0,0,.6)}
-  .pf figcaption{margin-top:13px; text-align:center; font-family:var(--serif); font-size:15px;
-    color:#e9dfd0; letter-spacing:.01em}
-
-  .vig{position:fixed; inset:0; pointer-events:none; z-index:5;
-    background:radial-gradient(circle at 50% 46%, transparent 42%, rgba(0,0,0,.58) 100%)}
-
-  /* hud */
-  .tl{position:fixed; top:22px; left:24px; z-index:6; color:#e9dfd0}
-  .tl .t{font-family:var(--serif); font-size:21px; letter-spacing:.01em}
-  .tl .s{font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
-    color:#b3a998; margin-top:4px}
-  .tl a{color:#d8a583; font-family:var(--mono); font-size:12px; display:inline-block; margin-top:14px;
-    text-decoration:none; border-bottom:1px solid rgba(216,165,131,.4)}
-  .hint{position:fixed; bottom:26px; left:50%; transform:translateX(-50%); z-index:6;
-    font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:#cdbfa9;
-    transition:opacity .5s ease; text-align:center}
-  .hint b{color:#e9dfd0; font-weight:500}
-  .bar{position:fixed; bottom:0; left:0; height:3px; background:#d8a583; z-index:6; width:0;
-    transition:width .12s linear; box-shadow:0 0 10px rgba(216,165,131,.6)}
-
-  /* lightbox */
-  .lb{position:fixed; inset:0; z-index:20; background:rgba(8,6,5,.93); display:none;
-    align-items:center; justify-content:center; flex-direction:column; padding:34px; cursor:zoom-out}
-  .lb.open{display:flex}
-  .lb img{max-width:90vw; max-height:80vh; border-radius:2px; box-shadow:0 24px 64px rgba(0,0,0,.65)}
-  .lb figcaption{margin-top:18px; font-family:var(--serif); font-size:19px; color:#e9dfd0}
-  .lb .x{position:fixed; top:20px; right:24px; font-family:var(--mono); font-size:13px; color:#cdbfa9}
+  /* enter / instructions overlay */
+  .overlay{position:fixed; inset:0; z-index:10; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; cursor:pointer;
+    background:rgba(240,238,232,.78); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px)}
+  .overlay.hidden{display:none}
+  .overlay h1{font-family:var(--serif); font-weight:500; font-size:clamp(34px,7vw,58px);
+    letter-spacing:-.015em; margin:0; color:#211c15}
+  .overlay h1 em{font-style:italic; color:var(--oxblood)}
+  .overlay .sub{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); margin:14px 0 26px}
+  .overlay .enter{font-family:var(--mono); font-size:14px; color:#fff; background:var(--oxblood);
+    padding:12px 22px; border-radius:4px; letter-spacing:.02em}
+  .overlay .keys{margin:26px 0 0; font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); line-height:1.9}
+  .overlay .keys b{color:var(--ink)}
+  .leave{position:fixed; top:20px; left:24px; z-index:6; font-family:var(--mono); font-size:12px;
+    color:var(--oxblood); text-decoration:none; border-bottom:1px solid rgba(138,43,34,.4); display:none}
 </style>
 </head>
 <body>
-  <div class="scene">
-    <div class="hall" id="hall"></div>
+  <canvas id="gl"></canvas>
+  <div class="cross" id="cross"></div>
+  <div class="title" id="title"></div>
+  <a class="leave" id="leave" href="art.html">&larr; leave the gallery</a>
+
+  <div class="overlay" id="overlay">
+    <h1>Aanya <em>Shah</em></h1>
+    <div class="sub">Studio &middot; walk-through gallery</div>
+    <div class="enter">click to walk in</div>
+    <div class="keys"><b>W A S D</b> or <b>arrow keys</b> to move &middot; <b>mouse</b> to look &middot; <b>Esc</b> to exit</div>
   </div>
-  <div class="vig"></div>
 
-  <div class="tl">
-    <div class="t">Aanya Shah</div>
-    <div class="s">Studio, a walk-through</div>
-    <a href="art.html">&larr; leave the gallery</a>
-  </div>
-  <div class="hint" id="hint"><b>scroll</b> or use <b>arrow keys</b> to walk &middot; click a painting to view</div>
-  <div class="bar" id="bar"></div>
-
-  <figure class="lb" id="lb"><img id="lbimg" src="" alt="" /><figcaption id="lbcap"></figcaption><span class="x">click anywhere to close</span></figure>
-
+<script src="js/vendor/three.min.js"></script>
+<script src="js/vendor/PointerLockControls.js"></script>
 <script>
 (function(){
-  var CFG={HALFW:440, H:620, STEP:950, START:660, LEN:5600, MAX:4700};
   var ART=[
     ['restless','Restless'],['overwhelm','Overwhelm'],['floating','Floating'],
     ['conversations-with-myself','Conversations with Myself'],['shaping','Shaping'],
     ['before-the-destination','Before the Destination'],['detach','Detach'],
     ['evolving','Evolving'],['distorting','Distorting'],['space','Space']
   ];
-  var hall=document.getElementById('hall');
-  var HALFW=CFG.HALFW, H=CFG.H, LEN=CFG.LEN;
+  var HALF=12, ZBACK=-32, ZFRONT=4, HTALL=7;
 
-  function surf(tf,w,h,bg){
-    var d=document.createElement('div'); d.className='surf'; d.style.transform=tf;
-    d.innerHTML='<i style="width:'+w+'px;height:'+h+'px;background:'+bg+'"></i>'; hall.appendChild(d);
-  }
+  var renderer=new THREE.WebGLRenderer({canvas:document.getElementById('gl'), antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.outputEncoding=THREE.sRGBEncoding;
+
+  var scene=new THREE.Scene();
+  scene.background=new THREE.Color(0xf1efe9);
+  var camera=new THREE.PerspectiveCamera(70, innerWidth/innerHeight, 0.1, 200);
+
+  // clean gallery lighting
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xebe9e2, 1.0));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+  var dir=new THREE.DirectionalLight(0xffffff, 0.35); dir.position.set(6,14,4); scene.add(dir);
+
   // room
-  surf('translate3d('+(-HALFW)+'px,0,'+(-LEN/2)+'px) rotateY(90deg)', LEN, H, 'linear-gradient(90deg,#2b221c,#171110)');
-  surf('translate3d('+(HALFW)+'px,0,'+(-LEN/2)+'px) rotateY(-90deg)', LEN, H, 'linear-gradient(90deg,#171110,#2b221c)');
-  surf('translate3d(0,'+(H/2)+'px,'+(-LEN/2)+'px) rotateX(90deg)', 2*HALFW, LEN, 'linear-gradient(#251b16,#100b09)');
-  surf('translate3d(0,'+(-H/2)+'px,'+(-LEN/2)+'px) rotateX(-90deg)', 2*HALFW, LEN, 'linear-gradient(#181211,#0e0a09)');
-  surf('translate3d(0,0,'+(-LEN)+'px)', 2*HALFW, H, 'radial-gradient(circle at 50% 45%,#2b221c,#100b09)');
+  var wallMat=new THREE.MeshStandardMaterial({color:0xf4f2ee, roughness:0.96, metalness:0, side:THREE.DoubleSide});
+  var floorMat=new THREE.MeshStandardMaterial({color:0xe7e3db, roughness:1, metalness:0});
+  var ceilMat=new THREE.MeshStandardMaterial({color:0xfafaf7, roughness:1, metalness:0});
+  var LEN=ZFRONT-ZBACK, MIDZ=(ZFRONT+ZBACK)/2, W=HALF*2;
+  function plane(mat, w, h){ return new THREE.Mesh(new THREE.PlaneGeometry(w,h), mat); }
+  var floor=plane(floorMat, W, LEN); floor.rotation.x=-Math.PI/2; floor.position.set(0,0,MIDZ); scene.add(floor);
+  var ceil=plane(ceilMat, W, LEN); ceil.rotation.x=Math.PI/2; ceil.position.set(0,HTALL,MIDZ); scene.add(ceil);
+  var back=plane(wallMat, W, HTALL); back.position.set(0,HTALL/2,ZBACK); scene.add(back);
+  var front=plane(wallMat, W, HTALL); front.rotation.y=Math.PI; front.position.set(0,HTALL/2,ZFRONT); scene.add(front);
+  var left=plane(wallMat, LEN, HTALL); left.rotation.y=Math.PI/2; left.position.set(-HALF,HTALL/2,MIDZ); scene.add(left);
+  var right=plane(wallMat, LEN, HTALL); right.rotation.y=-Math.PI/2; right.position.set(HALF,HTALL/2,MIDZ); scene.add(right);
 
-  // paintings on alternating walls
+  // paintings placed around the room
+  var loader=new THREE.TextureLoader(), paintings=[];
+  var maxAniso=renderer.capabilities.getMaxAnisotropy();
+  var PY=2.7;
+  var placement=[
+    [-HALF+0.06, PY, -6,  Math.PI/2],  [ HALF-0.06, PY, -6, -Math.PI/2],
+    [-HALF+0.06, PY, -13, Math.PI/2],  [ HALF-0.06, PY, -13,-Math.PI/2],
+    [-HALF+0.06, PY, -20, Math.PI/2],  [ HALF-0.06, PY, -20,-Math.PI/2],
+    [-HALF+0.06, PY, -27, Math.PI/2],  [ HALF-0.06, PY, -27,-Math.PI/2],
+    [-5, PY, ZBACK+0.06, 0],           [ 5, PY, ZBACK+0.06, 0]
+  ];
   ART.forEach(function(a,i){
-    var row=Math.floor(i/2), side=i%2;                 // 0 left, 1 right
-    var z=-(CFG.START+row*CFG.STEP);
-    var x=side ? (HALFW-14) : -(HALFW-14);
-    var ry=side ? -66 : 66;
-    var d=document.createElement('div'); d.className='slot';
-    d.style.transform='translate3d('+x+'px,0,'+z+'px) rotateY('+ry+'deg)';
-    d.innerHTML='<figure class="pf"><img src="assets/paintings/'+a[0]+'.jpg" alt="'+a[1]+', oil on canvas" loading="lazy"/><figcaption>'+a[1]+'</figcaption></figure>';
-    d.querySelector('.pf').addEventListener('click',function(){ openLB(a[0],a[1]); });
-    hall.appendChild(d);
+    var p=placement[i];
+    loader.load('assets/paintings/'+a[0]+'.jpg', function(tex){
+      tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso;
+      var asp=tex.image.width/tex.image.height, H=2.4, Wd=H*asp;
+      var g=new THREE.Group();
+      var frame=new THREE.Mesh(new THREE.PlaneGeometry(Wd+0.16,H+0.16), new THREE.MeshBasicMaterial({color:0x17140f, toneMapped:false}));
+      frame.position.z=-0.015;
+      var img=new THREE.Mesh(new THREE.PlaneGeometry(Wd,H), new THREE.MeshBasicMaterial({map:tex, toneMapped:false}));
+      img.userData.title=a[1];
+      g.add(frame); g.add(img);
+      g.position.set(p[0],p[1],p[2]); g.rotation.y=p[3];
+      scene.add(g); paintings.push(img);
+    });
   });
 
-  // walk controls
-  var pos=0, target=0, hint=document.getElementById('hint'), bar=document.getElementById('bar'), used=false;
-  function clamp(v){ return Math.max(0, Math.min(CFG.MAX, v)); }
-  function nudge(dv){ target=clamp(target+dv); if(!used){ used=true; hint.style.opacity='0'; } }
-  window.addEventListener('wheel', function(e){ e.preventDefault(); nudge(e.deltaY*1.1); }, {passive:false});
-  window.addEventListener('keydown', function(e){
-    if(e.key==='ArrowDown'||e.key==='s') nudge(150);
-    else if(e.key==='ArrowUp'||e.key==='w') nudge(-150);
-    else if(e.key==='Escape') closeLB();
-  });
-  var ty=null;
-  window.addEventListener('touchstart', function(e){ ty=e.touches[0].clientY; }, {passive:true});
-  window.addEventListener('touchmove', function(e){ if(ty!=null){ nudge((ty-e.touches[0].clientY)*2.2); ty=e.touches[0].clientY; } }, {passive:true});
+  // controls
+  var controls=new THREE.PointerLockControls(camera, renderer.domElement);
+  controls.getObject().position.set(0,1.65,1);
+  scene.add(controls.getObject());
+  var overlay=document.getElementById('overlay'), cross=document.getElementById('cross'),
+      titleEl=document.getElementById('title'), leave=document.getElementById('leave');
+  overlay.addEventListener('click', function(){ controls.lock(); });
+  controls.addEventListener('lock', function(){ overlay.classList.add('hidden'); cross.style.display='block'; leave.style.display='block'; });
+  controls.addEventListener('unlock', function(){ overlay.classList.remove('hidden'); cross.style.display='none'; leave.style.display='none'; titleEl.textContent=''; });
 
-  function loop(){
-    pos += (target-pos)*0.09;
-    hall.style.transform='translateZ('+pos+'px)';
-    bar.style.width=(pos/CFG.MAX*100)+'%';
-    requestAnimationFrame(loop);
+  var move={f:false,b:false,l:false,r:false};
+  function key(e,v){
+    switch(e.code){
+      case 'KeyW': case 'ArrowUp': move.f=v; break;
+      case 'KeyS': case 'ArrowDown': move.b=v; break;
+      case 'KeyA': case 'ArrowLeft': move.l=v; break;
+      case 'KeyD': case 'ArrowRight': move.r=v; break;
+    }
+    if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].indexOf(e.code)>-1) e.preventDefault();
   }
-  loop();
+  document.addEventListener('keydown', function(e){ key(e,true); }, false);
+  document.addEventListener('keyup', function(e){ key(e,false); }, false);
 
-  // lightbox
-  var lb=document.getElementById('lb'), lbi=document.getElementById('lbimg'), lbc=document.getElementById('lbcap');
-  function openLB(slug,title){ lbi.src='assets/paintings/'+slug+'.jpg'; lbi.alt=title; lbc.textContent=title; lb.classList.add('open'); }
-  function closeLB(){ lb.classList.remove('open'); }
-  lb.addEventListener('click', closeLB);
+  var velocity=new THREE.Vector3(), direction=new THREE.Vector3(), clock=new THREE.Clock();
+  var ray=new THREE.Raycaster();
+  function animate(){
+    requestAnimationFrame(animate);
+    var d=Math.min(clock.getDelta(), 0.05);
+    velocity.x -= velocity.x*8*d; velocity.z -= velocity.z*8*d;
+    direction.z=Number(move.f)-Number(move.b);
+    direction.x=Number(move.r)-Number(move.l);
+    direction.normalize();
+    var SPEED=48;
+    if(move.f||move.b) velocity.z -= direction.z*SPEED*d;
+    if(move.l||move.r) velocity.x -= direction.x*SPEED*d;
+    if(controls.isLocked){
+      controls.moveRight(-velocity.x*d);
+      controls.moveForward(-velocity.z*d);
+      var o=controls.getObject();
+      o.position.x=Math.max(-HALF+0.7, Math.min(HALF-0.7, o.position.x));
+      o.position.z=Math.max(ZBACK+0.7, Math.min(ZFRONT-0.7, o.position.z));
+      o.position.y=1.65;
+      ray.setFromCamera({x:0,y:0}, camera);
+      var hits=ray.intersectObjects(paintings);
+      titleEl.textContent=(hits.length && hits[0].distance<9) ? hits[0].object.userData.title : '';
+    }
+    renderer.render(scene,camera);
+  }
+  animate();
 
-  // year (shared helper not loaded here; harmless)
+  window.addEventListener('resize', function(){
+    camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
 })();
 </script>
 </body>
