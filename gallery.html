@@ -63,7 +63,7 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.outputEncoding=THREE.sRGBEncoding;
-  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=0.82;
   renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 
   var scene=new THREE.Scene(); scene.background=new THREE.Color(0xecece7);
@@ -73,7 +73,7 @@
   function makeEnv(){
     var c=document.createElement('canvas'); c.width=512; c.height=256; var x=c.getContext('2d');
     var g=x.createLinearGradient(0,0,0,256);
-    g.addColorStop(0,'#ffffff'); g.addColorStop(0.5,'#f4f2ec'); g.addColorStop(1,'#e2ded5');
+    g.addColorStop(0,'#ece9e1'); g.addColorStop(0.5,'#e2dfd6'); g.addColorStop(1,'#d2cdc2');
     x.fillStyle=g; x.fillRect(0,0,512,256);
     var t=new THREE.CanvasTexture(c); t.mapping=THREE.EquirectangularReflectionMapping; return t;
   }
@@ -81,9 +81,9 @@
   scene.environment=pmrem.fromEquirectangular(makeEnv()).texture;
 
   // ---- soft, even lighting (like a real gallery: bright, gentle shadows) ----
-  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xefeadf, 0.75));
-  var key=new THREE.DirectionalLight(0xfff8ef, 0.42);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.26));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xe7e1d5, 0.4));
+  var key=new THREE.DirectionalLight(0xfff8ef, 0.4);
   key.position.set(3,12,4); key.target.position.set(0,0,MIDZ);
   key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.radius=7;
   var sc=key.shadow.camera; sc.left=-9; sc.right=9; sc.top=12; sc.bottom=-12; sc.near=1; sc.far=30; key.shadow.bias=-0.0004;
@@ -106,8 +106,8 @@
   var floorMat=new THREE.MeshStandardMaterial({map:woodTex(), roughness:0.72, metalness:0.02, envMapIntensity:0.3});
   var floor=plane(floorMat,W,LEN); floor.rotation.x=-Math.PI/2; floor.position.set(0,0,MIDZ); floor.receiveShadow=true; scene.add(floor);
 
-  var wallMat=new THREE.MeshStandardMaterial({color:0xf1efe9, roughness:0.96, metalness:0, side:THREE.DoubleSide});
-  var ceilMat=new THREE.MeshStandardMaterial({color:0xf6f5f1, roughness:1, metalness:0});
+  var wallMat=new THREE.MeshStandardMaterial({color:0xeae7e0, roughness:0.97, metalness:0, side:THREE.DoubleSide});
+  var ceilMat=new THREE.MeshStandardMaterial({color:0xedebe6, roughness:1, metalness:0});
   var ceil=plane(ceilMat,W,LEN); ceil.rotation.x=Math.PI/2; ceil.position.set(0,HTALL,MIDZ); scene.add(ceil);
   function wall(w,x,z,ry){ var m=plane(wallMat,w,HTALL); m.position.set(x,HTALL/2,z); m.rotation.y=ry; m.receiveShadow=true; scene.add(m); }
   wall(W,0,ZBACK,0); wall(W,0,ZFRONT,Math.PI); wall(LEN,-HALF,MIDZ,Math.PI/2); wall(LEN,HALF,MIDZ,-Math.PI/2);
