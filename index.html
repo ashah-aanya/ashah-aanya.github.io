@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Aanya Shah</title>
-<meta name="description" content="Aanya Shah — I build machine-learning systems: LLM evaluation, agents, and the tooling around them. Incoming CS @ Illinois." />
+<meta name="description" content="Aanya Shah: I build ML systems. CS @ Illinois." />
 <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -25,15 +25,13 @@
 <header class="hero">
   <canvas id="field" aria-hidden="true"></canvas>
   <div class="wrap">
-    <p class="eyebrow">machine learning <span class="dot">&middot;</span> evaluation <span class="dot">&middot;</span> reinforcement learning</p>
+    <p class="eyebrow">machine learning <span class="dot">&middot;</span> agentic engineering <span class="dot">&middot;</span> trustworthy AI</p>
     <h1 class="name">Aanya <em>Shah</em></h1>
-    <p class="tag">I build machine-learning systems &mdash; and the evaluation and tooling that make them trustworthy.</p>
+    <p class="tag">Computer Science @ UIUC</p>
     <p class="intro">
-      My work runs from LLM evaluation to reinforcement learning to shipping ML products: a
-      re-prompting loop at <a href="https://www.aimon.ai/posts/reprompting-smarter-loop-for-smarter-models/">AIMon</a>
-      that pushed 3&ndash;7B models past GPT-4o, an RL agent that trades options against a live paper
-      account, and an AI photo-curation app running on a cloud backend. I learn by building the
-      thing all the way down. Incoming CS @ Illinois (Grainger), Fall 2026.
+      I build machine learning systems and work to make them trustworthy. From training RL models to designing 
+      agentic pipelines to full-stack development, I am equally energized by deep technical problems and building 
+      real systems that can make meaningful impact.
     </p>
     <p class="social">
       <a href="https://github.com/ashah-aanya"><span>github</span>&nbsp;/ashah-aanya</a>
@@ -41,8 +39,8 @@
       <a href="https://linkedin.com/in/foraanyas"><span>linkedin</span>&nbsp;/in/foraanyas</a>
     </p>
     <p class="signature-note">
-      the drift above is a t-SNE-style point field &mdash; the same kind of embedding space I
-      rendered wall-sized and interactive in <em>Three Ways of Seeing</em>. it settles if you let it.
+      the drift above is an evolving t-SNE visualization of embedding space of words from my poetry, a demo of 
+      my interactive solo-exhibition <em>Three Ways of Seeing</em>. it settles if you let it.
     </p>
   </div>
 </header>
@@ -53,10 +51,10 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">Currently</span></div>
     <div class="cur">
-      <div class="cg"><span class="cl">Working on</span><p>an RL options-trading agent &mdash; train &middot; prove &middot; run live</p></div>
-      <div class="cg"><span class="cl">Excited about</span><p>reinforcement learning for real decisions &middot; agents that do real work</p></div>
-      <div class="cg"><span class="cl">Learning</span><p>building nanoGPT up from the math</p></div>
-      <div class="cg"><span class="cl">Reading</span><p>mechanistic interpretability</p></div>
+      <div class="cg"><span class="cl">Working on</span><p>an RL options-trading agent</p></div>
+      <div class="cg"><span class="cl">Excited about</span><p>improving an LLM-judge for evaluating my agentic pipeline</p></div>
+      <div class="cg"><span class="cl">Learning</span><p>the math behind PPO</p></div>
+      <div class="cg"><span class="cl">Reading</span><p>Thinking Fast and Slow by Daniel Kahneman</p></div>
     </div>
   </div>
 </section>
@@ -65,14 +63,14 @@
 <section id="work">
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">Projects</span></div>
-    <p class="sec-sub">The concrete stuff &mdash; most are open-source; each links out to code, a demo, or a writeup.</p>
 
     <div class="feat-list">
       <div class="feat" data-kind="bars" data-hue="indigo">
         <div class="ficon"><canvas aria-hidden="true"></canvas></div>
         <div class="fbody">
           <div class="fhead"><h3>RL options-trading agent</h3><span class="fmeta">personal &middot; 2025</span></div>
-          <p class="fdesc">A reinforcement-learning agent (PPO) that trades SPX options, with a simulator kept honest by validating it against real executed trades &mdash; then run on a paper IBKR account behind an MLflow + Grafana stack.</p>
+          <p class="fdesc">training a PPO RL agent in a custom Gymnasium env to trade options </p>
+          <p class="fdesc">built the end-to-end live trading system to execute trades autonomously</p>
           <div class="flinks"><span class="fnote">private repo</span></div>
         </div>
       </div>
@@ -126,27 +124,14 @@
 <section id="studio">
   <div class="wrap">
     <div class="sec-head"><span class="sec-title">Studio</span></div>
-    <p class="sec-sub">I paint oil self-portraits about identity. At Credo.AI&rsquo;s Agents of Trust Summit, 100+ leaders tried to tell my paintings from DALL&middot;E replicas. Your turn:</p>
-    <div class="turing">
-      <div class="studio-left">
-        <div class="paintings">
-          <div class="painting" data-i="0"><button class="tile" data-i="0" type="button" aria-label="Guess painting 1"><img class="pic" alt="" /></button><span class="tlabel"></span></div>
-          <div class="painting" data-i="1"><button class="tile" data-i="1" type="button" aria-label="Guess painting 2"><img class="pic" alt="" /></button><span class="tlabel"></span></div>
-        </div>
-        <p class="studio-caption">From my Credo.AI exhibit, now a permanent installation in San Francisco.</p>
-      </div>
-      <div class="copy">
-        <p class="tq">Which one is the real oil painting?</p>
-        <p class="studio-lead">One is mine, one is its DALL&middot;E replica. Click your guess.</p>
-        <p class="tresult" role="status"></p>
-        <button class="tagain" type="button">try another &rarr;</button>
-      </div>
-    </div>
-    <p class="viewer-lead">Or step inside and walk through the gallery:</p>
-    <div class="viewer" id="viewer">
-      <iframe id="gframe" src="gallery.html?inline" title="3D walk-through gallery of Aanya Shah's paintings" loading="lazy"></iframe>
-      <button class="walk" id="walkBtn" type="button">walk through &rarr;</button>
-      <button class="vclose" id="closeBtn" type="button" aria-label="close the gallery">&times; close</button>
+    <p class="sec-sub">I paint oil self-portraits about identity: figures that look unified but are built from disparate, conflicting selves. A few pieces.</p>
+    <div class="gallery">
+      <figure class="art"><img src="assets/paintings/restless.jpg" alt="Restless, oil on canvas" loading="lazy" /><figcaption>Restless</figcaption></figure>
+      <figure class="art"><img src="assets/paintings/conversations-with-myself.jpg" alt="Conversations with Myself, oil on canvas" loading="lazy" /><figcaption>Conversations with Myself</figcaption></figure>
+      <figure class="art"><img src="assets/paintings/overwhelm.jpg" alt="Overwhelm, oil on canvas" loading="lazy" /><figcaption>Overwhelm</figcaption></figure>
+      <figure class="art"><img src="assets/paintings/shaping.jpg" alt="Shaping, oil on canvas" loading="lazy" /><figcaption>Shaping</figcaption></figure>
+      <figure class="art"><img src="assets/paintings/floating.jpg" alt="Floating, oil on canvas" loading="lazy" /><figcaption>Floating</figcaption></figure>
+      <figure class="art"><img src="assets/paintings/before-the-destination.jpg" alt="Before the Destination, oil on canvas" loading="lazy" /><figcaption>Before the Destination</figcaption></figure>
     </div>
     <p class="studio-more"><a href="art.html">See the full studio, exhibitions &amp; awards &rarr;</a></p>
   </div>
@@ -194,19 +179,5 @@
 
 <script src="js/field.js"></script>
 <script src="js/motifs.js"></script>
-<script src="js/studio.js"></script>
-<script>
-/* Studio 3D viewer: inline panel expands to the full immersive walk-through */
-(function(){
-  var v=document.getElementById('viewer'), f=document.getElementById('gframe'),
-      w=document.getElementById('walkBtn'), c=document.getElementById('closeBtn');
-  if(!v) return;
-  function expand(){ v.classList.add('expanded'); f.src='gallery.html'; document.body.style.overflow='hidden'; }
-  function collapse(){ v.classList.remove('expanded'); f.src='gallery.html?inline'; document.body.style.overflow=''; }
-  w.addEventListener('click', expand);
-  c.addEventListener('click', collapse);
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && v.classList.contains('expanded')) collapse(); });
-})();
-</script>
 </body>
 </html>
