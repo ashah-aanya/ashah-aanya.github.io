@@ -32,13 +32,13 @@
 
 /* ---- design tokens ---- */
 :root{
-  --linen:#E7E0D2;        /* raw primed canvas — the ground */
-  --linen-2:#DED5C3;      /* deeper panel */
-  --ink:#211C15;          /* warm near-black */
-  --ink-soft:#332c20;     /* body ink — darkened for real contrast */
-  --muted:#5c5344;        /* warm grey — darkened so labels/meta read */
-  --oxblood:#8A2B22;      /* studio voice */
-  --indigo:#2C376B;       /* machine voice */
+  --linen:#F2ECDE;        /* brighter warm canvas — the ground */
+  --linen-2:#EAE1CF;      /* deeper panel */
+  --ink:#201A12;          /* warm near-black */
+  --ink-soft:#38301f;     /* body ink — good contrast */
+  --muted:#6a5d44;        /* warm grey — labels/meta */
+  --oxblood:#BF432E;      /* studio voice — brighter terracotta */
+  --indigo:#3A46B8;       /* machine voice — richer indigo */
   --line:rgba(34,29,22,.16);
   --line-2:rgba(34,29,22,.09);
   --panel:rgba(252,250,245,.22); /* warm near-white, very light so the linen reads through */
