@@ -142,8 +142,10 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 /* the Projects section sits on a whisper of warm tint; the cards are the
    near-white page color, so they read as barely-lighter rectangles, no borders */
 #work{background:#F7F3EC}
+/* each row sizes to its own content; the two cards in a row still match via
+   align-items:stretch, but a short row is not stretched to a taller row's height */
 .feat-list{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:8px;
-  align-items:stretch; grid-auto-rows:1fr}
+  align-items:stretch}
 @media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:18px; grid-auto-rows:auto}}
 .feat{display:flex; flex-direction:column; background:var(--linen); border-radius:14px;
   padding:22px 24px 24px; transition:transform .15s ease}
