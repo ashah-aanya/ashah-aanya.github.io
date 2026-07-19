@@ -11,7 +11,7 @@
   var ctx = canvas.getContext('2d');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var pts = [], W, H, DPR;
-  var INK = '#221D16', OX = '#BF432E', IN = '#3A46B8';
+  var INK = '#221D16', OX = '#DE6B2C', IN = '#3A46B8';
 
   function size() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);

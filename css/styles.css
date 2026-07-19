@@ -32,12 +32,12 @@
 
 /* ---- design tokens ---- */
 :root{
-  --linen:#F2ECDE;        /* brighter warm canvas — the ground */
-  --linen-2:#EAE1CF;      /* deeper panel */
+  --linen:#FBFAF6;        /* near-white warm ground */
+  --linen-2:#F3F0E9;      /* deeper panel */
   --ink:#201A12;          /* warm near-black */
   --ink-soft:#38301f;     /* body ink — good contrast */
   --muted:#6a5d44;        /* warm grey — labels/meta */
-  --oxblood:#BF432E;      /* studio voice — brighter terracotta */
+  --oxblood:#DE6B2C;      /* accent — burnt orange */
   --indigo:#3A46B8;       /* machine voice — richer indigo */
   --line:rgba(34,29,22,.16);
   --line-2:rgba(34,29,22,.09);
@@ -69,7 +69,7 @@ a:focus-visible{outline:2px solid var(--indigo); outline-offset:3px; border-radi
 .mono{font-family:var(--mono)}
 
 /* ---- top nav ---- */
-nav.top{position:sticky; top:0; z-index:30; background:rgba(231,224,210,.86);
+nav.top{position:sticky; top:0; z-index:30; background:rgba(251,250,246,.85);
   backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
   border-bottom:1px solid var(--line-2)}
 nav.top .wrap{display:flex; align-items:baseline; justify-content:space-between;
