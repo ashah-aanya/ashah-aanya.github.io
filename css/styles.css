@@ -139,12 +139,14 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
    Each card is an on-brand motif banner on top, then title / short description
    / links. No outlines — cards sit on the linen, sized to their own content.
    Swap a motif <canvas> for a real screenshot any time; it fills the same banner. */
-.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:8px;
+.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:8px;
   align-items:stretch; grid-auto-rows:1fr}
-@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:24px; grid-auto-rows:auto}}
-.feat{display:flex; flex-direction:column; background:var(--panel); border-radius:14px;
-  padding:16px 18px 20px; transition:background .15s ease}
-.feat:hover{background:var(--panel-hi)}
+@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:18px; grid-auto-rows:auto}}
+.feat{display:flex; flex-direction:column; background:#F4EFE4; border:1px solid var(--line-2);
+  border-radius:14px; padding:22px 24px 24px; box-shadow:0 1px 3px rgba(34,29,22,.05);
+  transition:box-shadow .15s ease, transform .15s ease}
+.feat:hover{box-shadow:0 8px 22px rgba(34,29,22,.10); transform:translateY(-2px)}
+.frole{margin:6px 0 0; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.01em}
 .ficon{width:100%; height:114px; border-radius:9px; overflow:hidden; background:#EFE9DC; margin-bottom:13px}
 .ficon canvas, .ficon img{display:block; width:100%; height:100%; object-fit:cover}
 .fbody{min-width:0}
