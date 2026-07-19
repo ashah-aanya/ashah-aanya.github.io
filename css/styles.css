@@ -139,9 +139,9 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
    Each card is an on-brand motif banner on top, then title / short description
    / links. No outlines — cards sit on the linen, sized to their own content.
    Swap a motif <canvas> for a real screenshot any time; it fills the same banner. */
-/* the Projects section sits on a very light cream band; the cards are the
-   near-white page color, so they read as slightly lighter rectangles, no borders */
-#work{background:#F3EEE1}
+/* the Projects section sits on a whisper of warm tint; the cards are the
+   near-white page color, so they read as barely-lighter rectangles, no borders */
+#work{background:#F7F3EC}
 .feat-list{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:8px;
   align-items:stretch; grid-auto-rows:1fr}
 @media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:18px; grid-auto-rows:auto}}
