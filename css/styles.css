@@ -157,6 +157,10 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .flinks a{color:var(--oxblood); border-bottom:1px solid var(--line)}
 .flinks a:hover{border-color:var(--oxblood)}
 .flinks .fnote{color:var(--muted)}
+/* technical tags at the bottom of each featured project */
+.ftags{margin:13px 0 0; display:flex; flex-wrap:wrap; gap:6px}
+.ftags span{font-family:var(--mono); font-size:11px; letter-spacing:.01em; color:var(--indigo);
+  background:rgba(58,70,184,.06); border:1px solid var(--line-2); border-radius:20px; padding:4px 9px}
 
 /* status as soft text, not a filled pill */
 .status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
