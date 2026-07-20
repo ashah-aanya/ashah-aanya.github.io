@@ -15,17 +15,3 @@ js/             Scripts (t-SNE hero field, small helpers)
 fonts/          Self-hosted webfonts (Fraunces, IBM Plex Sans/Mono)
 assets/         Images (painting scans, etc.)
 ```
-
-## Local preview
-
-No build needed — open `index.html` in a browser, or serve locally:
-
-```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
-```
-
-## Deploy (later)
-
-Intended for GitHub Pages at the repo root (`https://ashah-aanya.github.io`).
-Publishing a **private** repo via Pages requires making it public or a paid plan.
