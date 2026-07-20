@@ -206,46 +206,6 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .studio-more a{color:var(--oxblood); border-bottom:1px solid var(--line)}
 .studio-more a:hover{border-color:var(--oxblood)}
 
-/* ---- Studio "Human or AI?" challenge: Agents of Trust placard set into the
-       gallery masonry, plus the click-to-guess reveal states on the tiles ---- */
-.aot-card{column-span:all; break-inside:avoid; margin:6px 0 20px; text-align:center;
-  background:var(--linen); border:1px solid var(--line); border-radius:12px; padding:34px 26px;
-  box-shadow:0 10px 28px rgba(34,29,22,.07);
-  background-image:radial-gradient(130% 90% at 92% -12%, rgba(93,84,214,.15), transparent 55%),
-                   radial-gradient(130% 90% at 4% 118%, rgba(222,107,44,.08), transparent 52%)}
-.aot-inner{max-width:600px; margin:0 auto}
-.aot-logo{height:24px; width:auto; display:block; margin:0 auto 16px}
-.aot-h{font-family:var(--serif); font-weight:600; font-size:26px; letter-spacing:-.01em; margin:0; color:var(--ink)}
-.aot-sub{margin:9px 0 0; font-size:15px; line-height:1.55; color:var(--ink-soft)}
-.aot-result{margin:13px 0 0; font-size:15px; line-height:1.5; color:var(--ink); display:none}
-.aot-card.answered .aot-result{display:block}
-.aot-result strong{font-weight:600}
-.aot-card.r-correct .aot-result strong{color:var(--indigo)}
-.aot-card.r-wrong .aot-result strong{color:var(--oxblood)}
-.aot-again{display:none; margin:13px auto 0; font:500 12px/1 var(--mono); color:var(--indigo);
-  background:none; border:1px solid var(--line); border-radius:20px; padding:8px 15px; cursor:pointer;
-  transition:border-color .15s ease, background .15s ease}
-.aot-again:hover{border-color:var(--indigo); background:rgba(58,70,184,.05)}
-.aot-card.answered .aot-again{display:inline-block}
-.aot-credo{margin:22px auto 0; max-width:540px; padding-top:16px; border-top:1px solid var(--line-2);
-  font:400 12px/1.65 var(--mono); color:var(--muted)}
-.aot-credo em{font-style:italic}
-
-/* tiles become clickable guesses; reveal adds rings + verdict badges */
-#studio .gallery .art{cursor:pointer; transition:opacity .2s ease, filter .2s ease, box-shadow .2s ease}
-#studio .gallery .art.g-ai{box-shadow:0 0 0 3px var(--indigo), 0 10px 22px rgba(58,70,184,.28)}
-#studio .gallery .art.g-real{box-shadow:0 0 0 3px var(--oxblood), 0 10px 22px rgba(34,29,22,.22)}
-#studio .gallery .art.g-dim{opacity:.5; filter:saturate(.55)}
-#studio .gallery .art .verdict{position:absolute; top:9px; left:9px; z-index:4; line-height:1;
-  font:600 10px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; color:#fff;
-  padding:6px 9px; border-radius:5px; opacity:0; transform:translateY(-5px); transition:.2s ease}
-#studio .gallery .art.revealed .verdict{opacity:1; transform:none}
-#studio .gallery .art .verdict.v-ai{background:var(--indigo)}
-#studio .gallery .art .verdict.v-real{background:var(--oxblood)}
-@media (prefers-reduced-motion: reduce){
-  #studio .gallery .art, #studio .gallery .art .verdict{transition:none}
-}
-
 /* embedded 3D studio viewer (inline panel that expands to full immersive) */
 .viewer-lead{margin:34px 0 12px; font-family:var(--serif); font-style:italic; font-size:18px; color:var(--ink)}
 .viewer{position:relative; border-radius:8px; overflow:hidden; background:#e7e4dd;
