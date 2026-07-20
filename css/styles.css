@@ -32,13 +32,13 @@
 
 /* ---- design tokens ---- */
 :root{
-  --linen:#E7E0D2;        /* raw primed canvas — the ground */
-  --linen-2:#DED5C3;      /* deeper panel */
-  --ink:#211C15;          /* warm near-black */
-  --ink-soft:#332c20;     /* body ink — darkened for real contrast */
-  --muted:#5c5344;        /* warm grey — darkened so labels/meta read */
-  --oxblood:#8A2B22;      /* studio voice */
-  --indigo:#2C376B;       /* machine voice */
+  --linen:#FBFAF6;        /* near-white warm ground */
+  --linen-2:#F3F0E9;      /* deeper panel */
+  --ink:#201A12;          /* warm near-black */
+  --ink-soft:#38301f;     /* body ink — good contrast */
+  --muted:#6a5d44;        /* warm grey — labels/meta */
+  --oxblood:#DE6B2C;      /* accent — burnt orange */
+  --indigo:#3A46B8;       /* machine voice — richer indigo */
   --line:rgba(34,29,22,.16);
   --line-2:rgba(34,29,22,.09);
   --panel:rgba(252,250,245,.22); /* warm near-white, very light so the linen reads through */
@@ -69,7 +69,7 @@ a:focus-visible{outline:2px solid var(--indigo); outline-offset:3px; border-radi
 .mono{font-family:var(--mono)}
 
 /* ---- top nav ---- */
-nav.top{position:sticky; top:0; z-index:30; background:rgba(231,224,210,.86);
+nav.top{position:sticky; top:0; z-index:30; background:rgba(251,250,246,.85);
   backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
   border-bottom:1px solid var(--line-2)}
 nav.top .wrap{display:flex; align-items:baseline; justify-content:space-between;
@@ -139,12 +139,20 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
    Each card is an on-brand motif banner on top, then title / short description
    / links. No outlines — cards sit on the linen, sized to their own content.
    Swap a motif <canvas> for a real screenshot any time; it fills the same banner. */
-.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:8px;
-  align-items:stretch; grid-auto-rows:1fr}
-@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:24px; grid-auto-rows:auto}}
-.feat{display:flex; flex-direction:column; background:var(--panel); border-radius:14px;
-  padding:16px 18px 20px; transition:background .15s ease}
-.feat:hover{background:var(--panel-hi)}
+/* the Projects section sits on a whisper of warm tint; the cards are the
+   near-white page color, so they read as barely-lighter rectangles, no borders */
+#work{background:#F7F3EC}
+/* each row sizes to its own content; the two cards in a row still match via
+   align-items:stretch, but a short row is not stretched to a taller row's height */
+.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:8px;
+  align-items:stretch}
+@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:18px; grid-auto-rows:auto}}
+.feat{display:flex; flex-direction:column; background:var(--linen); border-radius:14px;
+  padding:22px 24px 24px; transition:transform .15s ease}
+.feat:hover{transform:translateY(-2px)}
+.ficon-sm{display:block; color:var(--indigo); margin:0 0 12px}
+.ficon-sm svg{width:24px; height:24px; display:block}
+.frole{margin:6px 0 0; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.01em}
 .ficon{width:100%; height:114px; border-radius:9px; overflow:hidden; background:#EFE9DC; margin-bottom:13px}
 .ficon canvas, .ficon img{display:block; width:100%; height:100%; object-fit:cover}
 .fbody{min-width:0}
@@ -153,10 +161,19 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
   color:var(--ink); display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
 .fmeta{font-family:var(--mono); font-size:11.5px; color:var(--muted); white-space:nowrap}
 .fdesc{margin:7px 0 0; color:var(--ink-soft); font-size:15px; line-height:1.55}
+/* minimal bullet list for featured project descriptions */
+.fbul{margin:9px 0 0; padding:0 0 0 17px; list-style:none}
+.fbul li{position:relative; margin:0 0 5px; color:var(--ink-soft); font-size:15px; line-height:1.5}
+.fbul li::before{content:""; position:absolute; left:-15px; top:.62em; width:5px; height:5px;
+  border-radius:50%; background:var(--oxblood)}
 .flinks{margin:12px 0 0; font-family:var(--mono); font-size:12.5px; display:flex; gap:16px; flex-wrap:wrap}
 .flinks a{color:var(--oxblood); border-bottom:1px solid var(--line)}
 .flinks a:hover{border-color:var(--oxblood)}
 .flinks .fnote{color:var(--muted)}
+/* technical tags at the bottom of each featured project */
+.ftags{margin:13px 0 0; display:flex; flex-wrap:wrap; gap:6px}
+.ftags span{font-family:var(--mono); font-size:11px; letter-spacing:.01em; color:var(--indigo);
+  background:rgba(58,70,184,.06); border:1px solid var(--line-2); border-radius:20px; padding:4px 9px}
 
 /* status as soft text, not a filled pill */
 .status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
@@ -188,13 +205,31 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .studio-more{margin:18px 0 0; font:500 13px/1 var(--mono)}
 .studio-more a{color:var(--oxblood); border-bottom:1px solid var(--line)}
 .studio-more a:hover{border-color:var(--oxblood)}
+
+/* embedded 3D studio viewer (inline panel that expands to full immersive) */
+.viewer-lead{margin:34px 0 12px; font-family:var(--serif); font-style:italic; font-size:18px; color:var(--ink)}
+.viewer{position:relative; border-radius:8px; overflow:hidden; background:#e7e4dd;
+  box-shadow:0 12px 32px rgba(34,29,22,.16)}
+.viewer iframe{display:block; width:100%; height:58vh; max-height:520px; min-height:320px; border:0}
+.viewer .walk{position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
+  font-family:var(--mono); font-size:13px; color:#fff; background:var(--oxblood); border:none;
+  padding:11px 20px; border-radius:5px; cursor:pointer; letter-spacing:.02em;
+  box-shadow:0 5px 16px rgba(34,29,22,.28)}
+.viewer .walk:hover{background:#75231b}
+.viewer .vclose{display:none}
+.viewer.expanded{position:fixed; inset:0; z-index:100; border-radius:0; box-shadow:none}
+.viewer.expanded iframe{height:100vh; max-height:none}
+.viewer.expanded .walk{display:none}
+.viewer.expanded .vclose{display:block; position:fixed; top:18px; right:22px; z-index:101;
+  font-family:var(--mono); font-size:13px; color:#fff; background:rgba(20,16,14,.72); border:none;
+  padding:9px 15px; border-radius:5px; cursor:pointer}
 .turing{display:grid; grid-template-columns:auto 1fr; gap:36px; align-items:center; margin-top:8px}
 @media (max-width:600px){.turing{grid-template-columns:1fr; gap:24px}}
 
 .paintings{display:flex; gap:20px}
 .painting{width:140px; display:flex; flex-direction:column; align-items:center}
 .painting .tile{width:100%; padding:0; border:none; background:none; cursor:pointer; line-height:0}
-.painting .pic{display:block; width:100%; aspect-ratio:4/5; border-radius:2px;
+.painting .pic{display:block; width:100%; aspect-ratio:4/5; border-radius:2px; object-fit:cover;
   border:1px solid rgba(34,29,22,.20);
   box-shadow:0 9px 20px rgba(34,29,22,.20);
   transition:transform .18s ease, box-shadow .18s ease}

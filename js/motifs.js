@@ -6,7 +6,7 @@
      hues:  indigo | oxblood
    --------------------------------------------------------------------------- */
 (function () {
-  var COL = { indigo: '#2C376B', oxblood: '#8A2B22', ink: '#211C15' };
+  var COL = { indigo: '#3A46B8', oxblood: '#DE6B2C', ink: '#211C15' };
 
   // tiny seeded PRNG so the motifs don't reshuffle on every resize
   function mulberry(a) {

@@ -1,0 +1,62 @@
+/* =========================================================================
+   Studio page (art.html) — layout specific to the studio.
+   Only linked from art.html; shared tokens, nav, footer, .list, .exhibit,
+   .statement and .viewer all live in styles.css. Kept in its own file so it
+   never collides with concurrent edits to styles.css.
+   ========================================================================= */
+
+/* ---- lead-in under the artist statement ---- */
+.studio-lead-copy{max-width:60ch; color:var(--ink-soft); font-size:16.5px; margin:18px 0 0}
+.studio-lead-copy em{font-style:italic}
+
+/* ---- Selected work: a two-column gallery, each plate captioned ----
+   Masonry columns hold the mixed aspect ratios (10x10 squares, 24x36
+   landscapes, 8.5x11 sheets) without cropping any of the real scans. */
+.works{columns:2; column-gap:32px; margin-top:6px}
+@media (max-width:640px){.works{columns:1}}
+.work{break-inside:avoid; margin:0 0 36px}
+.work a.frame{display:block; border:none; line-height:0; border-radius:3px; overflow:hidden;
+  box-shadow:0 10px 30px rgba(34,29,22,.16); transition:transform .18s ease, box-shadow .18s ease}
+.work a.frame:hover{transform:translateY(-3px); box-shadow:0 16px 38px rgba(34,29,22,.22)}
+.work img{display:block; width:100%; height:auto}
+.work figcaption{margin:13px 2px 0; line-height:1.5}
+.work .w-title{font-family:var(--serif); font-style:italic; font-weight:500; font-size:19px;
+  color:var(--ink); letter-spacing:.005em}
+.work .w-meta{font-family:var(--mono); font-size:11px; letter-spacing:.02em; color:var(--muted);
+  margin:4px 0 0; text-transform:none}
+.work .w-note{font-size:14px; color:var(--ink-soft); margin:8px 0 0; max-width:46ch}
+.work .w-src{color:var(--muted); font-style:italic}
+
+/* ---- immersive gallery callout sits above the embedded viewer ---- */
+.walk-note{font-size:14.5px; color:var(--muted); margin:0 0 4px; max-width:60ch}
+
+/* ---- Medium & process: name · years · one-line description ---- */
+.media{margin-top:8px}
+.medium-row{display:flex; gap:16px; align-items:baseline; flex-wrap:wrap;
+  padding:13px 0; border-top:1px solid var(--line-2)}
+.medium-row:first-child{border-top:none}
+.medium-row .m-name{font-weight:600; font-size:15.5px; flex:0 0 150px; color:var(--ink)}
+.medium-row .m-yrs{font-family:var(--mono); font-size:11px; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--oxblood)}
+.medium-row .m-desc{color:var(--ink-soft); font-size:14.5px; flex:1; min-width:220px; line-height:1.5}
+@media (max-width:520px){.medium-row .m-name{flex-basis:100%}}
+
+/* ---- Education & experience ---- */
+.edu-block{padding:22px 0 6px; border-top:1px solid var(--line-2)}
+.edu-block:first-of-type{border-top:none; padding-top:6px}
+.edu-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap}
+.edu-head h3{font-family:var(--serif); font-weight:600; font-size:20px; margin:0; color:var(--ink)}
+.edu-head .yr{font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap}
+.edu-sub{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--indigo); margin:18px 0 8px}
+.edu-list{list-style:none; margin:0; padding:0}
+.edu-list li{position:relative; padding-left:17px; margin:0 0 7px; color:var(--ink-soft);
+  font-size:15px; line-height:1.5}
+.edu-list li::before{content:""; position:absolute; left:0; top:.62em; width:5px; height:5px;
+  border-radius:50%; background:var(--oxblood)}
+.edu-list b{color:var(--ink); font-weight:600}
+.edu-list .g{font-family:var(--mono); font-size:11.5px; color:var(--muted)}
+.edu-lead{margin:6px 0 0; color:var(--ink-soft); font-size:15px; max-width:64ch}
+
+/* the shared .list date column can hold a year or a link; keep links oxblood */
+.list .l-date a, a.l-date{color:var(--oxblood)}
