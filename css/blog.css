@@ -1,0 +1,105 @@
+/* =========================================================================
+   Blog / long-form article layout (re-prompting.html and future posts).
+   Extends the shared design system in styles.css — same tokens, fonts, and
+   voices (oxblood = warm accent, indigo = the machine voice). A narrower
+   measure than the rest of the site because this is meant to be *read*.
+   ========================================================================= */
+
+.post{max-width:720px; margin:0 auto; padding:0 26px}
+
+/* ---- article header ---- */
+.post-head{padding:56px 0 30px; border-bottom:1px solid var(--line-2)}
+.post-head .back{font-family:var(--mono); font-size:12.5px; color:var(--muted);
+  border:none; display:inline-block; margin:0 0 24px}
+.post-head .back:hover{color:var(--oxblood)}
+.post-kicker{font-family:var(--mono); font-size:12px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--indigo); margin:0 0 14px}
+.post-kicker b{color:var(--oxblood); font-weight:500}
+.post-head h1{font-family:var(--serif); font-weight:600; font-size:clamp(34px,6vw,52px);
+  line-height:1.06; letter-spacing:-.02em; margin:0; color:var(--ink); text-wrap:balance}
+.post-head h1 em{font-style:italic; color:var(--oxblood); font-weight:500}
+.post-dek{font-family:var(--serif); font-style:italic; font-size:clamp(18px,2.6vw,22px);
+  color:var(--ink-soft); margin:18px 0 0; max-width:52ch; line-height:1.4}
+.post-meta{margin:22px 0 0; font-family:var(--mono); font-size:12.5px; color:var(--muted);
+  display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+.post-meta .sep{color:var(--line)}
+.post-meta a{color:var(--oxblood); border-bottom:1px solid var(--line)}
+.post-meta a:hover{border-color:var(--oxblood)}
+
+/* ---- prose body ---- */
+.prose{padding:8px 0 20px; font-size:17.5px; line-height:1.72; color:var(--ink-soft)}
+.prose > p{margin:0 0 20px}
+.prose h2{font-family:var(--serif); font-weight:600; font-size:28px; letter-spacing:-.01em;
+  color:var(--ink); margin:46px 0 6px; padding-top:14px; border-top:1px solid var(--line-2)}
+.prose h3{font-family:var(--serif); font-weight:600; font-size:21px; color:var(--ink);
+  margin:34px 0 4px}
+.prose h4{font-family:var(--mono); font-weight:500; font-size:13px; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--indigo); margin:28px 0 10px}
+.prose a{color:var(--ink); border-bottom:1px solid var(--oxblood)}
+.prose a:hover{color:var(--oxblood)}
+.prose strong{color:var(--ink); font-weight:600}
+.prose em{font-style:italic}
+
+.prose ul,.prose ol{margin:0 0 22px; padding:0 0 0 4px; list-style:none}
+.prose ol{counter-reset:li}
+.prose li{position:relative; margin:0 0 9px; padding-left:26px}
+.prose ul > li::before{content:""; position:absolute; left:4px; top:.66em; width:6px; height:6px;
+  border-radius:50%; background:var(--oxblood)}
+.prose ol > li{counter-increment:li}
+.prose ol > li::before{content:counter(li); position:absolute; left:0; top:.05em;
+  font-family:var(--mono); font-size:12px; font-weight:500; color:var(--indigo)}
+
+/* ---- figures ---- */
+.prose figure{margin:30px 0; }
+.prose figure img{display:block; width:100%; height:auto; border-radius:6px;
+  border:1px solid var(--line-2); background:#fff; box-shadow:0 8px 24px rgba(34,29,22,.08)}
+.prose figcaption{margin:11px 2px 0; font-family:var(--mono); font-size:12px; line-height:1.5;
+  color:var(--muted)}
+.prose figcaption b{color:var(--ink-soft); font-weight:500}
+/* a row of small chart figures that share a caption theme */
+.fig-row{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:30px 0}
+@media (max-width:640px){.fig-row{grid-template-columns:1fr}}
+.fig-row figure{margin:0}
+
+/* ---- callouts: worked examples pulled from the post ---- */
+.callout{margin:24px 0; padding:16px 18px; background:rgba(58,70,184,.05);
+  border-left:2px solid var(--indigo); border-radius:0 4px 4px 0; font-size:15.5px; line-height:1.6}
+.callout .clabel{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--indigo); display:block; margin:0 0 8px}
+.callout p{margin:0 0 8px}
+.callout p:last-child{margin:0}
+.callout .bad{color:var(--oxblood)}
+
+/* ---- key-result stat band ---- */
+.stat-band{display:flex; gap:20px; flex-wrap:wrap; margin:30px 0; padding:22px 0;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.stat{flex:1; min-width:150px}
+.stat .num{font-family:var(--serif); font-weight:600; font-size:34px; color:var(--oxblood); line-height:1}
+.stat .lab{font-family:var(--mono); font-size:11.5px; color:var(--muted); margin:8px 0 0; line-height:1.4}
+
+/* ---- corrective-prompt code/spec block ---- */
+.prose pre{margin:22px 0; padding:18px 20px; background:var(--linen-2); border:1px solid var(--line-2);
+  border-radius:8px; overflow-x:auto; font-family:var(--mono); font-size:13px; line-height:1.65;
+  color:var(--ink-soft); white-space:pre-wrap; word-break:break-word}
+.prose pre .cm{color:var(--muted)}
+.prose pre .hl{color:var(--oxblood)}
+
+/* ---- data table (convergence) ---- */
+.table-wrap{overflow-x:auto; margin:24px 0}
+.prose table{border-collapse:collapse; width:100%; font-size:14px; min-width:520px}
+.prose th,.prose td{padding:10px 12px; text-align:center; border-bottom:1px solid var(--line-2)}
+.prose thead th{font-family:var(--mono); font-size:11px; letter-spacing:.03em; text-transform:uppercase;
+  color:var(--indigo); font-weight:500; vertical-align:bottom}
+.prose tbody th{text-align:left; font-family:var(--sans); font-weight:500; color:var(--ink); font-size:13.5px}
+.prose tbody td{font-family:var(--mono); color:var(--ink-soft)}
+.prose caption{caption-side:bottom; margin-top:10px; font-family:var(--mono); font-size:11.5px;
+  color:var(--muted); text-align:left}
+
+/* ---- end CTA ---- */
+.post-cta{margin:44px 0 10px; padding:26px 0 0; border-top:1px solid var(--line)}
+.post-cta p{margin:0 0 16px; font-family:var(--serif); font-size:19px; color:var(--ink)}
+.post-cta .btns{display:flex; gap:12px; flex-wrap:wrap; font-family:var(--mono); font-size:13px}
+.post-cta a.btn{border:none; color:#fff; background:var(--oxblood); padding:11px 18px; border-radius:5px}
+.post-cta a.btn:hover{background:#c25a20}
+.post-cta a.btn.alt{color:var(--ink); background:transparent; border:1px solid var(--line)}
+.post-cta a.btn.alt:hover{border-color:var(--oxblood); color:var(--oxblood)}
