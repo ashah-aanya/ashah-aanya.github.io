@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Re-Prompting: A Smarter Loop for Smarter Models — Aanya Shah</title>
-<meta name="description" content="How a lightweight, stateless re-prompting loop on top of any black-box LLM lifts instruction-following by ~22% — letting 3–24B models rival GPT-4o. A technical blog from my work at AIMon." />
+<meta name="description" content="Re-Prompting: A Smarter Loop for Smarter Models — a technical blog on a lightweight, stateless re-prompting loop that sits on top of any black-box LLM. By Aanya Shah, from work at AIMon." />
 <link rel="canonical" href="https://ashah-aanya.github.io/re-prompting.html" />
 
 <!-- icons -->
@@ -18,14 +18,14 @@
 <meta property="og:site_name" content="Aanya Shah" />
 <meta property="og:url" content="https://ashah-aanya.github.io/re-prompting.html" />
 <meta property="og:title" content="Re-Prompting: A Smarter Loop for Smarter Models" />
-<meta property="og:description" content="A stateless re-prompting loop on top of any black-box LLM lifts instruction-following by ~22% — letting 3–24B models rival GPT-4o. A technical blog from my work at AIMon." />
+<meta property="og:description" content="A lightweight, stateless re-prompting loop that sits on top of any black-box LLM to improve instruction-following. A technical blog from my work at AIMon." />
 <meta property="og:image" content="https://ashah-aanya.github.io/assets/og-blog.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Re-Prompting: a smarter loop for smarter models — how small LLMs beat GPT-4o with a stateless correction loop." />
+<meta property="og:image:alt" content="Re-Prompting: A Smarter Loop for Smarter Models." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Re-Prompting: A Smarter Loop for Smarter Models" />
-<meta name="twitter:description" content="A stateless re-prompting loop lifts instruction-following ~22% — letting 3–24B models rival GPT-4o." />
+<meta name="twitter:description" content="A lightweight, stateless re-prompting loop that sits on top of any black-box LLM to improve instruction-following." />
 <meta name="twitter:image" content="https://ashah-aanya.github.io/assets/og-blog.jpg" />
 
 <link rel="stylesheet" href="css/styles.css" />
@@ -50,33 +50,26 @@
   <header class="post-head">
     <a class="back" href="index.html#work">&larr; back to projects</a>
     <p class="post-kicker">Technical blog <b>&middot;</b> AIMon (Bessemer-backed)</p>
-    <h1>Re-Prompting: <em>a smarter loop</em> for smarter models</h1>
-    <p class="post-dek">What if your LLM could rewrite its own answers until it got things right &mdash; <em>automatically?</em></p>
+    <h1>Re-Prompting: <em>A Smarter Loop</em> for Smarter Models</h1>
     <p class="post-meta">
       <span>AI Research &amp; Technical Dev Intern</span>
       <span class="sep">/</span>
-      <a href="https://github.com/aimonlabs/aimon-python-sdk">open-source framework &amp; API &rarr;</a>
+      <a href="https://github.com/aimonlabs/aimon-python-sdk">GitHub &rarr;</a>
     </p>
   </header>
 
   <div class="prose">
 
     <h2>Overview</h2>
-    <p>Anyone who&rsquo;s worked with LLMs knows the drill. You give a model a prompt with specific instructions and still, the response comes back missing something. So you tweak the prompt and try again &mdash; fix the tone, then rephrase for conciseness. Eventually you get what you need, but only after multiple rounds.</p>
-    <p>Re&#8209;prompting automates that loop. Instead of relying on massive models with high latency or manually fine-tuning outputs, we introduce a lightweight, <strong>stateless</strong> system that sits on top of any black-box LLM. Using AIMon&rsquo;s <a href="https://www.aimon.ai/announcements/ife-200ms-instruction-following-evaluation-for-agentic-reflection/">Instruction Following Evaluation (IFE)</a> model to give precise feedback, our system generates a targeted corrective prompt to extract better outputs.</p>
-    <p>In this blog, we walk through:</p>
+    <p>What if your Large Language Models (LLMs) could rewrite its own answers until it got things right &hellip; <em>automatically?</em></p>
+    <p>Anyone who&rsquo;s worked with LLMs knows the drill. You give a model a prompt with specific instructions and still, the response comes back missing something. So you tweak the prompt and try again, asking it to fix the tone, then rephrase for conciseness. Eventually, you may get what you need but only after multiple rounds.</p>
+    <p>Re-prompting automates that loop. Instead of relying on massive models with high latency or manually fine-tuning outputs, we introduce a lightweight, stateless system that sits on top of any black-box LLM. Using AIMon&rsquo;s <a href="https://www.aimon.ai/announcements/ife-200ms-instruction-following-evaluation-for-agentic-reflection/">Instruction Following Evaluation (IFE)</a> model to give precise feedback, our system generates a targeted corrective prompt to extract better outputs.</p>
+    <p>In this blog, we will walk you through</p>
     <ul>
-      <li>How the re-prompting loop works</li>
-      <li>How it performs across model sizes and vendors &mdash; how small models (3&ndash;24B parameters) can rival GPT-4o</li>
-      <li>Which types of instructions this system fixes best, and where it still struggles</li>
+      <li><strong>How the re-prompting loop works</strong></li>
+      <li><strong>How it performs across different model sizes and vendors</strong> (how small models (3-24B parameters) can rival GPT 4o)</li>
+      <li><strong>Which types of instructions this system fixes best</strong>, and where it still struggles</li>
     </ul>
-
-    <div class="stat-band">
-      <div class="stat"><div class="num">~22%</div><div class="lab">average lift in instruction-following</div></div>
-      <div class="stat"><div class="num">3&ndash;24B</div><div class="lab">param models made to rival GPT-4o</div></div>
-      <div class="stat"><div class="num">1&ndash;2</div><div class="lab">iterations to converge, on average</div></div>
-      <div class="stat"><div class="num">~4%</div><div class="lab">disagreement vs. a 3-judge panel</div></div>
-    </div>
 
     <h2>Goals</h2>
     <p>Our system is designed to:</p>
@@ -84,145 +77,165 @@
       <li>Boost instruction adherence</li>
       <li>Minimize hallucinations</li>
       <li>Flag and fix toxicity</li>
-      <li>Stay fast and token&#8209;efficient</li>
+      <li>Stay fast and token-efficient</li>
       <li>Keep all models stateless for scalability</li>
     </ul>
 
-    <h2>How it works: the re-prompting loop</h2>
-    <p>Think of the system as an <em>editorial feedback loop</em> for LLM responses. On each pass, the original draft is reviewed and returned with targeted feedback to fuel iterative improvement until it converges on an error-free output. Each iteration can optionally log a JSON blob of diagnostics, giving full transparency into how the model evolves with each re-prompt.</p>
+    <h2>How it Works: The Re-prompting Loop</h2>
+    <p>Think of our system as an editorial feedback loop for LLM responses. With each pass through, the original LLM draft is reviewed and returned with targeted feedback to fuel iterative improvement until it converges on an error-free output. Each iteration can optionally log a JSON blob of diagnostics for iteration progression, providing full transparency into how the model evolves with each re-prompt.</p>
 
+    <h4>Workflow:</h4>
     <figure>
-      <img src="assets/blog/img01.png" alt="Flow diagram: User sends P0 to the Primary LLM, which produces R0 for the Feedback Model, which passes E0 to a Decision Gate; a Reprompter feeds corrective prompts CP1..CPn back into the Primary LLM, and the gate returns the best output with JSON telemetry." width="2048" height="511" loading="lazy" decoding="async" />
-      <figcaption><b>The loop.</b> The primary LLM drafts, the feedback model (IFE) audits, a reprompter turns the audit into a corrective prompt, and a decision gate returns the best draft with JSON telemetry.</figcaption>
+      <img src="assets/blog/img01.png" alt="Re-prompting workflow diagram: User to Primary LLM to Feedback Model to Decision Gate, with a Reprompter feeding corrective prompts back to the Primary LLM and returning the best output with JSON telemetry." width="2048" height="511" loading="lazy" decoding="async" />
     </figure>
 
-    <h3>Step 1 &mdash; Draft the initial response (P&#8320; &rarr; R&#8320;)</h3>
-    <p>The user sends a query, context, and instructions to a stateless LLM, which generates a response that may fail to fully comply with the provided instructions &mdash; especially the critical ones.</p>
+    <h3>Step 1: Draft the Initial Response (P&#8320; &rarr; R&#8320;)</h3>
+    <p>The user sends a query, context, and instructions to a stateless LLM that generates a response that may fail to fully comply with the provided, especially critical, instructions.</p>
 
-    <h3>Step 2 &mdash; Audit with the feedback model (R&#8320; &rarr; E&#8320;)</h3>
-    <p>While the base LLM focuses on <em>creation</em>, we use AIMon&rsquo;s IFE model to focus on <em>correction</em>. IFE runs 10&times; faster than the LLM thanks to its compressed output representation, and returns a structured error report with (a) the instruction, (b) a follow probability (FP), and (c) a natural-language explanation. We used it to assess three things:</p>
+    <h3>Step 2: Audit with the Feedback Model (R&#8320; &rarr; E&#8320;)</h3>
+    <p>While the base LLM focuses on <em>creation,</em> we leverage AIMon&rsquo;s Instruction Following Evaluation model here to focus on <em>correction</em>. IFE runs 10&times; faster than the LLM thanks to its compressed output representation and provides a structured error report with (a) instruction, (b) follow probability (FP), (c) natural language explanation. We used it to assess:</p>
 
-    <p><strong>Groundedness</strong> &mdash; factual consistency: whether a response stays faithful to the input context and avoids hallucinations or speculative reasoning.</p>
+    <p><strong>Groundedness:</strong> evaluates factual consistency to measure whether a model&rsquo;s generated response remains faithful to the input context and avoids hallucinations or speculative reasoning</p>
     <div class="callout">
-      <span class="clabel">Example failure &middot; the text misreads the context</span>
+      <span class="clabel">Example Failure</span>
+      <p>The generated text misinterprets the context.</p>
       <p><strong>Context:</strong> &ldquo;The Eiffel Tower is located in Paris, France. It was completed in 1889.&rdquo;</p>
-      <p><strong>Generated:</strong> &ldquo;The Eiffel Tower, located in <span class="bad">Berlin</span>, France, was completed in <span class="bad">1890</span>.&rdquo;</p>
+      <p><strong>Generated Text:</strong> &ldquo;The Eiffel Tower, located in Berlin, France, was completed in 1890.&rdquo;</p>
     </div>
 
-    <p><strong>Instruction adherence</strong> &mdash; whether a response follows the provided or implied instructions (formatting constraints, tone specifications, and so on).</p>
+    <p><strong>Instruction adherence:</strong> evaluates whether a model&rsquo;s response follows a set of provided or implied instructions (e.g.: formatting constraints, tone specifications)</p>
     <div class="callout">
-      <span class="clabel">Example failure &middot; the text ignores the format</span>
-      <p><strong>Query:</strong> &ldquo;Summarize the plot of <em>The Lion King</em>.&rdquo; &nbsp;<strong>Instruction:</strong> &ldquo;Use bullet points.&rdquo;</p>
-      <p><strong>Generated:</strong> &ldquo;<span class="bad">The Lion King is about Simba, who flees after his father dies. Later, he comes back to defeat Scar&hellip;</span>&rdquo; (a paragraph, not bullets)</p>
+      <span class="clabel">Example Failure</span>
+      <p>The generated text fails to follow the specified format.</p>
+      <p><strong>Query:</strong> &ldquo;Summarize the plot of <em>The Lion King</em>.&rdquo;</p>
+      <p><strong>Instruction:</strong> &ldquo;Use bullet points.&rdquo;</p>
+      <p><strong>Generated Text:</strong> &ldquo;The Lion King is about Simba, who flees after his father dies. Later, he comes back to defeat Scar and reclaim his place as king.&rdquo;</p>
     </div>
 
-    <p><strong>Toxicity</strong> &mdash; whether a response contains harmful, unsafe, or offensive language.</p>
-    <p>The feedback model only ever sees the current draft, enabling safe, horizontal scaling with no cross-session leakage.</p>
+    <p><strong>Toxicity:</strong> evaluates whether a generated response contains harmful, unsafe, or offensive language</p>
+    <p>The feedback model only sees the current draft, enabling safe, horizontal scaling with no cross-session leakage.</p>
 
-    <h3>Step 3 &mdash; Generate a corrective prompt (E&#8345; &rarr; P&#8345;)</h3>
-    <p>We embed IFE&rsquo;s targeted feedback in a <strong>Corrective Prompt (CP)</strong>. The CP has to balance clarity and brevity: too terse and the model misses nuance; too verbose and we waste tokens or confuse smaller models. Because the LLM is stateless, the CP re-states background like the query. We used the following structure:</p>
-    <pre><span class="cm"># Corrective Prompt template</span>
-Revise your previous response to this query:
-  [user query]
+    <h3>Step 3: Generate a Corrective Prompt (En &rarr; Pn)</h3>
+    <p>We embed IFE&rsquo;s targeted feedback in a Corrective Prompt (CP). The CP must balance clarity and brevity: too terse and the model misses nuances; too verbose and we waste tokens or confuse smaller models. Because the LLM is stateless, the CP reiterates background information like the query. We implemented the following structure:</p>
+    <pre>Revise your previous response to this query:
+
+[user query]
 Context:
-  [context]
+[context]
 Previous response:
-  [generated text]
-
-<span class="cm"># tone scales with error severity</span>
-if failed_instructions &gt;= 3:   <span class="hl">"Your reply had major issues. Fix all points below."</span>
-elif failed_instructions &gt;= 2:  <span class="hl">"Some parts were off. Improve using the notes below."</span>
-else:                           <span class="hl">"Almost there! Just a few small fixes needed."</span>
-
+[generated text]
+if failed instructions &gt;= 3:
+         Your reply had major issues. Fix all points below.
+if failed instructions between 2 and 3:
+        Some parts were off. Improve using the notes below.
+if less than 2:
+        Almost there! Just a few small fixes needed.
 Fix the following:
-  1. We are [1 - FP] confident this instruction was not followed:
-     &rarr; Violated instruction: [instruction]
-     &rarr; Explanation: [explanation]
-  ...
-Preserve correct content. Return only the revised output.
-You did well on these &mdash; keep following them: [followed instructions]
+1. We are [1-FP*] confident that the following instruction was not followed:
+&rarr; Violated Instruction: [instruction]
+&rarr; Explanation: [explanation]
+&hellip;
+Preserve correct content. Return only the revised output with no extra explanation.
+You did well on these instructions. It is important that you continue to follow these instructions:
+[followed instructions]
+* FP = follow probability (IFE confidence that a given instruction was adhered to)</pre>
 
-<span class="cm"># FP = follow probability (IFE's confidence an instruction was adhered to)</span></pre>
-    <p><strong>Design considerations:</strong></p>
+    <p>Design Considerations:</p>
     <ul>
-      <li><strong>Tone adjustment</strong> &mdash; the tone becomes stricter as error severity rises.</li>
-      <li><strong>Divulge follow confidence</strong> &mdash; revealing IFE&rsquo;s follow probabilities clarifies how sure we are about each violation, preventing overcorrection.</li>
-      <li><strong>Prioritized ordering</strong> &mdash; violations are sorted by increasing follow probability, targeting the most certain and critical issues first.</li>
-      <li><strong>Targeted feedback</strong> &mdash; IFE&rsquo;s explanations guide precise revisions.</li>
+      <li><strong>Tone adjustment:</strong> Tone becomes stricter with increasing error severity</li>
+      <li><strong>Divulge follow confidence:</strong> reveals IFE&rsquo;s follow probabilities to clarify confidence in instruction violation to prevent overcorrection</li>
+      <li><strong>Prioritized ordering</strong>: Sorts violations by increasing follow probability to target the most certain and critical issues first</li>
+      <li><strong>Targeted feedback:</strong> Includes IFE&rsquo;s explanations to guide precise revisions</li>
     </ul>
 
-    <h3>Step 4 &mdash; Iterative refinement (P&#8321; &rarr; R&#8321; &hellip; P&#8345; &rarr; R&#8345;)</h3>
-    <p>We repeat steps 2&ndash;4 until we either:</p>
+    <h3>Step 4: Iterative Refinement (P&#8321; &rarr; R&#8321; &hellip; P&#8345; &rarr; R&#8345;).</h3>
+    <p>We repeat steps 2&ndash;4 until we either</p>
     <ul>
       <li>Hit a maximum of <strong>N iterations</strong> (default: 3), or</li>
-      <li>Achieve a clean run &mdash; no hallucinations, toxic content, or broken instructions (follow probability &ge; 0.5 for each instruction and for groundedness, and toxicity &lt; 0.25).</li>
+      <li>Achieve a clean run with no hallucinations, toxic content, or broken instructions (where the follow probability for each instruction and groundedness is &gt;= 0.5 and toxicity is &lt; 0.25)</li>
     </ul>
-    <p>To pick the best draft, we score each with a <strong>residual error metric</strong> that weights the worst mistakes more heavily. A score near 0 means high quality; near 1 means poor instruction-following. Per instruction:</p>
+    <p>To choose the best response, we score each draft with a <strong>residual error metric</strong>, giving more weight to the most egregious mistakes. A score close to 0 means high-quality output while closer to 1 means poor instruction-following. For each instruction:</p>
     <ul>
       <li>If follow probability &ge; 0.5 &rarr; penalty = 0</li>
       <li>If follow probability &lt; 0.5 &rarr; penalty = 2 &times; (1 &minus; p)</li>
     </ul>
-    <p>Residual error is the average of all penalties across groundedness and instruction adherence. Once the loop exits, the draft (R&#8320;&hellip;R&#8323;) with the fewest failed instructions is surfaced &mdash; ties broken by the lowest residual error. The result? Ideally, a fully instruction-adherent output. But does it actually deliver? Let&rsquo;s find out.</p>
+    <p>Then:<br />Residual Error = Average of all penalties across groundedness and instruction adherence</p>
+    <p>Once the loop exits, the draft (R0 &hellip; R3) with the least failed instructions is surfaced to the user. If tied, the draft with the lowest residual error score is returned. The result? Ideally, a fully instruction-adherent output. But does it actually deliver? Let&rsquo;s find out!</p>
 
-    <h2>Dataset details</h2>
-    <p>To test the workflow, we assembled a <strong>1,000-sample dataset</strong> of customer-support use cases across bureaucratic, legal, and technical domains &mdash; stress-testing instruction-following on complex, rule-heavy contexts. We hand-curated 25&ndash;50 seed samples and scaled up with AIMon&rsquo;s Data Foundry tool. Each sample has:</p>
+    <h2>Dataset Details</h2>
+    <p>In order to test our re-prompting workflow, we assembled a 1000 sample dataset on customer support use cases across bureaucratic, legal, and technical domains to stress-test instruction-following on complex, rule-heavy contexts. We initially hand-curated 25-50 samples and scaled using AIMon&rsquo;s Data Foundry tool.*</p>
+    <p><em>*AIMon's Data Foundry Tool automatically expands reference samples across multiple axes to generate a high quality dataset. More details will be shared in an upcoming blogpost.</em></p>
+    <p>Each sample has the following:</p>
+    <p><strong>Context:</strong> A document about company or topic policy, history, or rules, sourced from real-world materials such as:</p>
     <ul>
-      <li><strong>Context</strong> &mdash; a document about company/topic policy, history, or rules, sourced from real-world materials: company policies (<a href="https://www.apple.com/iphone/">Apple</a>, <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=G6LDPN7YJHYKH2J6">Amazon</a>), regulations (DMV, student aid, health insurance &mdash; via <a href="https://huggingface.co/datasets/IBM/doc2dial">doc2dial</a>), financial platforms (<a href="https://cdn.robinhood.com/assets/robinhood/legal/RAM_Brochure_and_Brochure_Supplements.pdf">Robinhood</a>), and technical docs (<a href="https://docs.metaflow.org/">Metaflow</a>, <a href="https://docs.ray.io/en/latest/ray-core/walkthrough.html">Ray</a>).</li>
-      <li><strong>Query</strong> &mdash; a user question related to the context.</li>
-      <li><strong>Instructions</strong> &mdash; 20 per sample, a mix of user-written and AIMon-provided.</li>
+      <li>Company policies (e.g.: <a href="https://www.apple.com/iphone/">Apple</a>, <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=G6LDPN7YJHYKH2J6">Amazon</a>)</li>
+      <li>Regulations (DMV, student aid, health insurance) [<a href="https://huggingface.co/datasets/IBM/doc2dial">link</a>]</li>
+      <li>Financial platforms (e.g.: <a href="https://cdn.robinhood.com/assets/robinhood/legal/RAM_Brochure_and_Brochure_Supplements.pdf">Robinhood</a>)</li>
+      <li>Technical docs (e.g.: <a href="https://docs.metaflow.org/">Metaflow</a>, <a href="https://docs.ray.io/en/latest/ray-core/walkthrough.html">Ray</a>)</li>
     </ul>
-    <p>To evaluate performance across instruction types, we gave each sample a fixed number per category:</p>
+    <p><strong>Query:</strong> A user question related to the provided context.</p>
+    <p><strong>Instructions:</strong></p>
+    <p>To evaluate how re-prompting performs across different instruction types, we defined common categories and gave each sample a fixed number of instructions of each type, totaling 20 instructions per sample. Instructions were a mix of user-written and AIMon-provided. Here are the categories we outlined:</p>
+    <p>User-simulated (individual instructions varied across samples)</p>
+    <ol>
+      <li><strong>Tone (2 instructions per sample)</strong> Specifies emotional or stylistic voice (e.g., friendly, formal)</li>
+      <li><strong>Format (1)</strong> Controls layout (bullets, steps, etc.)</li>
+      <li><strong>Content requirements (2)</strong> Defines required elements (e.g., definitions, exceptions, form numbers)</li>
+      <li><strong>Brand reputation (1)</strong> Aligns with company voice and disclaimers</li>
+      <li><strong>Completeness (2)</strong> Promotes full response to multi-part queries</li>
+      <li><strong>Conciseness (1)</strong> Promotes brevity</li>
+    </ol>
+    <p>AIMon provided (constant across samples)</p>
+    <ol>
+      <li><strong>Groundedness (5*)</strong> Ensures responses stay faithful to the context and avoid hallucinations</li>
+      <li><strong>Toxicity (6*)</strong> Prevents harmful, unsafe, or offensive content</li>
+    </ol>
+    <p><em>*Groundedness and Toxicity metrics each have multiple different instructions evaluating different aspects of the metric</em></p>
+    <p>In order to ensure high data quality, we had a panel of 3 LLM judges (GPT-4o, Llama 3.3 70B Instruct Turbo, Claude Opus 4) score each sample from 1-10 per metric, using a majority vote to assign final scores. We applied two filtering metrics (score &gt; 6) to all 1000 samples to avoid setting models up for failure:</p>
     <ul>
-      <li><strong>User-simulated:</strong> tone (2), format (1), content requirements (2), brand reputation (1), completeness (2), conciseness (1).</li>
-      <li><strong>AIMon-provided:</strong> groundedness (5) and toxicity (6) &mdash; each metric spans several instructions evaluating different aspects.</li>
+      <li><strong>Instruction relevance:</strong> Are the instructions clear, specific, and actionable?</li>
+      <li><strong>Instruction compatibility:</strong> Can all instructions be followed without conflict?</li>
     </ul>
-    <p>To keep data quality high, a panel of three LLM judges (GPT-4o, Llama 3.3 70B Instruct Turbo, Claude Opus 4) scored each sample 1&ndash;10 per metric, with a majority vote for the final score. We filtered all 1,000 samples on <strong>instruction relevance</strong> (clear, specific, actionable?) and <strong>instruction compatibility</strong> (followable without conflict?), keeping scores &gt; 6. We then sampled 100 (10%) for deeper evaluation of context&ndash;query relevance and context quality:</p>
-
+    <p>We then randomly selected 100 samples (10%) for deeper evaluation using the following metrics to ensure dataset diversity and used few-shot prompting to guide consistent scoring:</p>
+    <ul>
+      <li><strong>Context-query relevance:</strong> Does the context sufficiently support the query and instructions?</li>
+      <li><strong>Context quality:</strong> Is the context clear, well-structured, and easy to interpret?</li>
+    </ul>
     <figure>
-      <img src="assets/blog/img02.png" alt="Distribution charts of context–query relevance and context quality across the 100-sample deep-evaluation set." width="680" height="417" loading="lazy" decoding="async" />
-      <figcaption>Context&ndash;query relevance and context quality across the 100-sample deep-eval set.</figcaption>
+      <img src="assets/blog/img02.png" alt="Distribution charts of context-query relevance and context quality." width="680" height="417" loading="lazy" decoding="async" />
     </figure>
-
-    <p>We also quantified the difficulty of answering each query while following all instructions, using Llama 3.3 70B Instruct Turbo to assign a difficulty score. We deliberately avoided larger models like GPT-4o here, because they tend to underestimate difficulty for the smaller models we&rsquo;re re-prompting.</p>
-
+    <p>We also attempted to quantify the difficulty of answering the query while following all instructions given the context by using Llama 3.3 70B Instruct Turbo to assign a difficulty score to each sample. We intentionally opted against using larger models like GPT-4o for this step because they often underestimate difficulty for the smaller parameter models that we are re-prompting.</p>
     <figure>
-      <img src="assets/blog/img03.png" alt="Histogram of difficulty scores across the full 1,000-sample dataset, with most samples between 2 and 4." width="695" height="371" loading="lazy" decoding="async" />
-      <figcaption>Difficulty across the full 1K dataset &mdash; most tasks fall in the 2&ndash;4 range, with a meaningful tail of harder examples.</figcaption>
+      <img src="assets/blog/img03.png" alt="Histogram of difficulty scores across the full 1K-sample dataset." width="695" height="371" loading="lazy" decoding="async" />
     </figure>
-
-    <p>Later we built a 100-sample &ldquo;difficult set&rdquo; by using Data Foundry to expand samples that required re-prompting. Below, red bars show this hard set versus 100 random samples from the original 1K (blue). As expected the hard set skews higher &mdash; but some low-scored samples (even difficulty 2) still caused failures, a reminder that assigned difficulty doesn&rsquo;t always match real model struggle.</p>
-
+    <p>The chart shows the distribution of difficulty across our full 1K-sample dataset. Most samples fall in the 2&ndash;4 range, representing relatively straightforward tasks, though there&rsquo;s a meaningful tail of more complex examples.</p>
+    <p>Later, we expanded our dataset by creating a 100-sample &ldquo;difficult set&rdquo; composed by using the AIMon Data Foundry tool to expand samples that required re-prompting. In the chart below, red bars show this set&rsquo;s difficulty distribution versus 100 randomly extracted samples from the original 1K dataset (blue). As expected, the hard set skews higher, but some low-scored samples (e.g., difficulty 2) still caused failures, highlighting that these assigned difficulty scores don&rsquo;t always align with real model struggles.</p>
     <figure>
-      <img src="assets/blog/img04.png" alt="Overlaid difficulty histograms: the 100-sample difficult set (red) skews to higher difficulty than 100 random samples from the 1K dataset (blue)." width="1798" height="1016" loading="lazy" decoding="async" />
-      <figcaption>The &ldquo;difficult set&rdquo; (red) skews harder than 100 random samples from the 1K set (blue).</figcaption>
+      <img src="assets/blog/img04.png" alt="Overlaid difficulty histograms comparing the 100-sample difficult set and 100 random samples from the 1K dataset." width="1798" height="1016" loading="lazy" decoding="async" />
     </figure>
 
     <h2>Results</h2>
 
     <h3>Did re-prompting work?</h3>
-    <p>We ran the 1K dataset across several models and tracked their <strong>instruction-following rate</strong> &mdash; the share of samples whose final draft satisfied <em>all</em> instructions &mdash; before and after re-prompting. As a baseline, we ran the same samples on GPT-4o with no re-prompting (the green dashed line).</p>
-
+    <p>To find out, we tested our 1K dataset across several models and tracked their instruction following rate, the percentage of samples where the final draft satisfied all provided instructions, before and after re-prompting. As a baseline, we ran the same samples on GPT-4o without any re-prompting (shown as the green dotted line in the chart below).</p>
     <figure>
-      <img src="assets/blog/img05.png" alt="Line chart of instruction-following rate by re-prompting iteration on 1K samples. Mistral 7B, Llama 3.2 3B, and Mistral Small 24B all rise above the dashed GPT-4o baseline by iteration 1–2." width="678" height="419" loading="lazy" decoding="async" />
-      <figcaption><b>Every model surpasses GPT-4o after re-prompting.</b> Larger models like Mistral 24B absorb feedback better per iteration; note the diminishing returns on later passes.</figcaption>
+      <img src="assets/blog/img05.png" alt="Line chart of instruction following rate by iteration on 1K samples." width="678" height="419" loading="lazy" decoding="async" />
     </figure>
-
-    <p>To validate, the same three judges soft-checked 20 re-prompted samples per base LLM (those marked fully adherent). The panel largely confirmed IFE&rsquo;s assessments &mdash; only a <strong>4% disagreement rate</strong>, mostly on subjective metrics like conciseness and completeness. Even at &plusmn;4%, re-prompting has a distinctly positive effect on adherence.</p>
-
-    <p>We then ran the 100-sample difficult set, again with GPT-4o as the baseline &mdash; and also tried re-prompting <em>on</em> GPT-4o (green), which improved rapidly after a single iteration, confirming the samples are solvable. To test reproducibility, we ran Qwen 7B twice (blue and orange) and saw nearly identical start and post-re-prompting adherence, suggesting stable, repeatable results even on small models.</p>
-
+    <p>As shown, while most models initially underperformed GPT-4o, re-prompting allowed every model to surpass GPT-4o&rsquo;s baseline. Larger models like Mistral 24B were able to better implement feedback and achieve a higher per-iteration increase in instruction following rate. Furthermore, we can see diminishing returns with successive re-prompts.</p>
+    <p><a href="https://canva.link/25z15yxdf68dhvu">Example Reprompting Flow &rarr;</a></p>
+    <p>We used the same three judges as above to serve as a soft validation to check for any failed instructions in 20 re-prompted samples per base LLM where all instructions were marked as adhered to. The panel largely confirmed the IFE model&rsquo;s assessments, with only a 4% disagreement rate, primarily on subjective metrics such as conciseness and completeness. Even with a &plusmn;4% confidence margin, the results show that re-prompting has a distinctly positive effect on instruction adherence.</p>
+    <p>We also ran our &ldquo;difficult set&rdquo; of 100 samples on multiple models, again using GPT-4o as the reference baseline (shown as the green dotted line in the chart below). We also experimented with running re-prompting on GPT-4o (green line) and saw a rapid improvement in instruction following rate after just 1 iteration. This also supports the validity of the samples as a fully instruction-adherent output is possible.</p>
+    <p>To test reproducibility, we ran Qwen 7B twice (blue and orange) and observed nearly identical starting adherence and post re-prompting improvements (even if it varied in the intermediate), suggesting the process produces stable, repeatable results even on smaller models.</p>
     <figure>
-      <img src="assets/blog/img06.png" alt="Line chart of instruction-following rate by iteration on the 100-sample difficult set, including GPT-4o being re-prompted and Qwen 7B run twice for reproducibility." width="768" height="481" loading="lazy" decoding="async" />
-      <figcaption>Difficult set (100 samples). GPT-4o also improves after one iteration; Qwen 7B (run twice) shows stable, repeatable gains.</figcaption>
+      <img src="assets/blog/img06.png" alt="Line chart of instruction following rate by iteration on 100 samples." width="768" height="481" loading="lazy" decoding="async" />
     </figure>
-
-    <p>We also measured average iterations to convergence &mdash; how many rounds it took to reach a fully adherent draft. Across models this landed between 1 and 2, with the harder set needing a bit more:</p>
+    <p>We also computed the average iterations to convergence to see how many rounds were required to get a fully instruction-adherent draft. For all models, this averaged between 1 and 2 iterations, with the models run on the harder 100 sample test set requiring a higher average number of iterations:</p>
     <div class="table-wrap">
       <table>
-        <caption>Average iterations to convergence with re-prompting.</caption>
+        <caption>Average Iterations for Convergence with Re-prompting</caption>
         <thead>
           <tr>
-            <th>Mistral 7B Instruct v0.2</th>
+            <th>Mistral (7B) Instruct v0.2</th>
             <th>Llama 3.2 3B Instruct</th>
             <th>Mistral Small 24B Instruct 2501</th>
             <th>Gemma 3N E4B Instruct</th>
@@ -234,48 +247,42 @@ You did well on these &mdash; keep following them: [followed instructions]
         </tbody>
       </table>
     </div>
-    <p>Want to see it in motion? Here&rsquo;s an <a href="https://canva.link/25z15yxdf68dhvu">example re-prompting flow &rarr;</a></p>
 
-    <h3>Instruction-level analysis</h3>
-    <p>To see where re-prompting helped most, we measured the <strong>fix rate</strong> per instruction type &mdash; the share of initially-violated instructions later satisfied.</p>
-
+    <h3>Instruction-Level Analysis</h3>
+    <p>To understand where re-prompting helped most, we examined the fix rate per instruction type: the percentage of initially violated instructions that were later satisfied on a per-category basis. You can see a description of each of the instruction categories above in the dataset section.</p>
     <figure>
-      <img src="assets/blog/img07.png" alt="Bar chart of fix rate per instruction category on the 1K dataset; groundedness has the highest fix rate." width="685" height="299" loading="lazy" decoding="async" />
-      <figcaption><b>Groundedness (hallucinations) fixed most reliably</b>, thanks to IFE&rsquo;s precise token-level feedback. Subjective instructions like conciseness were harder to fix consistently.</figcaption>
+      <img src="assets/blog/img07.png" alt="Bar chart of fix rate per instruction category on the 1K dataset." width="685" height="299" loading="lazy" decoding="async" />
     </figure>
-
-    <p>Breaking it down per model &mdash; the share of each instruction type that adhered <em>initially</em>, adhered <em>after</em> re-prompting, and <em>failed despite</em> it (note the 85&ndash;100% scale):</p>
+    <p>Re-prompting was especially effective at resolving groundedness violations (hallucinations), thanks to IFE&rsquo;s precise token-level feedback. However, more subjective instructions like conciseness proved harder to fix consistently. It is also important to consider that the number of instruction failures in each category also varied.</p>
+    <p>In the graph below you can see the percent of each type of instruction that adhered initially, adhered after re-prompting, and failed despite re-prompting. Note the scale of the graph is 85% to 100% of total instructions in a given category across all samples.</p>
     <div class="fig-row">
-      <figure><img src="assets/blog/img08.png" alt="Per-category adherence before, after, and failing despite re-prompting for Mistral Small 24B Instruct." width="853" height="338" loading="lazy" decoding="async" /><figcaption>Mistral Small 24B</figcaption></figure>
-      <figure><img src="assets/blog/img09.png" alt="Per-category adherence before, after, and failing despite re-prompting for Llama 3.2 3B Instruct." width="850" height="338" loading="lazy" decoding="async" /><figcaption>Llama 3.2 3B</figcaption></figure>
-      <figure><img src="assets/blog/img10.png" alt="Per-category adherence before, after, and failing despite re-prompting for Mistral 7B Instruct." width="853" height="338" loading="lazy" decoding="async" /><figcaption>Mistral 7B</figcaption></figure>
+      <figure><img src="assets/blog/img08.png" alt="Per-category adherence for Mistral Small 24B Instruct." width="853" height="338" loading="lazy" decoding="async" /><figcaption>mistral small 24B instruct</figcaption></figure>
+      <figure><img src="assets/blog/img09.png" alt="Per-category adherence for Llama 3B Instruct." width="850" height="338" loading="lazy" decoding="async" /><figcaption>llama 3b instruct</figcaption></figure>
+      <figure><img src="assets/blog/img10.png" alt="Per-category adherence for Mistral 7B Instruct." width="853" height="338" loading="lazy" decoding="async" /><figcaption>mistral 7b instruct</figcaption></figure>
     </div>
-    <p>Content-requirement instructions (e.g. &ldquo;include a clear recommendation based on the context&rdquo;) and brand-reputation ones (e.g. &ldquo;avoid vague or speculative phrases like &lsquo;I think we cover that&rsquo;&rdquo;) had the highest failure rates &mdash; re-prompting helped, but they stayed harder to fix. Formatting violations, though common, were corrected reliably.</p>
-
-    <p>We also tracked the <strong>break rate</strong> &mdash; instructions initially followed but later broken after re-prompting:</p>
+    <p>Content requirements (&ldquo;Include a clear recommendation or suggested course of action based on the context.&rdquo; frequently failed) and brand reputation instructions (&ldquo;Avoid expressions of uncertainty about company policies and eliminate vague or speculative phrases (e.g., &ldquo;I think we cover that&rdquo;)&rdquo;) had the highest failure rates, and while re-prompting improved adherence, these categories remained more difficult to fix compared to others. In contrast, formatting violations, though common, were more reliably corrected after re-prompting.</p>
+    <p>We also evaluated the break rate: the percentage of instructions that were initially followed but later broken after re-prompting across different models.</p>
     <figure>
-      <img src="assets/blog/img11.png" alt="Bar chart of break rate per instruction category across models; break rates are low across the board." width="849" height="371" loading="lazy" decoding="async" />
-      <figcaption>Break rates were low across the board. Because we always keep the draft with the fewest failures (or lowest residual error), the net effect stays neutral-to-positive.</figcaption>
+      <img src="assets/blog/img11.png" alt="Bar chart of break rate per instruction category across models." width="849" height="371" loading="lazy" decoding="async" />
     </figure>
+    <p>Break rates were very low across the board. Since we always select the response with the fewest failed instructions (or lowest residual error score when tied), re-prompting delivers a neutral-to-positive net effect on overall output quality, though it may occasionally sacrifice adherence of one instruction for higher adherence of the rest.</p>
 
     <h3>Latency</h3>
-    <p>Interesting results &mdash; but how practical is it? Below is average end-to-end latency (95% CI) with and without the pipeline. The &ldquo;after&rdquo; values average over <em>all</em> queries, including those resolved on the first pass.</p>
+    <p>Re-prompting yields some interesting results, but how practical is this strategy? This graph shows average end-to-end latency (with 95% confidence intervals) across all samples, comparing outputs with and without use of the re-prompting pipeline. The &ldquo;after re-prompting&rdquo; values reflect the overall average across all queries, including those resolved on the first pass (and thus requiring no re-prompting) and those requiring multiple iterations.</p>
     <figure>
-      <img src="assets/blog/img12.png" alt="Grouped bar chart of end-to-end latency before and after re-prompting for five models, with 95% confidence interval error bars that largely overlap." width="664" height="485" loading="lazy" decoding="async" />
-      <figcaption>End-to-end latency (95% CI). Samples that actually need re-prompting cost ~5,121&nbsp;ms more (&asymp;47%), but overlapping intervals suggest the added latency is largely negligible across many calls.</figcaption>
+      <img src="assets/blog/img12.png" alt="Grouped bar chart of end-to-end latency before and after re-prompting for five models, with 95% confidence interval error bars." width="664" height="485" loading="lazy" decoding="async" />
     </figure>
-    <p>For models like Mistral 24B that need little re-prompting, the added latency is small. Models like Gemma 4B, which need more rounds, cost more. But because many queries adhere on the first pass, the impact on large-scale workloads is muted &mdash; and the overlapping confidence intervals make the added latency statistically negligible across many LLM calls.</p>
+    <p>For models like Mistral 24B, which required minimal re-prompting, the latency increase was small for the overall dataset. In contrast, models such as Gemma 4B, which needed multiple re-prompting rounds due to lower initial instruction adherence, exhibited a higher average latency. However, samples that required re-prompting exhibited an average of a 5,121.2 ms increase in latency (roughly a 47% increase), reflecting the extra workload of recalling the primary LLM up to two additional times. However, because many queries will adhere to instructions on the first pass (requiring no re-prompting), the overall impact on large-scale workloads is much less pronounced. Additionally, the 95% confidence intervals for almost all models overlap, indicating that this added latency is statistically negligible when viewed across many LLM calls.</p>
 
     <h3>Limitations</h3>
-    <p>Re-prompting&rsquo;s effectiveness depends heavily on the quality of the original instructions &mdash; they must be clear, deterministic, and realistically followable; vague or contradictory guidance can&rsquo;t be reliably corrected. Subjective dimensions like tone or conciseness improve inconsistently and are hard to quantify. And there&rsquo;s a real quality-versus-speed tradeoff to weigh, especially for real-time or cost-sensitive applications.</p>
+    <p>While re-prompting significantly improves instruction adherence, its effectiveness depends heavily on the quality of the original instructions. Instructions must be clear, deterministic, and realistically followable as vague or contradictory guidance cannot be reliably corrected. More subjective dimensions, such as tone or conciseness, show inconsistent improvements and are harder to quantify. Additionally, there is a hit to latency and a tradeoff between quality and speed to consider, especially for real-time or cost-sensitive applications.</p>
 
     <h2>Conclusion</h2>
-    <p>Ultimately, re&#8209;prompting boosted instruction-following by <strong>~22% on average</strong> &mdash; and let small, stateless models rival GPT-4o. If you want to try it yourself, check out AIMon&rsquo;s open-source framework and API to drop re-prompting into your own workflows.</p>
+    <p>Ultimately, re-prompting did boost instruction-following rates by ~22% on average. If you want to try it yourself, check out AIMon&rsquo;s <a href="https://github.com/aimonlabs/aimon-python-sdk">open-source framework and API</a> to integrate re-prompting into your workflows.</p>
 
   </div>
 
   <div class="post-cta">
-    <p>Want to build on it?</p>
     <div class="btns">
       <a class="btn" href="https://github.com/aimonlabs/aimon-python-sdk/tree/main/aimon/reprompting_api">Re-prompting API on GitHub &rarr;</a>
       <a class="btn alt" href="index.html#work">&larr; back to projects</a>
