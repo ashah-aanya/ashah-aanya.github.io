@@ -2,7 +2,7 @@
    Hero background: a t-SNE-style point field.
    Loose clusters of specks (mostly ink, a few oxblood/indigo) that ease toward
    "home" positions with a slow painterly drift — a nod to the embedding-space
-   work in "Three Ways of Seeing." It settles if you let it, and freezes for
+   work in "Finding Nearest Neighbors." It settles if you let it, and freezes for
    anyone who prefers reduced motion.
    --------------------------------------------------------------------------- */
 (function () {
