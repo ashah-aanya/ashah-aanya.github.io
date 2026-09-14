@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   Work board: arrow buttons + a "3 of 9" counter for the sideways card rail.
+   Work board: arrow buttons + a "3 / 7" column counter for the sideways card rail.
    Scrolling itself is native (trackpad, touch, shift+wheel, arrow keys when
    the rail has focus); this only adds buttons for mouse users.
    --------------------------------------------------------------------------- */
@@ -9,7 +9,7 @@
   var prev = document.getElementById('workPrev');
   var next = document.getElementById('workNext');
   var count = document.getElementById('workCount');
-  var cards = rail.querySelectorAll('.pin');
+  var cards = rail.children;  // one entry per column (a .pin or a .stack of pins)
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function step() {

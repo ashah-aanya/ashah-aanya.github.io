@@ -173,6 +173,9 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .pins::-webkit-scrollbar-thumb{background:rgba(34,29,22,.25); border-radius:8px}
 .pins::after{content:""; flex:0 0 1px}  /* keeps the right padding when scrolled to the end */
 
+/* a column of cards that happened at the same time (e.g. Fall 2026) */
+.pin-stack{flex:0 0 min(318px, 80vw); scroll-snap-align:start; display:flex; flex-direction:column; gap:26px}
+.pin-stack .pin{flex:none}
 .pin{flex:0 0 min(318px, 80vw); scroll-snap-align:start; position:relative;
   background:#FFFDF8; padding:22px 22px 22px; transform:rotate(var(--tilt,0deg));
   box-shadow:0 1px 1px rgba(34,29,22,.08), 0 14px 26px -18px rgba(34,29,22,.55)}
@@ -187,9 +190,14 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 
 .pin .top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin:0 0 12px}
 .pin .when{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); padding-top:4px}
-.pin .logo{height:28px; max-width:112px; width:auto; object-fit:contain; display:block}
+/* logos sit in identical 30px chips so icons and wordmarks line up; text is the fallback */
+.pin .logo-chip, .pin .logo-text{flex:none; height:30px; display:inline-flex; align-items:center;
+  padding:0 8px; border:1px solid var(--line-2); border-radius:5px; background:#fff}
+.pin .logo-chip img{display:block; height:18px; width:auto; max-width:96px}
+.pin .logo-chip.icon img{height:24px}
+.pin .logo-chip.dark{background:var(--ink); border-color:var(--ink)}
 .pin .logo-text{font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.06em;
-  text-transform:uppercase; color:var(--ink); border:1px solid var(--line); border-radius:4px; padding:5px 8px; white-space:nowrap}
+  text-transform:uppercase; color:var(--ink); white-space:nowrap}
 /* shared text parts (kept from the old project cards) */
 .frole{margin:6px 0 0; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.01em}
 .fbul{margin:9px 0 0; padding:0 0 0 17px; list-style:none}

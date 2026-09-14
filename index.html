@@ -61,7 +61,7 @@
 <!-- ================= WORK ================= -->
 <!-- One horizontally scrolling board, newest first. Card types: .pin (plain),
      .pin.polaroid (has a photo), .pin.pass (event pass), .pin.note (index card).
-     Logos: swap a .logo-text span for <img class="logo" src="assets/logos/..."> -->
+     Logos: .logo-chip holds an image; .logo-text is the fallback when an org has no public logo (LBal, D-Lab). -->
 <section id="work">
   <div class="wrap">
     <div class="work-head">
@@ -80,34 +80,37 @@
   <div class="board">
     <ol class="pins" id="pins" tabindex="0" aria-label="Work, scrolls sideways">
 
-      <!-- TODO(aanya): add what you're building at CUBE -->
-      <li class="pin">
-        <div class="top"><span class="when">Fall 2026</span><span class="logo-text">CUBE</span></div>
-        <h3>CUBE Consulting</h3>
-        <p class="frole">Software Engineer &middot; UIUC</p>
-        <ul class="fbul">
-          <li>Software engineer at UIUC&rsquo;s business-and-engineering consulting organization</li>
-        </ul>
-      </li>
+      <!-- Fall 2026: three new roles stacked in one column -->
+      <li class="pin-stack">
+        <!-- TODO(aanya): add what you're building at CUBE -->
+        <div class="pin">
+          <div class="top"><span class="when">Fall 2026</span><span class="logo-chip icon"><img src="assets/logos/cube.png" alt="CUBE Consulting" /></span></div>
+          <h3>CUBE Consulting</h3>
+          <p class="frole">Software Engineer &middot; UIUC</p>
+          <ul class="fbul">
+            <li>Software engineer at UIUC&rsquo;s business-and-engineering consulting organization</li>
+          </ul>
+        </div>
 
-      <!-- TODO(aanya): add what you're building at D-Lab -->
-      <li class="pin">
-        <div class="top"><span class="when">Fall 2026</span><span class="logo-text">D-Lab</span></div>
-        <h3>Disruption Lab</h3>
-        <p class="frole">Software Engineer &middot; Gies College of Business</p>
-        <ul class="fbul">
-          <li>Software engineer at Gies&rsquo; lab for AI and emerging-technology projects with external clients</li>
-        </ul>
-      </li>
+        <!-- TODO(aanya): add what you're building at D-Lab -->
+        <div class="pin">
+          <div class="top"><span class="when">Fall 2026</span><span class="logo-text">D-Lab</span></div>
+          <h3>Disruption Lab</h3>
+          <p class="frole">Software Engineer &middot; Gies College of Business</p>
+          <ul class="fbul">
+            <li>Software engineer at Gies&rsquo; lab for AI and emerging-technology projects with external clients</li>
+          </ul>
+        </div>
 
-      <!-- TODO(aanya): add what you're building at Quant -->
-      <li class="pin">
-        <div class="top"><span class="when">Fall 2026</span><span class="logo-text">Quant</span></div>
-        <h3>Quant @ Illinois</h3>
-        <p class="frole">Software Division &middot; UIUC</p>
-        <ul class="fbul">
-          <li>Software division of UIUC&rsquo;s algorithmic trading organization, building the systems its research and trading teams run on</li>
-        </ul>
+        <!-- TODO(aanya): add what you're building at Quant -->
+        <div class="pin">
+          <div class="top"><span class="when">Fall 2026</span><span class="logo-chip"><img src="assets/logos/quant.png" alt="Quant @ Illinois" /></span></div>
+          <h3>Quant @ Illinois</h3>
+          <p class="frole">Software Division &middot; UIUC</p>
+          <ul class="fbul">
+            <li>Software division of UIUC&rsquo;s algorithmic trading organization, building the systems its research and trading teams run on</li>
+          </ul>
+        </div>
       </li>
 
       <li class="pin">
@@ -122,7 +125,7 @@
       </li>
 
       <li class="pin">
-        <div class="top"><span class="when">Dec 2025 &ndash; now</span><span class="logo-text">Rethink</span></div>
+        <div class="top"><span class="when">Dec 2025 &ndash; now</span><span class="logo-chip icon"><img src="assets/logos/rethink.png" alt="Rethink Yearbooks" /></span></div>
         <h3>LifeChapters <span class="status wip">in progress</span></h3>
         <p class="frole">Software Development Intern &middot; Rethink Yearbooks</p>
         <ul class="fbul">
@@ -135,7 +138,7 @@
       <li class="pin polaroid">
         <div class="shot contain"><img src="assets/blog/img01.png" alt="Diagram of the re-prompting loop: user, primary LLM, feedback model, decision gate, and re-prompter" loading="lazy" /></div>
         <div class="txt">
-          <div class="top"><span class="when">Summer 2025</span><span class="logo-text">AIMon</span></div>
+          <div class="top"><span class="when">Summer 2025</span><span class="logo-chip dark"><img src="assets/logos/aimon.png" alt="AIMon" /></span></div>
           <h3>Automated re-prompting pipeline</h3>
           <p class="frole">AI Engineering Intern &middot; AIMon (Bessemer-backed)</p>
           <ul class="fbul">
@@ -174,7 +177,7 @@
       <li class="pin polaroid">
         <div class="shot"><img src="assets/work/exhibition-wall.jpg" alt="Aanya standing in front of the wall-sized t-SNE projection of her exhibition" loading="lazy" /></div>
         <div class="txt">
-          <div class="top"><span class="when">2025 &ndash; 26</span><span class="logo-text">Harker</span></div>
+          <div class="top"><span class="when">2025 &ndash; 26</span><span class="logo-chip"><img src="assets/logos/harker.png" alt="The Harker School" /></span></div>
           <h3>Finding Nearest Neighbors</h3>
           <p class="frole">Solo exhibitor &middot; The Harker School</p>
           <ul class="fbul">
@@ -187,7 +190,7 @@
       </li>
 
       <li class="pin note">
-        <div class="top"><span class="when">2023 &ndash; 26</span><span class="logo-text">Harker</span></div>
+        <div class="top"><span class="when">2023 &ndash; 26</span><span class="logo-chip"><img src="assets/logos/harker.png" alt="The Harker School" /></span></div>
         <h3>CareerConnect</h3>
         <p class="frole">President &middot; The Harker School</p>
         <ul class="fbul">
