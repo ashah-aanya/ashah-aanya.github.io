@@ -13,9 +13,8 @@
   <div class="wrap">
     <a class="mark" href="index.html">Aanya<b>.</b>Shah</a>
     <ul>
-      <li><a href="#work">projects</a></li>
       <li><a href="#currently">now</a></li>
-      <li><a href="#more">more</a></li>
+      <li><a href="#work">projects</a></li>
       <li><a href="art.html">studio<span class="ext">&#8599;</span></a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -45,71 +44,6 @@
   </div>
 </header>
 
-<!-- ================= FEATURED PROJECTS ================= -->
-<section id="work">
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-title">Featured projects</span></div>
-
-    <div class="feat-list">
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>
-          <div class="fhead"><h3>Autonomous trading system</h3></div>
-          <p class="frole">Software Engineer Intern &middot; LBal Trading</p>
-          <ul class="fbul">
-            <li>Turns daily options-chain snapshots into model-based trade calls and executes them on a paper account</li>
-            <li>A full-stack portfolio-management dashboard with PostgreSQL and MLflow telemetry</li>
-          </ul>
-          <div class="ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
-        </div>
-      </div>
-
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 15l-5-4-7 6"/></svg></span>
-          <div class="fhead"><h3>LifeChapters <span class="status wip">in progress</span></h3></div>
-          <ul class="fbul">
-            <li>An AI pipeline that turns a messy camera roll into a coherent photobook</li>
-            <li>Face recognition, VLM captioning, and LLM assembly</li>
-          </ul>
-          <div class="ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
-        </div>
-      </div>
-
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.3A8 8 0 1 1 21 11.5z"/></svg></span>
-          <div class="fhead"><h3>Automated re-prompting pipeline</h3></div>
-          <p class="frole">AI Engineering Intern &middot; AIMon (Bessemer-backed)</p>
-          <ul class="fbul">
-            <li>Improved LLM instruction following by 22%, enabling 3 to 7B models to beat GPT-4o</li>
-            <li>Productized and open-sourced API and eval datasets with a technical blog</li>
-          </ul>
-          <div class="flinks">
-            <a href="re-prompting.html">read the blog &rarr;</a>
-            <a href="https://github.com/aimonlabs/aimon-python-sdk/tree/main/aimon/reprompting_api">pipeline &rarr;</a>
-          </div>
-          <div class="ftags"><span>Python</span><span>LLM eval</span><span>RAG</span><span>Hugging Face</span></div>
-        </div>
-      </div>
-
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="6.5" y1="7.5" x2="10" y2="15.5"/><line x1="17.5" y1="9" x2="14.5" y2="15.5"/><line x1="10" y1="15.5" x2="14.5" y2="15.5"/><circle cx="6.5" cy="7.5" r="2" fill="currentColor" stroke="none"/><circle cx="17.5" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="10" cy="15.5" r="2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="15.5" r="2" fill="currentColor" stroke="none"/></svg></span>
-          <div class="fhead"><h3>Finding Nearest Neighbors</h3></div>
-          <p class="frole">Solo exhibitor &middot; The Harker School</p>
-          <ul class="fbul">
-            <li>A real-time pipeline embedding audience words into a live 3D t-SNE projection</li>
-            <li>100+ words added over async WebSockets to reshape the clusters live</li>
-          </ul>
-          <div class="flinks"><a href="https://github.com/ashah-aanya/interactive-embedding-visualizer">code &rarr;</a></div>
-          <div class="ftags"><span>t-SNE</span><span>WebSockets</span><span>Three.js</span><span>WebGL</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= CURRENTLY ================= -->
 <section id="currently">
   <div class="wrap">
@@ -123,97 +57,115 @@
   </div>
 </section>
 
-<!-- ================= OTHER EXPERIENCE ================= -->
-<!-- The playful board: everything that isn't a featured project. Item types:
-     figure.mb-print (photo), div.mb-card (index card), div.mb-pass (event pass). -->
-<section id="more">
+<!-- ================= FEATURED PROJECTS ================= -->
+<!-- A bulletin board of six taped cards on a fixed grid (no scrolling).
+     Card types: .pin, .pin.roster, .pin.polaroid, .pin.pass. Logos live in
+     .logo-chip (add .dark for white logos, .icon for square marks). -->
+<section id="work">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-title">Other experience</span></div>
-    <p class="sec-sub">A bit more about me: side builds, clubs, and things from before Illinois.</p>
+    <div class="sec-head"><span class="sec-title">Featured projects</span></div>
   </div>
 
-  <div class="mboard">
-    <div class="mb">
+  <div class="board">
+    <ol class="pins">
 
-      <figure class="mb-print">
-        <img src="assets/more/attention-explorer.jpg" alt="The attention explorer: a line of Aanya's poetry with an attention heatmap" loading="lazy" />
-        <figcaption><a class="t" href="https://github.com/ashah-aanya/gpt-attention-explorer">a GPT trained on my poetry &rarr;</a><span class="m">built from scratch &middot; live attention explorer</span></figcaption>
-      </figure>
-
-      <!-- TODO(aanya): add what you're building in each once there's something to show -->
-      <div class="mb-card">
-        <span class="lab">Now at Illinois</span>
-        <ul class="mb-list">
-          <li>CUBE Consulting <span>software engineer</span></li>
-          <li>Disruption Lab <span>software engineer</span></li>
-          <li>Quant @ Illinois <span>software division</span></li>
+      <li class="pin roster">
+        <div class="top"><span class="when">Fall 2026 &middot; at Illinois</span><span class="logo-chip icon"><img src="assets/logos/uiuc.svg" alt="University of Illinois" /></span></div>
+        <ul class="roles">
+          <li>
+            <span class="org">Disruption Lab</span>
+            <span class="logo-text">Gies</span>
+            <span class="rl">Software Engineer</span>
+            <p>Building a RAG chatbot with Gies College of Business to centralize school resources for 10K+ students</p>
+          </li>
+          <li>
+            <span class="org">CUBE Consulting</span>
+            <span class="logo-chip icon"><img src="assets/logos/cube.png" alt="CUBE Consulting" /></span>
+            <span class="rl">ML Engineering Consultant</span>
+            <p>Training a clinical ML model for VR therapy startup VerityXR to personalize patient treatment</p>
+          </li>
+          <!-- TODO(aanya): confirm the Quant role title and add detail on the poker project -->
+          <li>
+            <span class="org">Quant @ Illinois</span>
+            <span class="logo-chip"><img src="assets/logos/quant.png" alt="Quant @ Illinois" /></span>
+            <span class="rl">Software Engineer</span>
+            <p>Working on a trading pipeline and a poker project</p>
+          </li>
         </ul>
-      </div>
+      </li>
 
-      <figure class="mb-print">
-        <img src="assets/paintings/restless.jpg" alt="Restless, three overlapping self-portraits in oil" loading="lazy" />
-        <figcaption><span class="t">Restless</span><span class="m">oil over willow charcoal &middot; 10 &times; 10 in</span></figcaption>
-      </figure>
+      <li class="pin polaroid">
+        <div class="shot contain"><img src="assets/blog/img01.png" alt="Diagram of the re-prompting loop: user, primary LLM, feedback model, decision gate, and re-prompter" loading="lazy" /></div>
+        <div class="txt">
+          <div class="top"><span class="when">Summer 2025</span><span class="logo-chip dark"><img src="assets/logos/aimon.png" alt="AIMon" /></span></div>
+          <h3>Automated re-prompting pipeline</h3>
+          <p class="frole">AI Engineering Intern &middot; AIMon (Bessemer-backed)</p>
+          <ul class="fbul">
+            <li>Improved LLM instruction following by 22%, enabling 3 to 7B models to beat GPT-4o</li>
+            <li>Productized and open-sourced the API and eval datasets with a technical blog</li>
+          </ul>
+          <div class="foot flinks">
+            <a href="re-prompting.html">read the blog &rarr;</a>
+            <a href="https://github.com/aimonlabs/aimon-python-sdk/tree/main/aimon/reprompting_api">pipeline &rarr;</a>
+          </div>
+        </div>
+      </li>
 
-      <div class="mb-pass">
+      <li class="pin">
+        <div class="top"><span class="when">Summer 2026</span><span class="logo-text">LBal</span></div>
+        <h3>Autonomous trading system</h3>
+        <p class="frole">Software Engineer Intern &middot; LBal Trading</p>
+        <ul class="fbul">
+          <li>Turns daily options-chain snapshots into model-based trade calls and executes them on a paper account</li>
+          <li>A full-stack portfolio-management dashboard with PostgreSQL and MLflow telemetry</li>
+        </ul>
+        <div class="foot ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
+      </li>
+
+      <li class="pin">
+        <div class="top"><span class="when">May 2026 &ndash; now</span><span class="logo-chip icon"><img src="assets/logos/rethink.png" alt="Rethink Yearbooks" /></span></div>
+        <h3>LifeChapters <span class="status wip">in progress</span></h3>
+        <p class="frole">Software Development Intern &middot; Rethink Yearbooks</p>
+        <ul class="fbul">
+          <li>An AI pipeline that turns a messy camera roll into a coherent photobook</li>
+          <li>Face recognition, VLM captioning, and LLM assembly</li>
+        </ul>
+        <div class="foot ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
+      </li>
+
+      <li class="pin polaroid">
+        <div class="shot"><img src="assets/featured/exhibition-wall.jpg" alt="Aanya standing in front of the wall-sized t-SNE projection of her exhibition" loading="lazy" /></div>
+        <div class="txt">
+          <div class="top"><span class="when">2025 &ndash; 26</span><span class="logo-chip"><img src="assets/logos/harker.png" alt="The Harker School" /></span></div>
+          <h3>Finding Nearest Neighbors</h3>
+          <p class="frole">Solo exhibitor &middot; The Harker School</p>
+          <ul class="fbul">
+            <li>A real-time pipeline embedding audience words into a live 3D t-SNE projection</li>
+            <li>100+ words added over async WebSockets to reshape the clusters live</li>
+          </ul>
+          <div class="foot flinks"><a href="https://github.com/ashah-aanya/interactive-embedding-visualizer">code &rarr;</a></div>
+        </div>
+      </li>
+
+      <li class="pin pass">
         <div class="band">
           <div class="slot"></div>
           <div class="event"><img src="assets/aot-logo.png" alt="Agents of Trust" /><span>Presenter</span></div>
         </div>
-        <div class="body">
+        <div class="txt">
           <div class="who">
             <img src="assets/turing/ai-1.jpg" alt="A painting from the Turing Test exhibit" loading="lazy" />
-            <div><div class="nm">Turing Test for art</div><div class="rl">Credo AI &middot; Sept 2025</div></div>
+            <div><div class="nm">Creativity in the AI Age</div><div class="rl">Credo AI &middot; Sept 2025</div></div>
           </div>
-          <p>Visitors at Credo AI&rsquo;s Agents of Trust Summit tried to tell my oil paintings from AI-generated replicas.</p>
-          <a href="art.html">try it in the studio &rarr;</a>
+          <ul class="fbul">
+            <li>Presented an interactive Turing Test for Art: visitors tried to tell my oil paintings from AI-generated replicas</li>
+            <li>Discussed AI ethics with 90+ attendees at Credo AI&rsquo;s invite-only Agents of Trust Summit</li>
+          </ul>
+          <div class="foot flinks"><a href="art.html">see the studio &rarr;</a></div>
         </div>
-      </div>
+      </li>
 
-      <figure class="mb-print">
-        <img src="assets/more/course-graph.jpg" alt="The UIUC course planner filtering courses by completed prerequisites" loading="lazy" />
-        <figcaption><a class="t" href="https://github.com/ashah-aanya/uiuc-course-graph">UIUC course graph &rarr;</a><span class="m">500 courses &middot; prerequisites as boolean logic</span></figcaption>
-      </figure>
-
-      <div class="mb-card">
-        <span class="lab">Teaching</span>
-        <div class="big o">180K+</div>
-        <p>views on my YouTube tutorials teaching beginners to build apps with low-code tools.</p>
-        <div class="meta">100+ videos</div>
-      </div>
-
-      <figure class="mb-print">
-        <img src="assets/more/chess.gif" alt="The minimax chess engine playing a game" loading="lazy" />
-        <figcaption><a class="t" href="https://github.com/ashah-aanya/chess-minimax">minimax chess &rarr;</a><span class="m">Java &middot; an engine that looks ahead</span></figcaption>
-      </figure>
-
-      <div class="mb-card">
-        <span class="lab">Before Illinois</span>
-        <ul class="mb-list">
-          <li>1st place, Bubble.io hackathon <span>youngest of 150+</span></li>
-          <li>President, CareerConnect <span>13 company visits</span></li>
-        </ul>
-      </div>
-
-      <figure class="mb-print">
-        <img src="assets/more/finger-classes.jpg" alt="Five hand gestures rendered from the neural network's activations" loading="lazy" />
-        <figcaption><a class="t" href="https://github.com/ashah-aanya/neural-net-from-scratch">a neural net from scratch &rarr;</a><span class="m">Java, no ML libraries &middot; counts fingers</span></figcaption>
-      </figure>
-
-      <div class="mb-card">
-        <span class="lab">Worked &amp; shown at</span>
-        <div class="mb-logos">
-          <span><img class="tall" src="assets/logos/uiuc.svg" alt="University of Illinois" /></span>
-          <span class="dark"><img src="assets/logos/aimon.png" alt="AIMon" /></span>
-          <span><img src="assets/logos/credo.png" alt="Credo AI" /></span>
-          <span><img class="tall" src="assets/logos/rethink.png" alt="Rethink Yearbooks" /></span>
-          <span><img class="tall" src="assets/logos/cube.png" alt="CUBE Consulting" /></span>
-          <span><img src="assets/logos/quant.png" alt="Quant @ Illinois" /></span>
-          <span><img src="assets/logos/harker.png" alt="The Harker School" /></span>
-        </div>
-      </div>
-
-    </div>
+    </ol>
   </div>
 </section>
 
