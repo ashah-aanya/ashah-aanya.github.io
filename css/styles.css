@@ -135,127 +135,122 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .cur .cg p{margin:0; color:var(--ink-soft); font-size:15.5px}
 @media (max-width:520px){.cur .cl{flex-basis:100%}}
 
-/* ---- Work: a sideways-scrolling pegboard, two rows on a fixed grid ----
-   Every card fills one identical cell (--cell-w x --cell-h), placed column by
-   column, newest first. The grid keeps the board orderly; variety comes from
-   what each card is made of, not its size:
-     .pin            taped card
-     .pin.polaroid   photo print, description on the white margin
-     .pin.pass       event pass on a lanyard
-     .pin.note       index card
-     .pin.sticky     a small closing note
-   Inside every card the same skeleton repeats: top line (date + logo), title,
-   role, bullets, and a foot (tags or links) pinned to the bottom edge. */
-#work{padding-bottom:0; --cell-w:320px; --cell-h:360px; --cell-gap:30px}
-.work-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap}
-.work-head .sec-sub{margin:0}
-.work-nav{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; color:var(--muted)}
-.work-nav button{width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
-  background:var(--linen); color:var(--ink); font-size:16px; line-height:1; cursor:pointer;
-  transition:background .15s ease, color .15s ease, border-color .15s ease}
-.work-nav button:hover:not(:disabled){background:var(--ink); color:var(--linen); border-color:var(--ink)}
-.work-nav button:disabled{opacity:.35; cursor:default}
-.work-nav button:focus-visible{outline:2px solid var(--indigo); outline-offset:3px}
+/* ---- Featured projects: a 2×2 grid of borderless cards ----
+   Each card is an on-brand motif banner on top, then title / short description
+   / links. No outlines — cards sit on the linen, sized to their own content.
+   Swap a motif <canvas> for a real screenshot any time; it fills the same banner. */
+/* the Projects section sits on a whisper of warm tint; the cards are the
+   near-white page color, so they read as barely-lighter rectangles, no borders */
+#work{background:#F7F3EC}
+/* each row sizes to its own content; the two cards in a row still match via
+   align-items:stretch, but a short row is not stretched to a taller row's height */
+.feat-list{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:8px;
+  align-items:stretch}
+@media (max-width:600px){.feat-list{grid-template-columns:1fr; gap:18px; grid-auto-rows:auto}}
+.feat{display:flex; flex-direction:column; background:var(--linen); border-radius:14px;
+  padding:22px 24px 24px; transition:transform .15s ease}
+.feat:hover{transform:translateY(-2px)}
+.ficon-sm{display:block; color:var(--indigo); margin:0 0 12px}
+.ficon-sm svg{width:24px; height:24px; display:block}
+.frole{margin:6px 0 0; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.01em}
+.ficon{width:100%; height:114px; border-radius:9px; overflow:hidden; background:#EFE9DC; margin-bottom:13px}
+.ficon canvas, .ficon img{display:block; width:100%; height:100%; object-fit:cover}
+.fbody{min-width:0}
+.fhead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
+.fhead h3{font-family:var(--serif); font-weight:600; font-size:19px; letter-spacing:-.005em; margin:0;
+  color:var(--ink); display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
+.fmeta{font-family:var(--mono); font-size:11.5px; color:var(--muted); white-space:nowrap}
+.fdesc{margin:7px 0 0; color:var(--ink-soft); font-size:15px; line-height:1.55}
+/* minimal bullet list for featured project descriptions */
+.fbul{margin:9px 0 0; padding:0 0 0 17px; list-style:none}
+.fbul li{position:relative; margin:0 0 5px; color:var(--ink-soft); font-size:15px; line-height:1.5}
+.fbul li::before{content:""; position:absolute; left:-15px; top:.62em; width:5px; height:5px;
+  border-radius:50%; background:var(--oxblood)}
+.flinks{margin:12px 0 0; font-family:var(--mono); font-size:12.5px; display:flex; gap:16px; flex-wrap:wrap}
+.flinks a{color:var(--oxblood); border-bottom:1px solid var(--line)}
+.flinks a:hover{border-color:var(--oxblood)}
+.flinks .fnote{color:var(--muted)}
+/* technical tags at the bottom of each featured project */
+.ftags{margin:13px 0 0; display:flex; flex-wrap:wrap; gap:6px}
+.ftags span{font-family:var(--mono); font-size:11px; letter-spacing:.01em; color:var(--indigo);
+  background:rgba(58,70,184,.06); border:1px solid var(--line-2); border-radius:20px; padding:4px 9px}
 
-/* the pegboard: warm board with a grid of punched holes */
-.board{margin-top:26px; border-top:1px solid var(--line-2);
+/* ---- Other experience: a pegboard of taped prints and index cards ----
+   The playful half of the page, for everything that isn't a featured project.
+   Items flow down CSS columns (masonry), each a little tilted and taped:
+     .mb-print   a photo in a white frame with a wall-label caption
+     .mb-card    an index card: small label on an orange rule, then content
+     .mb-pass    an event pass on a lanyard
+   To add something, copy an item in index.html; the columns rebalance. */
+#more{padding-bottom:0}
+.mboard{margin-top:26px; border-top:1px solid var(--line-2);
   background-color:#F2EEE6;
   background-image:
     radial-gradient(circle at center, rgba(34,29,22,.10) 0 1.6px, transparent 2px),
     radial-gradient(circle at center, transparent 0 3.6px, rgba(34,29,22,.07) 3.8px 4.6px, transparent 4.9px);
   background-size:14px 14px, 14px 14px}
-.pins{list-style:none; margin:0; display:grid;
-  grid-template-rows:repeat(2, var(--cell-h)); grid-auto-flow:column; grid-auto-columns:var(--cell-w);
-  gap:var(--cell-gap);
-  overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory;
-  scroll-padding-inline:max(26px, calc((100vw - var(--maxw)) / 2 + 26px));
-  padding-block:40px 44px; padding-inline:max(26px, calc((100vw - var(--maxw)) / 2 + 26px));
-  scrollbar-width:thin; scrollbar-color:rgba(34,29,22,.28) transparent}
-.pins:focus-visible{outline:2px solid var(--indigo); outline-offset:-4px}
-.pins::-webkit-scrollbar{height:8px}
-.pins::-webkit-scrollbar-thumb{background:rgba(34,29,22,.25); border-radius:8px}
-
-/* the card skeleton: fills its cell exactly; the foot hugs the bottom edge */
-.pin{position:relative; box-sizing:border-box; width:100%; height:100%; scroll-snap-align:start;
-  display:flex; flex-direction:column; min-width:0;
-  background:#FFFDF8; padding:20px 22px 20px; transform:rotate(var(--tilt,0deg));
-  box-shadow:0 1px 1px rgba(34,29,22,.08), 0 14px 26px -18px rgba(34,29,22,.55)}
-.pin:nth-child(4n+1){--tilt:-.5deg}
-.pin:nth-child(4n+3){--tilt:.45deg}
-.pin .foot{margin-top:auto; padding-top:12px}
+.mb{max-width:1120px; margin:0 auto; padding:26px 26px 12px; columns:4 230px; column-gap:30px}
+.mb > *{break-inside:avoid; display:inline-block; vertical-align:top; width:100%; position:relative; margin:18px 0 18px;
+  transform:rotate(var(--r,0deg)); box-shadow:0 1px 1px rgba(34,29,22,.08), 0 14px 26px -18px rgba(34,29,22,.55)}
+.mb > *:nth-child(5n+1){--r:-1.2deg}
+.mb > *:nth-child(5n+2){--r:.9deg}
+.mb > *:nth-child(5n+3){--r:-.5deg}
+.mb > *:nth-child(5n+4){--r:1.3deg}
 /* masking tape */
-.pin::before{content:""; position:absolute; top:-11px; left:50%; width:84px; height:22px; margin-left:-42px;
-  background:rgba(226,210,172,.8); transform:rotate(-2.5deg); z-index:2;
+.mb > *::before{content:""; position:absolute; top:-12px; left:50%; width:90px; height:24px; margin-left:-45px;
+  background:rgba(226,210,172,.82); transform:rotate(-3deg); z-index:2;
   clip-path:polygon(2% 8%, 98% 0, 100% 50%, 97% 100%, 1% 92%, 0 50%)}
-.pin:nth-child(even)::before{left:auto; right:28px; margin-left:0; transform:rotate(3deg)}
+.mb > *:nth-child(even)::before{transform:rotate(2.5deg)}
 
-/* shared text parts */
-.pin .top{display:flex; justify-content:space-between; align-items:center; gap:12px; margin:0 0 12px}
-.pin .when{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
-.pin .logo-chip, .pin .logo-text{flex:none; height:30px; display:inline-flex; align-items:center;
-  padding:0 8px; border:1px solid var(--line-2); border-radius:5px; background:#fff}
-.pin .logo-chip img{display:block; height:18px; width:auto; max-width:96px}
-.pin .logo-chip.icon img{height:24px}
-.pin .logo-chip.dark{background:var(--ink); border-color:var(--ink)}
-.pin .logo-text{font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.06em;
-  text-transform:uppercase; color:var(--ink); white-space:nowrap}
-.pin h3{font-family:var(--serif); font-weight:600; font-size:19px; line-height:1.22; letter-spacing:-.005em;
-  margin:0; color:var(--ink); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
-.frole{margin:5px 0 0; font-family:var(--mono); font-size:11.5px; line-height:1.45; color:var(--muted); letter-spacing:.01em}
-.fbul{margin:10px 0 0; padding:0 0 0 16px; list-style:none}
-.fbul li{position:relative; margin:0 0 5px; color:var(--ink-soft); font-size:14px; line-height:1.45}
-.fbul li::before{content:""; position:absolute; left:-14px; top:.6em; width:5px; height:5px;
-  border-radius:50%; background:var(--oxblood)}
-.flinks{font-family:var(--mono); font-size:12px; display:flex; gap:14px; flex-wrap:wrap}
-.flinks a{color:var(--oxblood); border-bottom:1px solid var(--line)}
-.flinks a:hover{border-color:var(--oxblood)}
-.ftags{display:flex; flex-wrap:wrap; gap:5px}
-.ftags span{font-family:var(--mono); font-size:10.5px; letter-spacing:.01em; color:var(--indigo);
-  background:rgba(58,70,184,.06); border:1px solid var(--line-2); border-radius:20px; padding:3px 8px}
+/* photo print + wall label */
+.mb-print{background:#fff; padding:10px 10px 14px}
+.mb-print img{display:block; width:100%; height:auto; background:#EFEAE0}
+.mb-print figcaption{margin:12px 4px 0; padding:1px 0 1px 10px; border-left:2px solid var(--ink)}
+.mb-print .t{display:block; font-family:var(--serif); font-style:italic; font-size:18px; line-height:1.2; color:var(--ink)}
+.mb-print .m{display:block; margin-top:3px; font-family:var(--mono); font-size:11.5px; color:var(--muted); line-height:1.45}
+.mb-print a.t{border:none}
+.mb-print a.t:hover{color:var(--oxblood)}
 
-/* polaroid: fixed-height print on top, thick white frame */
-.pin.polaroid{background:#fff; padding:11px 11px 16px}
-.pin.polaroid .shot{flex:none; height:128px; margin:0 0 12px; background:#EFEAE0; overflow:hidden}
-.pin.polaroid .shot img{display:block; width:100%; height:100%; object-fit:cover}
-.pin.polaroid .shot.contain{background:#fff; border:1px solid var(--line-2)}
-.pin.polaroid .shot.contain img{object-fit:contain; padding:8px}
-.pin.polaroid .txt{padding:0 9px; display:flex; flex-direction:column; flex:1; min-height:0}
-.pin.polaroid .top{margin-bottom:8px}
+/* index card: ruled stock, label on an orange rule */
+.mb-card{background-color:#FFFEFA; padding:0 20px 18px;
+  background-image:repeating-linear-gradient(to bottom, transparent 0 27px, rgba(58,70,184,.09) 27px 28px);
+  background-position:0 44px}
+.mb-card .lab{display:block; margin:0 -20px 14px; padding:16px 20px 7px; background:#FFFEFA;
+  border-bottom:1.5px solid rgba(222,107,44,.6);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.mb-card .big{font-family:var(--serif); font-size:44px; line-height:1; letter-spacing:-.02em; color:var(--indigo); margin:4px 0 8px}
+.mb-card .big.o{color:var(--oxblood)}
+.mb-card p{margin:0; font-size:15.5px; line-height:1.55; color:var(--ink-soft)}
+.mb-card .meta{margin-top:10px; font-family:var(--mono); font-size:11.5px; color:var(--muted)}
+.mb-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.mb-list li{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-size:15px; line-height:1.35; color:var(--ink)}
+.mb-list li span{flex:none; max-width:48%; text-align:right; font-family:var(--mono); font-size:11.5px; color:var(--muted)}
+.mb-logos{display:flex; flex-wrap:wrap; gap:8px}
+.mb-logos span{height:34px; display:inline-flex; align-items:center; padding:0 9px; background:#fff;
+  border:1px solid var(--line-2); border-radius:5px}
+.mb-logos span.dark{background:var(--ink); border-color:var(--ink)}
+.mb-logos img{display:block; height:18px; width:auto; max-width:92px}
+.mb-logos img.tall{height:24px}
 
 /* event pass on a lanyard */
-.pin.pass{padding:0; border-radius:12px; background:#FFFDF8}
-.pin.pass::before{content:""; top:-30px; left:50%; right:auto; width:26px; height:36px; margin-left:-13px;
-  background:none; border:4px solid var(--indigo); border-bottom:0; border-radius:5px 5px 0 0;
-  clip-path:none; transform:none}
-.pin.pass .band{background:var(--ink); border-radius:12px 12px 0 0; padding:10px 18px 12px}
-.pin.pass .slot{width:40px; height:7px; border-radius:6px; background:#F2EEE6; margin:0 auto 9px}
-.pin.pass .event{display:flex; align-items:center; justify-content:space-between; gap:12px}
-.pin.pass .event img{height:20px; width:auto; filter:invert(1); display:block}
-.pin.pass .event span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--oxblood)}
-.pin.pass .txt{padding:14px 18px 18px; display:flex; flex-direction:column; flex:1; min-height:0}
-.pin.pass .who{display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center;
+.mb-pass{background:#FFFDF8; border-radius:12px; margin-top:44px !important}
+.mb > .mb-pass::before{top:-34px; width:26px; height:40px; margin-left:-13px; background:none;
+  border:4px solid var(--indigo); border-bottom:0; border-radius:5px 5px 0 0; clip-path:none; transform:none}
+.mb-pass .band{background:var(--ink); border-radius:12px 12px 0 0; padding:10px 16px 12px}
+.mb-pass .slot{width:40px; height:7px; border-radius:6px; background:#F2EEE6; margin:0 auto 9px}
+.mb-pass .event{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.mb-pass .event img{height:19px; width:auto; filter:invert(1); display:block}
+.mb-pass .event span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--oxblood)}
+.mb-pass .body{padding:14px 16px 16px}
+.mb-pass .who{display:grid; grid-template-columns:48px 1fr; gap:12px; align-items:center;
   padding-bottom:12px; margin-bottom:12px; border-bottom:2px dashed var(--line)}
-.pin.pass .who img{width:44px; height:54px; object-fit:cover; border-radius:2px; display:block}
-.pin.pass .who .nm{font-family:var(--serif); font-size:18px; line-height:1.1}
-.pin.pass .who .rl{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); margin-top:3px}
+.mb-pass .who img{width:48px; height:60px; object-fit:cover; border-radius:2px; display:block}
+.mb-pass .nm{font-family:var(--serif); font-size:19px; line-height:1.1}
+.mb-pass .rl{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); margin-top:3px}
+.mb-pass p{margin:0; font-size:15px; line-height:1.5; color:var(--ink-soft)}
+.mb-pass a{display:inline-block; margin-top:10px; font-family:var(--mono); font-size:12px; color:var(--oxblood)}
 
-/* index card: cream stock, orange rule under the header, a margin line */
-.pin.note{background-color:#FFFEF7;
-  background-image:linear-gradient(to right, transparent 12px, rgba(222,107,44,.28) 12px 13px, transparent 13px)}
-.pin.note .top{padding-bottom:10px; border-bottom:1.5px solid rgba(222,107,44,.5)}
-
-/* closing sticky note */
-.pin.sticky{background:#F6E7B8; justify-content:center; padding:28px 28px}
-.pin.sticky::before{background:rgba(255,255,255,.55)}
-.pin.sticky .big{font-family:var(--serif); font-style:italic; font-size:26px; line-height:1.2; color:var(--ink); margin:0}
-.pin.sticky p{margin:12px 0 0; font-size:14px; color:var(--ink-soft)}
-.pin.sticky a{align-self:flex-start; margin-top:18px; font-family:var(--mono); font-size:12.5px; color:var(--oxblood); border-bottom:1px solid var(--oxblood)}
-
-@media (max-width:600px){
-  #work{--cell-w:min(300px, 80vw); --cell-h:372px; --cell-gap:22px}
-  .pin{--tilt:0deg !important}
-  .work-nav .count{display:none}
-}
+@media (max-width:560px){.mb > *{--r:0deg !important}}
 
 /* status as soft text, not a filled pill */
 .status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
