@@ -263,9 +263,12 @@ dialog.zoom img{display:block; width:100%; height:auto; max-height:82vh; object-
 .pin.pass .event span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--oxblood)}
 .pin.pass .txt{padding:16px 20px 20px; display:flex; flex-direction:column; flex:1}
 /* two summit photos side by side, then the event title under them */
-.pin.pass .pass-photos{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0 0 14px}
-.pin.pass .pass-photos img{display:block; width:100%; aspect-ratio:4 / 5; object-fit:cover; border-radius:3px;
+/* column widths follow each photo's shape (4:5 portrait, 3:2 group shot) so both come out the same height */
+.pin.pass .pass-photos{display:grid; grid-template-columns:8fr 15fr; gap:8px; margin:0 0 14px}
+.pin.pass .pass-photos img{display:block; width:100%; height:auto; object-fit:cover; border-radius:3px;
   box-shadow:0 1px 0 rgba(34,29,22,.06)}
+.pin.pass .pass-photos img:first-child{aspect-ratio:4 / 5}
+.pin.pass .pass-photos img:last-child{aspect-ratio:3 / 2}
 .pin.pass .pass-title{padding-bottom:12px; margin-bottom:12px; border-bottom:2px dashed var(--line)}
 .pin.pass .pass-title .nm{font-family:var(--serif); font-size:20px; line-height:1.1}
 .pin.pass .pass-title .rl{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); margin-top:4px}
