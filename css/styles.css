@@ -219,11 +219,6 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .roles .logo-chip, .roles .logo-text{grid-row:span 2; height:28px; align-self:start}
 .roles .logo-chip img{height:15px}
 .roles .logo-chip.icon img{height:20px}
-.roles .logo-chip.lockup{height:auto; padding:4px 8px}
-.roles .logo-chip.lockup img{height:40px}
-.roles .logo-chip.siebel{gap:6px}
-.roles .logo-chip.siebel img{height:17px}
-.roles .logo-chip.siebel span{font-family:var(--sans); font-weight:600; font-size:12px; color:#13294B; white-space:nowrap}
 .roles .rl{font-family:var(--mono); font-size:11px; color:var(--muted)}
 .roles p{grid-column:1 / -1; margin:6px 0 0; font-size:14px; line-height:1.45; color:var(--ink-soft)}
 
