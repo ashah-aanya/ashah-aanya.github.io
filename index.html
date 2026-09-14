@@ -58,8 +58,8 @@
 </section>
 
 <!-- ================= FEATURED PROJECTS ================= -->
-<!-- A bulletin board of six taped cards on a fixed 4-column grid (no scrolling);
-     .wide cards span two columns.
+<!-- A bulletin board of six taped cards in two rows (no scrolling). Top row:
+     roster (.w-roster) + two .w-side cards; bottom row: three equal cards.
      Card types: .pin, .pin.roster, .pin.polaroid, .pin.pass. Logos live in
      .logo-chip (add .dark for white logos, .icon for square marks). -->
 <section id="work">
@@ -70,20 +70,20 @@
   <div class="board">
     <ol class="pins">
 
-      <li class="pin roster wide">
+      <li class="pin roster wide w-roster">
         <div class="top"><span class="when">Fall 2026 &middot; at Illinois</span><span class="logo-chip icon"><img src="assets/logos/uiuc.svg" alt="University of Illinois" /></span></div>
         <ul class="roles">
           <li>
             <span class="org">Disruption Lab</span>
             <span class="logo-text">Gies</span>
             <span class="rl">Software Engineer</span>
-            <p>Building a RAG chatbot with Gies College of Business to centralize school resources for 10K+ students</p>
+            <p>Building a RAG chatbot with Gies College of Business that brings school resources into one place for 10K+ students</p>
           </li>
           <li>
             <span class="org">CUBE Consulting</span>
             <span class="logo-chip icon"><img src="assets/logos/cube.png" alt="CUBE Consulting" /></span>
             <span class="rl">ML Engineering Consultant</span>
-            <p>Training a clinical ML model for VR therapy startup VerityXR to personalize patient treatment</p>
+            <p>Training a clinical ML model that uses recovery progress to personalize treatment for VR therapy startup VerityXR, and an AI pipeline that personalizes CUBE&rsquo;s client outreach</p>
           </li>
           <!-- TODO(aanya): confirm the Quant role title and add detail on the poker project -->
           <li>
@@ -96,29 +96,31 @@
             <span class="org">CS STARS</span>
             <span class="logo-text">Stars</span>
             <span class="rl">Research Scholar &amp; Ambassador</span>
-            <p>Undergraduate research focus: LLM reliability and evaluation</p>
+            <p>Undergraduate research in LLM reliability, and an ambassador on the recruiting cohort for prospective and admitted students</p>
           </li>
         </ul>
       </li>
 
-      <li class="pin">
+      <li class="pin w-side">
         <div class="top"><span class="when">Summer 2026</span><span class="logo-text">LBal</span></div>
         <h3>Autonomous trading system</h3>
         <p class="frole">Software Engineer Intern &middot; LBal Trading</p>
         <ul class="fbul">
-          <li>Turns daily options-chain snapshots into model-based trade calls and executes them on a paper account</li>
-          <li>A full-stack portfolio-management dashboard with PostgreSQL and MLflow telemetry</li>
+          <li>Built the layer between an RL trading model and the broker: market data in, risk-gated orders out through the Interactive Brokers API</li>
+          <li>Kept it running unattended with a monitor that automates re-login, connection recovery, and data backfill</li>
+          <li>Deployed a portfolio dashboard on a PostgreSQL trade-telemetry schema, with MLflow tracing each model call</li>
         </ul>
         <div class="foot ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
       </li>
 
-      <li class="pin">
+      <li class="pin w-side">
         <div class="top"><span class="when">May 2026 &ndash; now</span><span class="logo-chip icon"><img src="assets/logos/rethink.png" alt="Rethink Yearbooks" /></span></div>
         <h3>LifeChapters <span class="status wip">in progress</span></h3>
         <p class="frole">Software Development Intern &middot; Rethink Yearbooks</p>
         <ul class="fbul">
-          <li>An AI pipeline that turns a messy camera roll into a coherent photobook</li>
-          <li>Face recognition, VLM captioning, and LLM assembly</li>
+          <li>Turns a messy camera roll into a photobook: face recognition finds the subject, a VLM captions each photo, and an LLM arranges the chapters</li>
+          <li>Added the language-model layer after rule-based photo selection couldn&rsquo;t capture the nuance of a year</li>
+          <li>FastAPI services with Redis-queued Celery workers, deployed on AWS with Terraform</li>
         </ul>
         <div class="foot ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
       </li>
@@ -130,8 +132,9 @@
           <h3>Automated re-prompting pipeline</h3>
           <p class="frole">AI Engineering Intern &middot; AIMon (Bessemer-backed)</p>
           <ul class="fbul">
-            <li>Improved LLM instruction following by 22%, enabling 3 to 7B models to beat GPT-4o</li>
-            <li>Productized and open-sourced the API and eval datasets with a technical blog</li>
+            <li>A small evaluator model grades each response, and its failures become a corrective prompt; wraps any existing model and retrieval setup</li>
+            <li>Improved instruction following by 22% on internal benchmarks, letting 3&ndash;7B open models surpass GPT-4o</li>
+            <li>Open-sourced two 1K+ sample datasets for long-document instruction following, validated by an LLM-judge panel</li>
           </ul>
           <div class="foot flinks">
             <a href="re-prompting.html">read the blog &rarr;</a>
@@ -140,15 +143,15 @@
         </div>
       </li>
 
-      <li class="pin polaroid wide">
+      <li class="pin polaroid">
         <div class="shot"><img src="assets/featured/exhibition-wall.jpg" alt="Aanya standing in front of the wall-sized t-SNE projection of her exhibition" loading="lazy" /></div>
         <div class="txt">
           <div class="top"><span class="when">2025 &ndash; 26</span><span class="logo-chip"><img src="assets/logos/harker.png" alt="The Harker School" /></span></div>
           <h3>Finding Nearest Neighbors</h3>
           <p class="frole">Solo exhibitor &middot; The Harker School</p>
           <ul class="fbul">
-            <li>A real-time pipeline embedding audience words into a live 3D t-SNE projection</li>
-            <li>100+ words added over async WebSockets to reshape the clusters live</li>
+            <li>Visitors typed a word; it was embedded and dropped into a live 3D t-SNE of my poetry using out-of-sample openTSNE transforms, so the map never had to be rebuilt</li>
+            <li>Ran for 8 days on a 34 &times; 15 ft wall for 200+ visitors, fully offline on a laptop-hosted network</li>
           </ul>
           <div class="foot flinks"><a href="https://github.com/ashah-aanya/interactive-embedding-visualizer">code &rarr;</a></div>
         </div>
@@ -165,8 +168,8 @@
             <div><div class="nm">Creativity in the AI Age</div><div class="rl">Credo AI &middot; Sept 2025</div></div>
           </div>
           <ul class="fbul">
-            <li>Presented an interactive Turing Test for Art: visitors tried to tell my oil paintings from AI-generated replicas</li>
-            <li>Discussed AI ethics with 90+ attendees at Credo AI&rsquo;s invite-only Agents of Trust Summit</li>
+            <li>Built a Turing Test for Art: visitors tried to tell my oil paintings from AI-generated replicas</li>
+            <li>Exhibited at Credo AI&rsquo;s invite-only Agents of Trust Summit, sparking conversations about human creativity and AI ethics</li>
           </ul>
           <div class="foot flinks"><a href="art.html">see the studio &rarr;</a></div>
         </div>
