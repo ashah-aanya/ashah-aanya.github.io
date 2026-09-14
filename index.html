@@ -59,9 +59,10 @@
 </section>
 
 <!-- ================= WORK ================= -->
-<!-- One horizontally scrolling board, newest first. Card types: .pin (plain),
-     .pin.polaroid (has a photo), .pin.pass (event pass), .pin.note (index card).
-     Logos: .logo-chip holds an image; .logo-text is the fallback when an org has no public logo (LBal, D-Lab). -->
+<!-- A sideways board on a fixed two-row grid; cards fill it column by column,
+     newest first. Card types: .pin, .pin.polaroid, .pin.pass, .pin.note, .pin.sticky.
+     Logos: .logo-chip holds an image; .logo-text is the fallback when an org has
+     no public logo (LBal, D-Lab). -->
 <section id="work">
   <div class="wrap">
     <div class="work-head">
@@ -80,37 +81,37 @@
   <div class="board">
     <ol class="pins" id="pins" tabindex="0" aria-label="Work, scrolls sideways">
 
-      <!-- Fall 2026: three new roles stacked in one column -->
-      <li class="pin-stack">
-        <!-- TODO(aanya): add what you're building at CUBE -->
-        <div class="pin">
-          <div class="top"><span class="when">Fall 2026</span><span class="logo-chip icon"><img src="assets/logos/cube.png" alt="CUBE Consulting" /></span></div>
-          <h3>CUBE Consulting</h3>
-          <p class="frole">Software Engineer &middot; UIUC</p>
-          <ul class="fbul">
-            <li>Software engineer at UIUC&rsquo;s business-and-engineering consulting organization</li>
-          </ul>
-        </div>
+      <!-- TODO(aanya): add a line on what you're building at CUBE -->
+      <li class="pin">
+        <div class="top"><span class="when">Fall 2026</span><span class="logo-chip icon"><img src="assets/logos/cube.png" alt="CUBE Consulting" /></span></div>
+        <h3>CUBE Consulting</h3>
+        <p class="frole">Software Engineer &middot; UIUC</p>
+        <ul class="fbul">
+          <li>Software engineer at UIUC&rsquo;s business-and-engineering consulting organization</li>
+        </ul>
+        <div class="foot ftags"><span>Consulting</span><span>Engineering</span></div>
+      </li>
 
-        <!-- TODO(aanya): add what you're building at D-Lab -->
-        <div class="pin">
-          <div class="top"><span class="when">Fall 2026</span><span class="logo-text">D-Lab</span></div>
-          <h3>Disruption Lab</h3>
-          <p class="frole">Software Engineer &middot; Gies College of Business</p>
-          <ul class="fbul">
-            <li>Software engineer at Gies&rsquo; lab for AI and emerging-technology projects with external clients</li>
-          </ul>
-        </div>
+      <!-- TODO(aanya): add a line on what you're building at D-Lab -->
+      <li class="pin">
+        <div class="top"><span class="when">Fall 2026</span><span class="logo-text">D-Lab</span></div>
+        <h3>Disruption Lab</h3>
+        <p class="frole">Software Engineer &middot; Gies College of Business</p>
+        <ul class="fbul">
+          <li>Software engineer at Gies&rsquo; lab for AI and emerging-technology projects with external clients</li>
+        </ul>
+        <div class="foot ftags"><span>AI</span><span>Client projects</span></div>
+      </li>
 
-        <!-- TODO(aanya): add what you're building at Quant -->
-        <div class="pin">
-          <div class="top"><span class="when">Fall 2026</span><span class="logo-chip"><img src="assets/logos/quant.png" alt="Quant @ Illinois" /></span></div>
-          <h3>Quant @ Illinois</h3>
-          <p class="frole">Software Division &middot; UIUC</p>
-          <ul class="fbul">
-            <li>Software division of UIUC&rsquo;s algorithmic trading organization, building the systems its research and trading teams run on</li>
-          </ul>
-        </div>
+      <!-- TODO(aanya): add a line on what you're building at Quant -->
+      <li class="pin">
+        <div class="top"><span class="when">Fall 2026</span><span class="logo-chip"><img src="assets/logos/quant.png" alt="Quant @ Illinois" /></span></div>
+        <h3>Quant @ Illinois</h3>
+        <p class="frole">Software Division &middot; UIUC</p>
+        <ul class="fbul">
+          <li>Software division of UIUC&rsquo;s algorithmic trading organization, building the systems its research and trading teams run on</li>
+        </ul>
+        <div class="foot ftags"><span>Trading systems</span></div>
       </li>
 
       <li class="pin">
@@ -119,9 +120,9 @@
         <p class="frole">Software Engineer Intern &middot; LBal Trading</p>
         <ul class="fbul">
           <li>Turns daily options-chain snapshots into model-based trade calls and executes them on a paper account</li>
-          <li>A full-stack portfolio-management dashboard with PostgreSQL and MLflow telemetry</li>
+          <li>Full-stack portfolio dashboard with PostgreSQL and MLflow telemetry</li>
         </ul>
-        <div class="ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
+        <div class="foot ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
       </li>
 
       <li class="pin">
@@ -132,24 +133,23 @@
           <li>An AI pipeline that turns a messy camera roll into a coherent photobook</li>
           <li>Face recognition, VLM captioning, and LLM assembly</li>
         </ul>
-        <div class="ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
+        <div class="foot ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
       </li>
 
       <li class="pin polaroid">
         <div class="shot contain"><img src="assets/blog/img01.png" alt="Diagram of the re-prompting loop: user, primary LLM, feedback model, decision gate, and re-prompter" loading="lazy" /></div>
         <div class="txt">
           <div class="top"><span class="when">Summer 2025</span><span class="logo-chip dark"><img src="assets/logos/aimon.png" alt="AIMon" /></span></div>
-          <h3>Automated re-prompting pipeline</h3>
-          <p class="frole">AI Engineering Intern &middot; AIMon (Bessemer-backed)</p>
+          <h3>Re-prompting pipeline</h3>
+          <p class="frole">AI Engineering Intern &middot; AIMon</p>
           <ul class="fbul">
-            <li>Improved LLM instruction following by 22%, enabling 3&ndash;7B models to beat GPT-4o</li>
-            <li>Productized and open-sourced the API and eval datasets with a technical blog</li>
+            <li>Improved LLM instruction following by 22%, letting 3&ndash;7B models beat GPT-4o</li>
+            <li>Open-sourced the API and eval datasets</li>
           </ul>
-          <div class="flinks">
+          <div class="foot flinks">
             <a href="re-prompting.html">read the blog &rarr;</a>
             <a href="https://github.com/aimonlabs/aimon-python-sdk/tree/main/aimon/reprompting_api">pipeline &rarr;</a>
           </div>
-          <div class="ftags"><span>Python</span><span>LLM eval</span><span>RAG</span><span>Hugging Face</span></div>
         </div>
       </li>
 
@@ -158,19 +158,17 @@
           <div class="slot"></div>
           <div class="event"><img src="assets/aot-logo.png" alt="Agents of Trust" /><span>Presenter</span></div>
         </div>
-        <div class="who">
-          <img src="assets/turing/ai-1.jpg" alt="One of the paintings from the Turing Test exhibit" loading="lazy" />
-          <div><div class="nm">Aanya Shah</div><div class="rl">Credo AI &middot; Sept 2025</div></div>
-        </div>
         <div class="txt">
-          <div class="perf"></div>
-          <h3 style="margin-top:16px">Creativity in the AI Age</h3>
-          <p class="frole">Exhibitor &middot; Agents of Trust Summit</p>
+          <div class="who">
+            <img src="assets/turing/ai-1.jpg" alt="A painting from the Turing Test exhibit" loading="lazy" />
+            <div><div class="nm">Aanya Shah</div><div class="rl">Credo AI &middot; Sept 2025</div></div>
+          </div>
+          <h3>Creativity in the AI Age</h3>
           <ul class="fbul">
-            <li>An interactive Turing Test: visitors tried to tell my oil paintings from AI-generated replicas</li>
-            <li>Led AI-ethics discussions at Credo AI&rsquo;s invite-only industry summit</li>
+            <li>A Turing Test: visitors tried to tell my oil paintings from AI replicas</li>
+            <li>Led AI-ethics discussions at an invite-only summit</li>
           </ul>
-          <div class="flinks"><a href="art.html">see the studio &rarr;</a></div>
+          <div class="foot flinks"><a href="art.html">see the studio &rarr;</a></div>
         </div>
       </li>
 
@@ -181,11 +179,9 @@
           <h3>Finding Nearest Neighbors</h3>
           <p class="frole">Solo exhibitor &middot; The Harker School</p>
           <ul class="fbul">
-            <li>A real-time pipeline embedding audience words into a live 3D t-SNE projection</li>
-            <li>100+ words added over async WebSockets to reshape the clusters live</li>
+            <li>A live 3D t-SNE of my poetry; visitors&rsquo; words reshape the clusters in real time</li>
           </ul>
-          <div class="flinks"><a href="https://github.com/ashah-aanya/interactive-embedding-visualizer">code &rarr;</a></div>
-          <div class="ftags"><span>t-SNE</span><span>WebSockets</span><span>Three.js</span><span>WebGL</span></div>
+          <div class="foot flinks"><a href="https://github.com/ashah-aanya/interactive-embedding-visualizer">code &rarr;</a></div>
         </div>
       </li>
 
@@ -197,6 +193,12 @@
           <li>Led 13 on-site company visits, including Y Combinator and Tesla, for 120+ students</li>
           <li>Organized 18+ executive speaker events, alumni panels, and workshops</li>
         </ul>
+      </li>
+
+      <li class="pin sticky">
+        <p class="big">There&rsquo;s a painter&rsquo;s side, too.</p>
+        <p>Self-portraits in oil, a walk-through 3D gallery, and the Turing Test.</p>
+        <a href="art.html">visit the studio &rarr;</a>
       </li>
 
     </ol>

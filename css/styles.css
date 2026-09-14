@@ -135,17 +135,18 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .cur .cg p{margin:0; color:var(--ink-soft); font-size:15.5px}
 @media (max-width:520px){.cur .cl{flex-basis:100%}}
 
-/* ---- Work: a horizontally scrolling pegboard of taped cards ----
-   One row, read left to right, newest first. Every card is the same width and
-   carries the same parts (logo, title, role line, bullets, tags) so the board
-   stays easy to scan; variety comes from the object, not the layout:
-     .pin            plain card, taped at the top
-     .pin.polaroid   a photo print with the description on its white margin
-     .pin.pass       an event pass on a lanyard (for exhibits and summits)
-     .pin.note       a ruled index card
-   To add a card, copy an <li> in index.html; the board sizes itself. */
-#work{padding-bottom:0}
-#work .wrap{position:relative}
+/* ---- Work: a sideways-scrolling pegboard, two rows on a fixed grid ----
+   Every card fills one identical cell (--cell-w x --cell-h), placed column by
+   column, newest first. The grid keeps the board orderly; variety comes from
+   what each card is made of, not its size:
+     .pin            taped card
+     .pin.polaroid   photo print, description on the white margin
+     .pin.pass       event pass on a lanyard
+     .pin.note       index card
+     .pin.sticky     a small closing note
+   Inside every card the same skeleton repeats: top line (date + logo), title,
+   role, bullets, and a foot (tags or links) pinned to the bottom edge. */
+#work{padding-bottom:0; --cell-w:320px; --cell-h:360px; --cell-gap:30px}
 .work-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap}
 .work-head .sec-sub{margin:0}
 .work-nav{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; color:var(--muted)}
@@ -157,40 +158,40 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .work-nav button:focus-visible{outline:2px solid var(--indigo); outline-offset:3px}
 
 /* the pegboard: warm board with a grid of punched holes */
-.board{margin-top:26px; border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2);
+.board{margin-top:26px; border-top:1px solid var(--line-2);
   background-color:#F2EEE6;
   background-image:
     radial-gradient(circle at center, rgba(34,29,22,.10) 0 1.6px, transparent 2px),
     radial-gradient(circle at center, transparent 0 3.6px, rgba(34,29,22,.07) 3.8px 4.6px, transparent 4.9px);
   background-size:14px 14px, 14px 14px}
-.pins{list-style:none; margin:0; display:flex; align-items:flex-start; gap:30px;
+.pins{list-style:none; margin:0; display:grid;
+  grid-template-rows:repeat(2, var(--cell-h)); grid-auto-flow:column; grid-auto-columns:var(--cell-w);
+  gap:var(--cell-gap);
   overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory;
   scroll-padding-inline:max(26px, calc((100vw - var(--maxw)) / 2 + 26px));
-  padding-block:44px 40px; padding-inline:max(26px, calc((100vw - var(--maxw)) / 2 + 26px));
+  padding-block:40px 44px; padding-inline:max(26px, calc((100vw - var(--maxw)) / 2 + 26px));
   scrollbar-width:thin; scrollbar-color:rgba(34,29,22,.28) transparent}
 .pins:focus-visible{outline:2px solid var(--indigo); outline-offset:-4px}
 .pins::-webkit-scrollbar{height:8px}
 .pins::-webkit-scrollbar-thumb{background:rgba(34,29,22,.25); border-radius:8px}
-.pins::after{content:""; flex:0 0 1px}  /* keeps the right padding when scrolled to the end */
 
-/* a column of cards that happened at the same time (e.g. Fall 2026) */
-.pin-stack{flex:0 0 min(318px, 80vw); scroll-snap-align:start; display:flex; flex-direction:column; gap:26px}
-.pin-stack .pin{flex:none}
-.pin{flex:0 0 min(318px, 80vw); scroll-snap-align:start; position:relative;
-  background:#FFFDF8; padding:22px 22px 22px; transform:rotate(var(--tilt,0deg));
+/* the card skeleton: fills its cell exactly; the foot hugs the bottom edge */
+.pin{position:relative; box-sizing:border-box; width:100%; height:100%; scroll-snap-align:start;
+  display:flex; flex-direction:column; min-width:0;
+  background:#FFFDF8; padding:20px 22px 20px; transform:rotate(var(--tilt,0deg));
   box-shadow:0 1px 1px rgba(34,29,22,.08), 0 14px 26px -18px rgba(34,29,22,.55)}
-.pin:nth-child(3n+1){--tilt:-.6deg}
-.pin:nth-child(3n+2){--tilt:.5deg}
+.pin:nth-child(4n+1){--tilt:-.5deg}
+.pin:nth-child(4n+3){--tilt:.45deg}
+.pin .foot{margin-top:auto; padding-top:12px}
 /* masking tape */
 .pin::before{content:""; position:absolute; top:-11px; left:50%; width:84px; height:22px; margin-left:-42px;
-  background:rgba(226,210,172,.78); transform:rotate(-2.5deg); z-index:2;
-  clip-path:polygon(2% 8%, 98% 0, 100% 50%, 97% 100%, 1% 92%, 0 50%);
-  box-shadow:0 1px 1px rgba(34,29,22,.05)}
-.pin:nth-child(even)::before{left:auto; right:26px; margin-left:0; transform:rotate(3deg)}
+  background:rgba(226,210,172,.8); transform:rotate(-2.5deg); z-index:2;
+  clip-path:polygon(2% 8%, 98% 0, 100% 50%, 97% 100%, 1% 92%, 0 50%)}
+.pin:nth-child(even)::before{left:auto; right:28px; margin-left:0; transform:rotate(3deg)}
 
-.pin .top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin:0 0 12px}
-.pin .when{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); padding-top:4px}
-/* logos sit in identical 30px chips so icons and wordmarks line up; text is the fallback */
+/* shared text parts */
+.pin .top{display:flex; justify-content:space-between; align-items:center; gap:12px; margin:0 0 12px}
+.pin .when{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
 .pin .logo-chip, .pin .logo-text{flex:none; height:30px; display:inline-flex; align-items:center;
   padding:0 8px; border:1px solid var(--line-2); border-radius:5px; background:#fff}
 .pin .logo-chip img{display:block; height:18px; width:auto; max-width:96px}
@@ -198,63 +199,63 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .pin .logo-chip.dark{background:var(--ink); border-color:var(--ink)}
 .pin .logo-text{font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.06em;
   text-transform:uppercase; color:var(--ink); white-space:nowrap}
-/* shared text parts (kept from the old project cards) */
-.frole{margin:6px 0 0; font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:.01em}
-.fbul{margin:9px 0 0; padding:0 0 0 17px; list-style:none}
-.fbul li{position:relative; margin:0 0 5px; color:var(--ink-soft); font-size:15px; line-height:1.5}
-.fbul li::before{content:""; position:absolute; left:-15px; top:.62em; width:5px; height:5px;
+.pin h3{font-family:var(--serif); font-weight:600; font-size:19px; line-height:1.22; letter-spacing:-.005em;
+  margin:0; color:var(--ink); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
+.frole{margin:5px 0 0; font-family:var(--mono); font-size:11.5px; line-height:1.45; color:var(--muted); letter-spacing:.01em}
+.fbul{margin:10px 0 0; padding:0 0 0 16px; list-style:none}
+.fbul li{position:relative; margin:0 0 5px; color:var(--ink-soft); font-size:14px; line-height:1.45}
+.fbul li::before{content:""; position:absolute; left:-14px; top:.6em; width:5px; height:5px;
   border-radius:50%; background:var(--oxblood)}
-.flinks{margin:12px 0 0; font-family:var(--mono); font-size:12.5px; display:flex; gap:16px; flex-wrap:wrap}
+.flinks{font-family:var(--mono); font-size:12px; display:flex; gap:14px; flex-wrap:wrap}
 .flinks a{color:var(--oxblood); border-bottom:1px solid var(--line)}
 .flinks a:hover{border-color:var(--oxblood)}
-.ftags{margin:13px 0 0; display:flex; flex-wrap:wrap; gap:6px}
-.ftags span{font-family:var(--mono); font-size:11px; letter-spacing:.01em; color:var(--indigo);
-  background:rgba(58,70,184,.06); border:1px solid var(--line-2); border-radius:20px; padding:4px 9px}
+.ftags{display:flex; flex-wrap:wrap; gap:5px}
+.ftags span{font-family:var(--mono); font-size:10.5px; letter-spacing:.01em; color:var(--indigo);
+  background:rgba(58,70,184,.06); border:1px solid var(--line-2); border-radius:20px; padding:3px 8px}
 
-.pin h3{font-family:var(--serif); font-weight:600; font-size:19px; line-height:1.25; letter-spacing:-.005em;
-  margin:0; color:var(--ink); display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
-.pin .frole{margin:5px 0 0}
-.pin .fbul{margin-top:11px}
-.pin .fbul li{font-size:14.5px}
-.pin .ftags{margin-top:14px}
-.pin .flinks{margin-top:12px}
-
-/* polaroid: the photo sits in a white frame, text lives on the margin */
-.pin.polaroid{padding:12px 12px 22px; background:#fff}
-.pin.polaroid .shot{margin:0 0 16px; background:#EFEAE0; line-height:0}
-.pin.polaroid .shot img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover}
-.pin.polaroid .shot.contain img{aspect-ratio:auto; object-fit:contain; padding:18px 6px; background:#fff}
-.pin.polaroid .txt{padding:0 10px}
+/* polaroid: fixed-height print on top, thick white frame */
+.pin.polaroid{background:#fff; padding:11px 11px 16px}
+.pin.polaroid .shot{flex:none; height:128px; margin:0 0 12px; background:#EFEAE0; overflow:hidden}
+.pin.polaroid .shot img{display:block; width:100%; height:100%; object-fit:cover}
+.pin.polaroid .shot.contain{background:#fff; border:1px solid var(--line-2)}
+.pin.polaroid .shot.contain img{object-fit:contain; padding:8px}
+.pin.polaroid .txt{padding:0 9px; display:flex; flex-direction:column; flex:1; min-height:0}
+.pin.polaroid .top{margin-bottom:8px}
 
 /* event pass on a lanyard */
-.pin.pass{padding:0; border-radius:12px; overflow:hidden; margin-top:34px; background:#FFFDF8}
-.pin.pass::before{display:none}
-.pin.pass::after{content:""; position:absolute; top:-40px; left:50%; width:30px; height:46px; margin-left:-15px;
-  border:5px solid var(--indigo); border-bottom:0; border-radius:6px 6px 0 0}
-.pin.pass{overflow:visible}
-.pin.pass .band{background:var(--ink); color:var(--linen); border-radius:12px 12px 0 0; padding:14px 20px 16px; position:relative}
-.pin.pass .slot{width:44px; height:8px; border-radius:6px; background:#F2EEE6; margin:0 auto 12px}
+.pin.pass{padding:0; border-radius:12px; background:#FFFDF8}
+.pin.pass::before{content:""; top:-30px; left:50%; right:auto; width:26px; height:36px; margin-left:-13px;
+  background:none; border:4px solid var(--indigo); border-bottom:0; border-radius:5px 5px 0 0;
+  clip-path:none; transform:none}
+.pin.pass .band{background:var(--ink); border-radius:12px 12px 0 0; padding:10px 18px 12px}
+.pin.pass .slot{width:40px; height:7px; border-radius:6px; background:#F2EEE6; margin:0 auto 9px}
 .pin.pass .event{display:flex; align-items:center; justify-content:space-between; gap:12px}
-.pin.pass .event img{height:24px; width:auto; filter:invert(1); display:block}
-.pin.pass .event span{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--oxblood)}
-.pin.pass .who{display:grid; grid-template-columns:62px 1fr; gap:14px; align-items:center; padding:16px 20px 0}
-.pin.pass .who img{width:62px; height:78px; object-fit:cover; border-radius:3px; display:block}
-.pin.pass .who .nm{font-family:var(--serif); font-size:21px; line-height:1.1}
-.pin.pass .who .rl{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--indigo); margin-top:4px}
-.pin.pass .txt{padding:14px 20px 22px}
-.pin.pass .perf{border-top:2px dashed var(--line); margin:16px 0 0}
+.pin.pass .event img{height:20px; width:auto; filter:invert(1); display:block}
+.pin.pass .event span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--oxblood)}
+.pin.pass .txt{padding:14px 18px 18px; display:flex; flex-direction:column; flex:1; min-height:0}
+.pin.pass .who{display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center;
+  padding-bottom:12px; margin-bottom:12px; border-bottom:2px dashed var(--line)}
+.pin.pass .who img{width:44px; height:54px; object-fit:cover; border-radius:2px; display:block}
+.pin.pass .who .nm{font-family:var(--serif); font-size:18px; line-height:1.1}
+.pin.pass .who .rl{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); margin-top:3px}
 
-/* index card: cream stock, one orange rule under the header, a margin line */
+/* index card: cream stock, orange rule under the header, a margin line */
 .pin.note{background-color:#FFFEF7;
-  background-image:linear-gradient(to right, transparent 12px, rgba(222,107,44,.28) 12px 13px, transparent 13px);
-  box-shadow:0 1px 1px rgba(34,29,22,.08), 0 14px 26px -18px rgba(34,29,22,.55)}
+  background-image:linear-gradient(to right, transparent 12px, rgba(222,107,44,.28) 12px 13px, transparent 13px)}
 .pin.note .top{padding-bottom:10px; border-bottom:1.5px solid rgba(222,107,44,.5)}
 
+/* closing sticky note */
+.pin.sticky{background:#F6E7B8; justify-content:center; padding:28px 28px}
+.pin.sticky::before{background:rgba(255,255,255,.55)}
+.pin.sticky .big{font-family:var(--serif); font-style:italic; font-size:26px; line-height:1.2; color:var(--ink); margin:0}
+.pin.sticky p{margin:12px 0 0; font-size:14px; color:var(--ink-soft)}
+.pin.sticky a{align-self:flex-start; margin-top:18px; font-family:var(--mono); font-size:12.5px; color:var(--oxblood); border-bottom:1px solid var(--oxblood)}
+
 @media (max-width:600px){
+  #work{--cell-w:min(300px, 80vw); --cell-h:372px; --cell-gap:22px}
   .pin{--tilt:0deg !important}
   .work-nav .count{display:none}
 }
-@media (prefers-reduced-motion:reduce){.pins{scroll-behavior:auto}}
 
 /* status as soft text, not a filled pill */
 .status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
