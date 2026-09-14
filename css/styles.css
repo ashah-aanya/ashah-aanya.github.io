@@ -262,11 +262,13 @@ dialog.zoom img{display:block; width:100%; height:auto; max-height:82vh; object-
 .pin.pass .event img{height:22px; width:auto; filter:invert(1); display:block}
 .pin.pass .event span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--oxblood)}
 .pin.pass .txt{padding:16px 20px 20px; display:flex; flex-direction:column; flex:1}
-.pin.pass .who{display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:center;
-  padding-bottom:14px; margin-bottom:14px; border-bottom:2px dashed var(--line)}
-.pin.pass .who img{width:64px; height:80px; object-fit:cover; border-radius:2px; display:block}
-.pin.pass .who .nm{font-family:var(--serif); font-size:20px; line-height:1.1}
-.pin.pass .who .rl{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); margin-top:4px}
+/* two summit photos side by side, then the event title under them */
+.pin.pass .pass-photos{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0 0 14px}
+.pin.pass .pass-photos img{display:block; width:100%; aspect-ratio:4 / 5; object-fit:cover; border-radius:3px;
+  box-shadow:0 1px 0 rgba(34,29,22,.06)}
+.pin.pass .pass-title{padding-bottom:12px; margin-bottom:12px; border-bottom:2px dashed var(--line)}
+.pin.pass .pass-title .nm{font-family:var(--serif); font-size:20px; line-height:1.1}
+.pin.pass .pass-title .rl{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); margin-top:4px}
 
 /* status as soft text, not a filled pill */
 .status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
