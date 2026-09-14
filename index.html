@@ -14,7 +14,7 @@
     <a class="mark" href="index.html">Aanya<b>.</b>Shah</a>
     <ul>
       <li><a href="#currently">now</a></li>
-      <li><a href="#work">projects</a></li>
+      <li><a href="#work">work</a></li>
       <li><a href="art.html">studio<span class="ext">&#8599;</span></a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -29,9 +29,8 @@
     <h1 class="name">Aanya <em>Shah</em></h1>
     <p class="tag">Computer Science @ UIUC</p>
     <p class="intro">
-      I build machine learning systems and work to make them trustworthy. From developing agentic pipelines to 
-      full-stack development, I am equally energized by deep technical problems and building 
-      real systems that can make meaningful impact.
+      I build ML systems and work to make them more trustworthy. I bring art, computer science,
+      and business to every technical project, from AI pipelines to full-stack apps.
     </p>
     <p class="social">
       <a href="https://github.com/ashah-aanya"><span>github</span>&nbsp;/ashah-aanya</a>
@@ -59,45 +58,89 @@
   </div>
 </section>
 
-<!-- ================= PROJECTS ================= -->
+<!-- ================= WORK ================= -->
+<!-- One horizontally scrolling board, newest first. Card types: .pin (plain),
+     .pin.polaroid (has a photo), .pin.pass (event pass), .pin.note (index card).
+     Logos: swap a .logo-text span for <img class="logo" src="assets/logos/..."> -->
 <section id="work">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-title">Projects</span></div>
-
-    <div class="feat-list">
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>
-          <div class="fhead"><h3>Autonomous trading system</h3></div>
-          <p class="frole">Software Engineer Intern &middot; LBal Trading</p>
-          <ul class="fbul">
-            <li>Ingests streaming market data, generates model-based strategy calls, and executes orders</li>
-            <li>A full-stack portfolio-management dashboard with PostgreSQL and MLflow telemetry</li>
-          </ul>
-          <div class="ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
-        </div>
+    <div class="work-head">
+      <div>
+        <div class="sec-head"><span class="sec-title">Work</span></div>
+        <p class="sec-sub">Roles, projects, and exhibitions, newest first.</p>
       </div>
-
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 15l-5-4-7 6"/></svg></span>
-          <div class="fhead"><h3>LifeChapters <span class="status wip">in progress</span></h3></div>
-          <ul class="fbul">
-            <li>An agentic pipeline that turns a messy camera roll into a coherent photobook</li>
-            <li>Face recognition, VLM captioning, and LLM assembly</li>
-          </ul>
-          <div class="ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
-        </div>
+      <div class="work-nav" aria-label="Scroll the board">
+        <span class="count" id="workCount" aria-live="polite"></span>
+        <button type="button" id="workPrev" aria-label="Previous cards">&larr;</button>
+        <button type="button" id="workNext" aria-label="Next cards">&rarr;</button>
       </div>
+    </div>
+  </div>
 
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.3A8 8 0 1 1 21 11.5z"/></svg></span>
-          <div class="fhead"><h3>Automated re-prompting pipeline</h3></div>
+  <div class="board">
+    <ol class="pins" id="pins" tabindex="0" aria-label="Work, scrolls sideways">
+
+      <!-- TODO(aanya): add what you're building at CUBE -->
+      <li class="pin">
+        <div class="top"><span class="when">Fall 2026</span><span class="logo-text">CUBE</span></div>
+        <h3>CUBE Consulting</h3>
+        <p class="frole">Software Engineer &middot; UIUC</p>
+        <ul class="fbul">
+          <li>Software engineer at UIUC&rsquo;s business-and-engineering consulting organization</li>
+        </ul>
+      </li>
+
+      <!-- TODO(aanya): add what you're building at D-Lab -->
+      <li class="pin">
+        <div class="top"><span class="when">Fall 2026</span><span class="logo-text">D-Lab</span></div>
+        <h3>Disruption Lab</h3>
+        <p class="frole">Software Engineer &middot; Gies College of Business</p>
+        <ul class="fbul">
+          <li>Software engineer at Gies&rsquo; lab for AI and emerging-technology projects with external clients</li>
+        </ul>
+      </li>
+
+      <!-- TODO(aanya): add what you're building at Quant -->
+      <li class="pin">
+        <div class="top"><span class="when">Fall 2026</span><span class="logo-text">Quant</span></div>
+        <h3>Quant @ Illinois</h3>
+        <p class="frole">Software Division &middot; UIUC</p>
+        <ul class="fbul">
+          <li>Software division of UIUC&rsquo;s algorithmic trading organization, building the systems its research and trading teams run on</li>
+        </ul>
+      </li>
+
+      <li class="pin">
+        <div class="top"><span class="when">Summer 2026</span><span class="logo-text">LBal</span></div>
+        <h3>Autonomous trading system</h3>
+        <p class="frole">Software Engineer Intern &middot; LBal Trading</p>
+        <ul class="fbul">
+          <li>Turns daily options-chain snapshots into model-based trade calls and executes them on a paper account</li>
+          <li>A full-stack portfolio-management dashboard with PostgreSQL and MLflow telemetry</li>
+        </ul>
+        <div class="ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
+      </li>
+
+      <li class="pin">
+        <div class="top"><span class="when">Dec 2025 &ndash; now</span><span class="logo-text">Rethink</span></div>
+        <h3>LifeChapters <span class="status wip">in progress</span></h3>
+        <p class="frole">Software Development Intern &middot; Rethink Yearbooks</p>
+        <ul class="fbul">
+          <li>An AI pipeline that turns a messy camera roll into a coherent photobook</li>
+          <li>Face recognition, VLM captioning, and LLM assembly</li>
+        </ul>
+        <div class="ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
+      </li>
+
+      <li class="pin polaroid">
+        <div class="shot contain"><img src="assets/blog/img01.png" alt="Diagram of the re-prompting loop: user, primary LLM, feedback model, decision gate, and re-prompter" loading="lazy" /></div>
+        <div class="txt">
+          <div class="top"><span class="when">Summer 2025</span><span class="logo-text">AIMon</span></div>
+          <h3>Automated re-prompting pipeline</h3>
           <p class="frole">AI Engineering Intern &middot; AIMon (Bessemer-backed)</p>
           <ul class="fbul">
-            <li>Improved LLM groundedness by 22%, enabling 3 to 7B models to beat GPT-4o</li>
-            <li>Productized and open-sourced API and eval datasets with a technical blog</li>
+            <li>Improved LLM instruction following by 22%, enabling 3&ndash;7B models to beat GPT-4o</li>
+            <li>Productized and open-sourced the API and eval datasets with a technical blog</li>
           </ul>
           <div class="flinks">
             <a href="re-prompting.html">read the blog &rarr;</a>
@@ -105,12 +148,34 @@
           </div>
           <div class="ftags"><span>Python</span><span>LLM eval</span><span>RAG</span><span>Hugging Face</span></div>
         </div>
-      </div>
+      </li>
 
-      <div class="feat">
-        <div class="fbody">
-          <span class="ficon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="6.5" y1="7.5" x2="10" y2="15.5"/><line x1="17.5" y1="9" x2="14.5" y2="15.5"/><line x1="10" y1="15.5" x2="14.5" y2="15.5"/><circle cx="6.5" cy="7.5" r="2" fill="currentColor" stroke="none"/><circle cx="17.5" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="10" cy="15.5" r="2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="15.5" r="2" fill="currentColor" stroke="none"/></svg></span>
-          <div class="fhead"><h3>Finding Nearest Neighbors</h3></div>
+      <li class="pin pass">
+        <div class="band">
+          <div class="slot"></div>
+          <div class="event"><img src="assets/aot-logo.png" alt="Agents of Trust" /><span>Presenter</span></div>
+        </div>
+        <div class="who">
+          <img src="assets/turing/ai-1.jpg" alt="One of the paintings from the Turing Test exhibit" loading="lazy" />
+          <div><div class="nm">Aanya Shah</div><div class="rl">Credo AI &middot; Sept 2025</div></div>
+        </div>
+        <div class="txt">
+          <div class="perf"></div>
+          <h3 style="margin-top:16px">Creativity in the AI Age</h3>
+          <p class="frole">Exhibitor &middot; Agents of Trust Summit</p>
+          <ul class="fbul">
+            <li>An interactive Turing Test: visitors tried to tell my oil paintings from AI-generated replicas</li>
+            <li>Led AI-ethics discussions at Credo AI&rsquo;s invite-only industry summit</li>
+          </ul>
+          <div class="flinks"><a href="art.html">see the studio &rarr;</a></div>
+        </div>
+      </li>
+
+      <li class="pin polaroid">
+        <div class="shot"><img src="assets/work/exhibition-wall.jpg" alt="Aanya standing in front of the wall-sized t-SNE projection of her exhibition" loading="lazy" /></div>
+        <div class="txt">
+          <div class="top"><span class="when">2025 &ndash; 26</span><span class="logo-text">Harker</span></div>
+          <h3>Finding Nearest Neighbors</h3>
           <p class="frole">Solo exhibitor &middot; The Harker School</p>
           <ul class="fbul">
             <li>A real-time pipeline embedding audience words into a live 3D t-SNE projection</li>
@@ -119,8 +184,19 @@
           <div class="flinks"><a href="https://github.com/ashah-aanya/interactive-embedding-visualizer">code &rarr;</a></div>
           <div class="ftags"><span>t-SNE</span><span>WebSockets</span><span>Three.js</span><span>WebGL</span></div>
         </div>
-      </div>
-    </div>
+      </li>
+
+      <li class="pin note">
+        <div class="top"><span class="when">2023 &ndash; 26</span><span class="logo-text">Harker</span></div>
+        <h3>CareerConnect</h3>
+        <p class="frole">President &middot; The Harker School</p>
+        <ul class="fbul">
+          <li>Led 13 on-site company visits, including Y Combinator and Tesla, for 120+ students</li>
+          <li>Organized 18+ executive speaker events, alumni panels, and workshops</li>
+        </ul>
+      </li>
+
+    </ol>
   </div>
 </section>
 
@@ -159,6 +235,6 @@
 </footer>
 
 <script src="js/field.js"></script>
-<script src="js/motifs.js"></script>
+<script src="js/work.js"></script>
 </body>
 </html>
