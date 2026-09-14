@@ -227,6 +227,8 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .pin.polaroid .shot{flex:none; aspect-ratio:16/10; margin:0 0 14px; background:#EFEAE0; overflow:hidden}
 .pin.polaroid .shot img{display:block; width:100%; height:100%; object-fit:cover}
 .pin.polaroid .shot.contain{background:#fff; border:1px solid var(--line-2)}
+.pin.polaroid .shot.short{aspect-ratio:2 / 1}
+.pin.polaroid .shot.short img{object-position:50% 62%}
 .pin.polaroid .shot.contain{aspect-ratio:auto}
 .pin.polaroid .shot.contain img{height:auto; object-fit:contain; padding:18px 8px}
 .pin.polaroid .txt{padding:0 10px; display:flex; flex-direction:column; flex:1}
