@@ -208,6 +208,13 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .ftags span{font-family:var(--mono); font-size:10.5px; letter-spacing:.01em; color:var(--indigo);
   background:rgba(58,70,184,.06); border:1px solid var(--line-2); border-radius:20px; padding:3px 8px}
 
+/* generic flow diagram pinned at the top of a card (drawn inline as SVG) */
+.pin .flow{margin:0 0 12px; padding:6px 5px; background:#fff; border:1px solid var(--line-2)}
+.flow-svg{display:block; width:100%; height:auto}
+.flow-svg text{font-family:var(--mono); font-size:9px; fill:var(--ink)}
+.flow-svg text.note{font-size:8px; fill:var(--muted); font-style:italic}
+#work .sec-head{justify-content:center}
+
 /* roster: ruled index card with one entry per role */
 .pin.roster{background-color:#FFFEFA}
 .pin.roster .top{padding-bottom:10px; border-bottom:1.5px solid rgba(222,107,44,.55); margin-bottom:4px}
