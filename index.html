@@ -104,8 +104,8 @@
         <h3>Autonomous trading system</h3>
         <p class="frole">Software Engineer Intern &middot; LBal Trading</p>
         <ul class="fbul">
-          <li>Turns daily options-chain snapshots into model-based trade calls and executes them on a paper account</li>
-          <li>A full-stack portfolio-management dashboard with PostgreSQL and MLflow telemetry</li>
+          <li>Pulls live market data, feeds it into a model to generate recommended trades, and executes them through a broker API, logging every run to MLflow and PostgreSQL</li>
+          <li>Centralized portfolio-management dashboard (FastAPI, HTMX, PostgreSQL) for running strategies, tracking trades, and visualizing metrics</li>
         </ul>
         <div class="foot ftags"><span>IBKR API</span><span>PostgreSQL</span><span>MLflow</span></div>
       </li>
@@ -114,8 +114,10 @@
         <div class="top"><span class="when">May 2026 &ndash; now</span></div>
         <h3>LifeChapters <span class="status wip">in progress</span></h3>
         <ul class="fbul">
-          <li>An AI pipeline that turns a messy camera roll into a coherent photobook</li>
-          <li>Face recognition, VLM captioning, and LLM assembly</li>
+          <li>An LLM workflow that turns a messy camera roll into a coherent photobook with zero manual effort</li>
+          <li>Uses facial recognition and photo-scoring heuristics to identify the best photos</li>
+          <li>Captions each photo with a vision-language model, then feeds the captions to an LLM to arrange the book</li>
+          <li>Scalable backend with Redis message queues and Celery workers that process thousands of photos as async jobs</li>
         </ul>
         <div class="foot ftags"><span>FastAPI</span><span>Celery / Redis</span><span>AWS</span><span>Terraform</span></div>
       </li>
@@ -127,8 +129,9 @@
           <h3>Automated re-prompting pipeline</h3>
           <p class="frole">AI Engineering Intern &middot; AIMon (Bessemer-backed)</p>
           <ul class="fbul">
-            <li>Improved LLM instruction following by 22%, enabling 3 to 7B models to beat GPT-4o</li>
-            <li>Productized and open-sourced the API and eval datasets with a technical blog</li>
+            <li>Uses a lightweight evaluator model to fold specific feedback into a corrective prompt that improves the generating model&rsquo;s responses</li>
+            <li>Productized and open-sourced the re-prompting pipeline, improving LLM instruction following by 22% and enabling 3&ndash;7B models to beat GPT-4o</li>
+            <li>Curated 1K+ sample datasets to evaluate instruction following in context-heavy domains</li>
           </ul>
           <div class="foot flinks">
             <a href="re-prompting.html">read the blog &rarr;</a>
