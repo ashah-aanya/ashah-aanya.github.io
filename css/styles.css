@@ -152,14 +152,12 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
     radial-gradient(circle at center, transparent 0 3.6px, rgba(34,29,22,.07) 3.8px 4.6px, transparent 4.9px);
   background-size:14px 14px, 14px 14px}
 /* two rows that each fill the board: widths are fractions of the row after gaps.
-   Top row 10/24 + 7/24 + 7/24 (the roster is wider), bottom row thirds. */
-.pins{--g:32px; list-style:none; max-width:1240px; margin:0 auto; padding:84px 30px 56px;
+   Top row 9.6/24 + 7.2/24 + 7.2/24 (the roster is wider), bottom row thirds. */
+.pins{--g:24px; list-style:none; max-width:1240px; margin:0 auto; padding:84px 30px 56px;
   display:flex; flex-wrap:wrap; gap:46px var(--g); align-items:stretch}
 .pins > .pin{width:calc((100% - 2 * var(--g)) / 3)}
-.pins > .pin.w-roster{width:calc((100% - 2 * var(--g)) * 10 / 24)}
-.pins > .pin.w-side{width:calc((100% - 2 * var(--g)) * 7 / 24)}
-.pins > .pin.w-side.w-lc{width:calc((100% - 2 * var(--g)) * 7.6 / 24)}
-.pins > .pin.w-side:not(.w-lc){width:calc((100% - 2 * var(--g)) * 6.4 / 24)}
+.pins > .pin.w-roster{width:calc((100% - 2 * var(--g)) * 9.6 / 24)}
+.pins > .pin.w-side{width:calc((100% - 2 * var(--g)) * 7.2 / 24)}
 @media (max-width:1100px){
   .pins > .pin, .pins > .pin.w-side{width:calc((100% - var(--g)) / 2)}
   .pins > .pin.w-roster{width:100%}
