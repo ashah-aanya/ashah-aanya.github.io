@@ -158,6 +158,8 @@ section{padding:60px 0; border-bottom:1px solid var(--line)}
 .pins > .pin{width:calc((100% - 2 * var(--g)) / 3)}
 .pins > .pin.w-roster{width:calc((100% - 2 * var(--g)) * 10 / 24)}
 .pins > .pin.w-side{width:calc((100% - 2 * var(--g)) * 7 / 24)}
+.pins > .pin.w-side.w-lc{width:calc((100% - 2 * var(--g)) * 7.6 / 24)}
+.pins > .pin.w-side:not(.w-lc){width:calc((100% - 2 * var(--g)) * 6.4 / 24)}
 @media (max-width:1100px){
   .pins > .pin, .pins > .pin.w-side{width:calc((100% - var(--g)) / 2)}
   .pins > .pin.w-roster{width:100%}
