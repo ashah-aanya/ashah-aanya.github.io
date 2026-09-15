@@ -60,3 +60,10 @@
 
 /* the shared .list date column can hold a year or a link; keep links oxblood */
 .list .l-date a, a.l-date{color:var(--oxblood)}
+
+/* ---- Human or AI? photo row: widths follow each photo's shape so they share a height ---- */
+.turing-photos{display:grid; grid-template-columns:2.4fr 4.5fr; gap:10px; margin:20px 0 0; align-items:start}
+.turing-photos img{display:block; width:100%; height:auto; border-radius:3px; box-shadow:0 10px 22px -16px rgba(34,29,22,.5)}
+.turing-photos img:nth-child(1){aspect-ratio:4 / 5; object-fit:cover}
+.turing-photos img:nth-child(2){aspect-ratio:3 / 2; object-fit:cover}
+@media (max-width:560px){.turing-photos{grid-template-columns:1fr}}
