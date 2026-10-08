@@ -30,6 +30,7 @@
 
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="stylesheet" href="css/blog.css" />
+<link rel="stylesheet" href="css/guess.css" />
 </head>
 <body>
 
@@ -70,6 +71,27 @@
       <figcaption><b>The experiment.</b> My oil self-portraits hung beside their AI-generated replicas, and visitors tried to tell them apart.</figcaption>
     </figure>
 
+    <div class="guess" id="guess">
+    <p class="guess-lead">Which one is the oil painting? Tap one in each column to find out.</p>
+    <div class="guess-grid">
+      <div class="gpair" data-title="Overwhelm">
+        <button type="button" class="gtile" data-kind="real" aria-label="Option A"><img src="assets/paintings/overwhelm.jpg" alt="" loading="lazy" decoding="async" /><span class="gtag"></span></button>
+        <button type="button" class="gtile" data-kind="ai" aria-label="Option B"><img src="assets/turing/ai-1.jpg" alt="" loading="lazy" decoding="async" /><span class="gtag"></span></button>
+        <p class="gname"></p>
+      </div>
+      <div class="gpair" data-title="Distorting">
+        <button type="button" class="gtile" data-kind="real" aria-label="Option A"><img src="assets/paintings/distorting.jpg" alt="" loading="lazy" decoding="async" /><span class="gtag"></span></button>
+        <button type="button" class="gtile" data-kind="ai" aria-label="Option B"><img src="assets/turing/ai-2.jpg" alt="" loading="lazy" decoding="async" /><span class="gtag"></span></button>
+        <p class="gname"></p>
+      </div>
+      <div class="gpair" data-title="Conversations with Myself">
+        <button type="button" class="gtile" data-kind="real" aria-label="Option A"><img src="assets/paintings/conversations-with-myself.jpg" alt="" loading="lazy" decoding="async" /><span class="gtag"></span></button>
+        <button type="button" class="gtile" data-kind="ai" aria-label="Option B"><img src="assets/turing/ai-4.jpg" alt="" loading="lazy" decoding="async" /><span class="gtag"></span></button>
+        <p class="gname"></p>
+      </div>
+    </div>
+  </div>
+
     <p>However, in this in-between, AI-augmented creativity can thrive. When artists leverage AI as a collaborator, it can become another source of inspiration and a tool to push their intention and perspective further. Just as the advent of photography changed the landscape by fulfilling the need for accurate depictions and catalyzing a shift away from realism to more conceptual, modern movements, AI can inspire new artistic direction. Technical proficiency may matter less in this new era, but since art teaches us how to see differently, think critically, and communicate meaningfully, it will stay vital in the AI age.</p>
 
     <p>At the same time, augmentation raises questions of originality and ownership. Writer Austin Kleon describes artists as being &ldquo;creative kleptomaniacs&rdquo; who inevitably are influenced by what came before and attributes creativity to the transformation of existing ideas. In this way, every creation draws on many sources and is never entirely original, yet it remains unique because it carries the artist&rsquo;s lived experience. AI models can serve as another medium through which to transform.</p>
@@ -97,6 +119,7 @@
 </footer>
 
 <script src="js/lightbox.js"></script>
+<script src="js/guess.js"></script>
 <script>
   (function(){ var y=document.getElementById('yr'); if(y) y.textContent=new Date().getFullYear(); })();
 </script>

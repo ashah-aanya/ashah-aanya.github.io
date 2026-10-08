@@ -68,14 +68,5 @@
 .turing-photos img:nth-child(2){aspect-ratio:3 / 2; object-fit:cover}
 @media (max-width:560px){.turing-photos{grid-template-columns:1fr}}
 
-/* ---- Human or AI? side-by-side pairs: column widths follow each image's aspect ratio so both share a height ---- */
+/* ---- Human or AI? sub-heading (the tap-to-reveal grid itself lives in guess.css) ---- */
 .pair-head{font-family:var(--serif); font-weight:600; font-size:22px; color:var(--ink); margin:44px 0 4px}
-.pair-sub{margin:0 0 4px; color:var(--ink-soft); font-size:15px; max-width:64ch}
-.pairs{display:grid; gap:34px; margin-top:20px}
-.pair{display:flex; gap:10px; align-items:flex-start}
-.pair figure{margin:0; min-width:0}
-.pair figure:nth-child(1){flex:var(--l) 1 0}
-.pair figure:nth-child(2){flex:var(--r) 1 0}
-.pair img{display:block; width:100%; height:auto; border-radius:3px; box-shadow:0 10px 22px -16px rgba(34,29,22,.5)}
-.pair figcaption{margin:9px 2px 0; font-family:var(--mono); font-size:11.5px; line-height:1.4; color:var(--muted)}
-.pair figcaption b{color:var(--oxblood); font-weight:500; margin-right:6px}
