@@ -67,3 +67,8 @@
 .turing-photos img:nth-child(1){aspect-ratio:4 / 5; object-fit:cover}
 .turing-photos img:nth-child(2){aspect-ratio:3 / 2; object-fit:cover}
 @media (max-width:560px){.turing-photos{grid-template-columns:1fr}}
+
+/* ---- Human or AI? link out to the essay ---- */
+.exhibit-more{margin:22px 0 0; font-family:var(--mono); font-size:13px}
+.exhibit-more a{color:var(--oxblood); border-bottom:1px solid var(--line)}
+.exhibit-more a:hover{border-color:var(--oxblood)}
