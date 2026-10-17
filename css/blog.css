@@ -57,7 +57,7 @@
   color:var(--muted)}
 .prose figcaption b{color:var(--ink-soft); font-weight:500}
 /* a row of small chart figures that share a caption theme */
-.fig-row{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:30px 0}
+.fig-row{display:grid; grid-template-columns:1fr; gap:24px; margin:30px 0}
 @media (max-width:640px){.fig-row{grid-template-columns:1fr}}
 .fig-row figure{margin:0}
 
